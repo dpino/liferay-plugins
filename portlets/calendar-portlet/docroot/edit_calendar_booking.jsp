@@ -100,6 +100,9 @@ else if (calendar != null) {
 }
 
 List<Calendar> manageableCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, null, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
+List<CalendarResource> locations = CalendarResourceServiceUtil.findByC_N_A(themeDisplay.getCompanyId(), "%Location%", true);
+System.out.println("locations.size: " + locations.size());
+
 %>
 
 <liferay-ui:header
@@ -160,7 +163,19 @@ List<Calendar> manageableCalendars = CalendarServiceUtil.search(themeDisplay.get
 
 				<aui:input name="description" />
 
-				<aui:input name="location" />
+                <!-- Location -->
+				<aui:select label="location" name="locationId">
+					<%
+					for (CalendarResource location: locations) {
+                        String label = location.getName(locale);
+                        label = label.replaceFirst("Location -", "").trim();
+					%>
+						<aui:option value="<%= location.getCalendarResourceId() %>"><%= label %></aui:option>
+					<%
+					}
+					%>
+				</aui:select>
+
 			</liferay-ui:panel>
 
 			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="calendarBookingReminderPanel" persistState="<%= true %>" title="reminders">

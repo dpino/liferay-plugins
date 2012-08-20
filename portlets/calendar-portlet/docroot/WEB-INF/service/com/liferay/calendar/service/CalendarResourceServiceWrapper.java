@@ -87,6 +87,12 @@ public class CalendarResourceServiceWrapper implements CalendarResourceService,
 			classPK);
 	}
 
+	public java.util.List<com.liferay.calendar.model.CalendarResource> findByC_N_A(
+		long companyId, java.lang.String name, boolean active)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _calendarResourceService.findByC_N_A(companyId, name, active);
+	}
+
 	public com.liferay.calendar.model.CalendarResource getCalendarResource(
 		long calendarResourceId)
 		throws com.liferay.portal.kernel.exception.PortalException,

@@ -125,6 +125,22 @@ public class CalendarResourceServiceSoap {
 		}
 	}
 
+	public static com.liferay.calendar.model.CalendarResourceSoap[] findByC_N_A(
+		long companyId, java.lang.String name, boolean active)
+		throws RemoteException {
+		try {
+			java.util.List<com.liferay.calendar.model.CalendarResource> returnValue =
+				CalendarResourceServiceUtil.findByC_N_A(companyId, name, active);
+
+			return com.liferay.calendar.model.CalendarResourceSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.calendar.model.CalendarResourceSoap getCalendarResource(
 		long calendarResourceId) throws RemoteException {
 		try {

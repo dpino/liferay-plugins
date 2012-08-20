@@ -79,6 +79,12 @@ public class CalendarResourceServiceImpl
 		return calendarResource;
 	}
 
+	public java.util.List<com.liferay.calendar.model.CalendarResource> findByC_N_A(
+			long companyId, java.lang.String name, boolean active)
+			throws com.liferay.portal.kernel.exception.SystemException {
+		return calendarResourcePersistence.findByC_N_A(companyId, name, active);
+	}
+
 	public CalendarResource getCalendarResource(long calendarResourceId)
 		throws PortalException, SystemException {
 

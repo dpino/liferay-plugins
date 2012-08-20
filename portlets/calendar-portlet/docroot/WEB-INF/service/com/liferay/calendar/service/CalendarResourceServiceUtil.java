@@ -92,6 +92,12 @@ public class CalendarResourceServiceUtil {
 		return getService().fetchCalendarResource(classNameId, classPK);
 	}
 
+	public static java.util.List<com.liferay.calendar.model.CalendarResource> findByC_N_A(
+		long companyId, java.lang.String name, boolean active)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().findByC_N_A(companyId, name, active);
+	}
+
 	public static com.liferay.calendar.model.CalendarResource getCalendarResource(
 		long calendarResourceId)
 		throws com.liferay.portal.kernel.exception.PortalException,
