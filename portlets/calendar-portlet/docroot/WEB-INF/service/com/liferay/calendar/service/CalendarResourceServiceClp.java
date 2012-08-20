@@ -294,8 +294,6 @@ public class CalendarResourceServiceClp implements CalendarResourceService {
 						companyId,
 						
 					ClpSerializer.translateInput(name),
-						
-					active
 					});
 		}
 		catch (Throwable t) {

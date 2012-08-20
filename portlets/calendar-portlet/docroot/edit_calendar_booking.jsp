@@ -138,6 +138,7 @@ long foodAndDrinksCalendarId = 0;
 Calendar foodAndDrinkCalendar = foodAndDrinksCalendars.get(0);
 foodAndDrinksCalendarId = foodAndDrinkCalendar.getCalendarId();
 
+// Get parenCalendarId
 long parentCalendarId = 0;
 CalendarBooking parentCalendarBooking = calendarBooking != null ? calendarBooking.getParentCalendarBooking() : null;
 if (parentCalendarBooking != null) {
