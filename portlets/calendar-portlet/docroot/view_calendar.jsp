@@ -110,7 +110,7 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 			<a class="calendar-portlet-list-header aui-toggler-header-expanded" href="javascript:void(0);">
 				<span class="calendar-portlet-list-arrow"></span>
 
-				<span class="calendar-portlet-list-text"><liferay-ui:message key="other-calendars" /></span>
+				<span class="calendar-portlet-list-text"><liferay-ui:message key="location-calendars" /></span>
 			</a>
 
 		    <div class="calendar-portlet-calendar-list" id="<portlet:namespace />otherCalendarList"></div>
@@ -217,6 +217,8 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 			after: {
 				calendarsChange: function(event) {
 					syncVisibleCalendarsMap();
+
+					Liferay.Store('locationCalendars', calendarIds.join());
 				}
 			},
 			boundingBox: '#<portlet:namespace />locationCalendarList',
@@ -230,6 +232,7 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 		}
 	).render();
 
+
 	window.<portlet:namespace />equipmentCalendarList = new Liferay.CalendarList(
 		{
 			after: {
@@ -242,6 +245,7 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 					<portlet:namespace />refreshVisibleCalendarRenderingRules();
 				}
 			},
+
 			boundingBox: '#<portlet:namespace />equipmentCalendarList',
 
 			<%
@@ -286,6 +290,15 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 			%>
 
 			calendars: <%= otherUserCalendarsJSONArray %>,
+=======
+			boundingBox: '#<portlet:namespace />locationCalendarList',
+
+			<%
+			updateCalendarsJSONArray(request, locationCalendarsJSONArray);
+			%>
+
+			calendars: <%= locationCalendarsJSONArray %>,
+>>>>>>> 7afba5f... Add 'Location Calendars' selectbox in left menu
 			simpleMenu: window.<portlet:namespace />calendarsMenu
 		}
 	).render();
@@ -343,6 +356,9 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 		addLocationCalendarInput,
 		function(event) {
 			window.<portlet:namespace />locationCalendarList.add(event.result.raw);
+
+			<portlet:namespace />refreshVisibleCalendarRenderingRules();
+
 			addLocationCalendarInput.val('');
 		}
 	);
