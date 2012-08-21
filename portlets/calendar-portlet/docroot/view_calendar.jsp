@@ -35,9 +35,13 @@ if (userCalendarResource != null) {
 // Location Calendars
 List<Calendar> locationCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, "Location", true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
 
+// Equipment Calendars
+List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, "Equipment", true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
+
 JSONArray groupCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, groupCalendars);
 JSONArray userCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, userCalendars);
 JSONArray locationCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, locationCalendars);
+JSONArray equipmentCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, equipmentCalendars);
 
 %>
 
@@ -56,6 +60,7 @@ JSONArray locationCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDi
 
 			<div class="calendar-portlet-calendar-list" id="<portlet:namespace />myCalendarList"></div>
 
+            <!-- Location Calendars -->
 			<a class="calendar-portlet-list-header aui-toggler-header-expanded" href="javascript:void(0);">
 				<span class="calendar-portlet-list-arrow"></span>
 
@@ -64,6 +69,17 @@ JSONArray locationCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDi
 
 			<div class="calendar-portlet-calendar-list" id="<portlet:namespace />locationCalendarList">
 				<input class="calendar-portlet-add-calendars-input" id="<portlet:namespace />addLocationCalendar" placeholder="<liferay-ui:message key="add-location-calendars" />" type="text" />
+			</div>
+
+            <!-- Equipment Calendars -->
+			<a class="calendar-portlet-list-header aui-toggler-header-expanded" href="javascript:void(0);">
+				<span class="calendar-portlet-list-arrow"></span>
+
+				<span class="calendar-portlet-list-text"><liferay-ui:message key="equipment-calendars" /></span>
+			</a>
+
+			<div class="calendar-portlet-calendar-list" id="<portlet:namespace />equipmentCalendarList">
+				<input class="calendar-portlet-add-calendars-input" id="<portlet:namespace />addequipmentCalendar" placeholder="<liferay-ui:message key="add-equipment-calendars" />" type="text" />
 			</div>
 
 			<c:if test="<%= groupCalendarResource != null %>">
@@ -120,6 +136,7 @@ JSONArray locationCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDi
 		Liferay.CalendarUtil.syncVisibleCalendarsMap(
 			window.<portlet:namespace />myCalendarList,
 			window.<portlet:namespace />locationCalendarList,
+			window.<portlet:namespace />equipmentCalendarList,
 			window.<portlet:namespace />siteCalendarList
 		);
 	}
@@ -160,6 +177,30 @@ JSONArray locationCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDi
 			%>
 
 			calendars: <%= locationCalendarsJSONArray %>,
+			simpleMenu: window.<portlet:namespace />calendarsMenu
+		}
+	).render();
+
+	window.<portlet:namespace />equipmentCalendarList = new Liferay.CalendarList(
+		{
+			after: {
+				calendarsChange: function(event) {
+					syncVisibleCalendarsMap();
+
+					window.<portlet:namespace />scheduler.loadCalendarBookings();
+
+					var calendarIds = A.Array.invoke(event.newVal, 'get', 'calendarId');
+
+					Liferay.Store('equipmentCalendars', calendarIds.join());
+				}
+			},
+			boundingBox: '#<portlet:namespace />equipmentCalendarList',
+
+			<%
+			updateCalendarsJSONArray(request, equipmentCalendarsJSONArray);
+			%>
+
+			calendars: <%= equipmentCalendarsJSONArray %>,
 			simpleMenu: window.<portlet:namespace />calendarsMenu
 		}
 	).render();
@@ -214,6 +255,18 @@ JSONArray locationCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDi
 			window.<portlet:namespace />locationCalendarList.add(event.result.raw);
 
 			addLocationCalendarInput.val('');
+		}
+	);
+
+	var addEquipmentCalendarInput = A.one('#<portlet:namespace />addEquipmentCalendar');
+
+	Liferay.CalendarUtil.createCalendarsAutoComplete(
+		'<%= calendarResourcesURL %>',
+		addEquipmentCalendarInput,
+		function(event) {
+			window.<portlet:namespace />equipmentCalendarList.add(event.result.raw);
+
+			addEquipmentCalendarInput.val('');
 		}
 	);
 </aui:script>
