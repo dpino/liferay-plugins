@@ -38,10 +38,14 @@ List<Calendar> locationCalendars = CalendarServiceUtil.search(themeDisplay.getCo
 // Equipment Calendars
 List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, "Equipment", true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
 
+// Other Calendars
+List<Calendar> otherCalendars = CalendarServiceUtil.getOtherCalendars(themeDisplay.getCompanyId());
+
 JSONArray groupCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, groupCalendars);
 JSONArray userCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, userCalendars);
 JSONArray locationCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, locationCalendars);
 JSONArray equipmentCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, equipmentCalendars);
+JSONArray otherCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, otherCalendars);
 
 %>
 
@@ -81,6 +85,15 @@ JSONArray equipmentCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 			<div class="calendar-portlet-calendar-list" id="<portlet:namespace />equipmentCalendarList">
 				<input class="calendar-portlet-add-calendars-input" id="<portlet:namespace />addequipmentCalendar" placeholder="<liferay-ui:message key="add-equipment-calendars" />" type="text" />
 			</div>
+
+            <!-- Other Calendars -->
+			<a class="calendar-portlet-list-header aui-toggler-header-expanded" href="javascript:void(0);">
+				<span class="calendar-portlet-list-arrow"></span>
+
+				<span class="calendar-portlet-list-text"><liferay-ui:message key="other-calendars" /></span>
+			</a>
+
+		    <div class="calendar-portlet-calendar-list" id="<portlet:namespace />otherCalendarList"></div>
 
 			<c:if test="<%= groupCalendarResource != null %>">
 				<a class="aui-toggler-header-expanded calendar-portlet-list-header" href="javascript:void(0);">
@@ -137,6 +150,7 @@ JSONArray equipmentCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 			window.<portlet:namespace />myCalendarList,
 			window.<portlet:namespace />locationCalendarList,
 			window.<portlet:namespace />equipmentCalendarList,
+			window.<portlet:namespace />otherCalendarList,
 			window.<portlet:namespace />siteCalendarList
 		);
 	}
@@ -201,6 +215,22 @@ JSONArray equipmentCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 			%>
 
 			calendars: <%= equipmentCalendarsJSONArray %>,
+			simpleMenu: window.<portlet:namespace />calendarsMenu
+		}
+	).render();
+
+	window.<portlet:namespace />otherCalendarList = new Liferay.CalendarList(
+		{
+			after: {
+				calendarsChange: syncVisibleCalendarsMap
+			},
+			boundingBox: '#<portlet:namespace />otherCalendarList',
+
+			<%
+			updateCalendarsJSONArray(request, otherCalendarsJSONArray);
+			%>
+
+			calendars: <%= otherCalendarsJSONArray %>,
 			simpleMenu: window.<portlet:namespace />calendarsMenu
 		}
 	).render();

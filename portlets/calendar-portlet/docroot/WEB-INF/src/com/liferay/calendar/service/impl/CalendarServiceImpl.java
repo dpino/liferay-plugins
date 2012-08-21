@@ -29,6 +29,7 @@ import com.liferay.portal.service.ServiceContext;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
 
@@ -239,5 +240,20 @@ public class CalendarServiceImpl extends CalendarServiceBaseImpl {
 
 		return calendars;
 	}
+
+    public List<Calendar> getOtherCalendars(long companyId) throws PortalException, SystemException {
+        List<Calendar> result = new ArrayList<Calendar>();
+        result.add(findCalendarByName(companyId, "Holidays"));
+        result.add(findCalendarByName(companyId, "Sick"));
+        result.add(findCalendarByName(companyId, "Food"));
+        return result;
+    }
+
+    private Calendar findCalendarByName(long companyId, String keyword) throws PortalException, SystemException {
+        List<Calendar> result = calendarFinder.findByKeywords(
+                companyId, null, null, keyword,
+                QueryUtil.ALL_POS, QueryUtil.ALL_POS, (OrderByComparator) null);
+        return !result.isEmpty() ? (Calendar) result.iterator().next() : null;
+    }
 
 }

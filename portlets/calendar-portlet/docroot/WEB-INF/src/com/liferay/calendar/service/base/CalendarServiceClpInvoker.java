@@ -128,6 +128,10 @@ public class CalendarServiceClpInvoker {
 		_methodParameterTypes56 = new String[] {
 				"long", "int", "com.liferay.portal.service.ServiceContext"
 			};
+
+		_methodName58 = "getOtherCalendars";
+
+		_methodParameterTypes58 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -274,6 +278,11 @@ public class CalendarServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[2]);
 		}
 
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+			return CalendarServiceUtil.getOtherCalendars(((Long)arguments[0]).longValue());
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -311,4 +320,6 @@ public class CalendarServiceClpInvoker {
 	private String[] _methodParameterTypes55;
 	private String _methodName56;
 	private String[] _methodParameterTypes56;
+	private String _methodName58;
+	private String[] _methodParameterTypes58;
 }

@@ -198,6 +198,13 @@ public class CalendarServiceWrapper implements CalendarService,
 		return _calendarService.updateColor(calendarId, color, serviceContext);
 	}
 
+	public java.util.List<com.liferay.calendar.model.Calendar> getOtherCalendars(
+		long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _calendarService.getOtherCalendars(companyId);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

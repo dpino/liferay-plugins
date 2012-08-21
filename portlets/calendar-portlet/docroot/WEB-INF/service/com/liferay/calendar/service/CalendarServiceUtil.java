@@ -218,6 +218,13 @@ public class CalendarServiceUtil {
 		return getService().updateColor(calendarId, color, serviceContext);
 	}
 
+	public static java.util.List<com.liferay.calendar.model.Calendar> getOtherCalendars(
+		long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getOtherCalendars(companyId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

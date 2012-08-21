@@ -204,6 +204,11 @@ public class CalendarFinderImpl
 			andOperator = true;
 		}
 
+        if (names != null) {
+            System.out.println("### names: " + names[0]);
+            System.out.println("### descriptions: " + descriptions[0]);
+        }
+
 		return findByC_G_C_N_D(
 			companyId, groupIds, calendarResourceIds, names, descriptions,
 			andOperator, start, end, orderByComparator);
@@ -355,6 +360,7 @@ public class CalendarFinderImpl
 
 			sql = StringUtil.replace(sql, "[$ORDER_BY$]", sb.toString());
 
+            System.out.println("### SQL: " + sql);
 			SQLQuery q = session.createSQLQuery(sql);
 
 			q.addEntity("Calendar", CalendarImpl.class);
