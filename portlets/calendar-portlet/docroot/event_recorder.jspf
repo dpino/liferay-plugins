@@ -15,7 +15,7 @@
 --%>
 
 <%
-List<Calendar> manageableCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, null, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
+List<Calendar> manageableCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, "Location", true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
 %>
 
 <div class="calendar-portlet-event-recorder">
@@ -56,15 +56,17 @@ List<Calendar> manageableCalendars = CalendarServiceUtil.search(themeDisplay.get
 
 			<tpl if="values.permissions.MANAGE_BOOKINGS">
 				<tr class="calendar-portlet-event-recorder-calendar-row">
-					<td><liferay-ui:message key="calendar" />:</td>
+					<td><liferay-ui:message key="location" />:</td>
 					<td>
 						<select id="<portlet:namespace />eventRecorderCalendar" name="calendarId">
 
 							<%
 							for (Calendar calendar : manageableCalendars) {
+                                String name = calendar.getName(locale);
+                                name = name.replaceFirst("Location -", "").trim();
 							%>
 
-								<option value="<%= calendar.getCalendarId() %>"><%= calendar.getName(locale) %></option>
+								<option value="<%= calendar.getCalendarId() %>"><%= name %></option>
 
 							<%
 							}
