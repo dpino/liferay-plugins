@@ -112,10 +112,12 @@ if (Validator.isNotNull(portletResource)) {
 CalendarResource groupCalendarResource = CalendarResourceUtil.getGroupCalendarResource(liferayPortletRequest, scopeGroupId);
 
 CalendarResource userCalendarResource = null;
+List<CalendarResource> otherUserCalendarResources = null;
 Calendar userDefaultCalendar = null;
 
 if (themeDisplay.isSignedIn()) {
 	userCalendarResource = CalendarResourceUtil.getUserCalendarResource(liferayPortletRequest, themeDisplay.getUserId());
+	otherUserCalendarResources = CalendarResourceUtil.getOtherUserCalendarResources(liferayPortletRequest, themeDisplay.getUserId());
 
 	if (userCalendarResource != null) {
 		userDefaultCalendar = CalendarServiceUtil.getCalendar(userCalendarResource.getDefaultCalendarId());

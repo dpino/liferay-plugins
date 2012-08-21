@@ -34,6 +34,8 @@ import com.liferay.portal.util.PortalUtil;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 import javax.portlet.PortletRequest;
 
@@ -156,5 +158,33 @@ public class CalendarResourceUtil {
 
 		return getUserCalendarResource(userId, serviceContext);
 	}
+
+	public static List<CalendarResource> getOtherUserCalendarResources(
+			PortletRequest portletRequest, long userId)
+		throws PortalException, SystemException {
+
+        CalendarResource calendarResource;
+        List<CalendarResource> result = new ArrayList<CalendarResource>();
+
+        List<User> otherUsers = getOtherUsers(userId);
+        for (User each: otherUsers) {
+            calendarResource = getUserCalendarResource(portletRequest, each.getUserId());
+            if (calendarResource != null) {
+                result.add(calendarResource);
+            }
+        }
+        return result;
+	}
+
+    private static List<User> getOtherUsers(long currentUserId) throws PortalException, SystemException {
+        List<User> result = new ArrayList<User>();
+        List<User> users = UserLocalServiceUtil.getUsers(0, UserLocalServiceUtil.getUsersCount());
+        for (User each: users) {
+            if (each.getUserId() != currentUserId && !each.isDefaultUser()) {
+                result.add(each);
+            }
+        }
+        return result;
+    }
 
 }
