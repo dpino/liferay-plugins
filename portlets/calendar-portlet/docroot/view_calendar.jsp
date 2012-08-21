@@ -334,6 +334,22 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 		}
 	).render();
 
+	window.<portlet:namespace />otherUserCalendarList = new Liferay.CalendarList(
+		{
+			after: {
+				calendarsChange: syncVisibleCalendarsMap
+			},
+			boundingBox: '#<portlet:namespace />otherUserCalendarList',
+
+			<%
+			updateCalendarsJSONArray(request, otherUserCalendarsJSONArray);
+			%>
+
+			calendars: <%= otherUserCalendarsJSONArray %>,
+			simpleMenu: window.<portlet:namespace />calendarsMenu
+		}
+	).render();
+
 	window.<portlet:namespace />siteCalendarList = new Liferay.CalendarList(
 		{
 			after: {
