@@ -243,6 +243,8 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 					syncCalendarsMap();
 
 					<portlet:namespace />refreshVisibleCalendarRenderingRules();
+
+					syncVisibleCalendarsMap();
 				}
 			},
 
@@ -299,12 +301,6 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 			after: {
 				calendarsChange: function(event) {
 					syncVisibleCalendarsMap();
-
-					window.<portlet:namespace />scheduler.loadCalendarBookings();
-
-					var calendarIds = A.Array.invoke(event.newVal, 'get', 'calendarId');
-
-					Liferay.Store('equipmentCalendars', calendarIds.join());
 				}
 			},
 			boundingBox: '#<portlet:namespace />equipmentCalendarList',
