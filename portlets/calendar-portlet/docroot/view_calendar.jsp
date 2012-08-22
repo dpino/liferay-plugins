@@ -52,8 +52,8 @@ if (otherUserCalendarResources != null) {
 
 JSONArray groupCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, groupCalendars);
 JSONArray userCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, userCalendars);
-JSONArray locationCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, locationCalendars);
-JSONArray equipmentCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, equipmentCalendars);
+JSONArray locationCalendarsJSONArray = CalendarUtil.removePrefix(CalendarUtil.toCalendarsJSONArray(themeDisplay, locationCalendars), "Location - ");
+JSONArray equipmentCalendarsJSONArray = CalendarUtil.removePrefix(CalendarUtil.toCalendarsJSONArray(themeDisplay, equipmentCalendars), "Equipment - ");
 JSONArray otherCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, otherCalendars);
 JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, otherUserCalendars);
 
@@ -81,9 +81,7 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 				<span class="calendar-portlet-list-text"><liferay-ui:message key="location-calendars" /></span>
 			</a>
 
-			<div class="calendar-portlet-calendar-list" id="<portlet:namespace />locationCalendarList">
-				<input class="calendar-portlet-add-calendars-input" id="<portlet:namespace />addLocationCalendar" placeholder="<liferay-ui:message key="add-location-calendars" />" type="text" />
-			</div>
+            <div class="calendar-portlet-calendar-list" id="<portlet:namespace />locationCalendarList"></div>
 
             <!-- Equipment Calendars -->
 			<a class="calendar-portlet-list-header aui-toggler-header-expanded" href="javascript:void(0);">
@@ -92,9 +90,7 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 				<span class="calendar-portlet-list-text"><liferay-ui:message key="equipment-calendars" /></span>
 			</a>
 
-			<div class="calendar-portlet-calendar-list" id="<portlet:namespace />equipmentCalendarList">
-				<input class="calendar-portlet-add-calendars-input" id="<portlet:namespace />addequipmentCalendar" placeholder="<liferay-ui:message key="add-equipment-calendars" />" type="text" />
-			</div>
+            <div class="calendar-portlet-calendar-list" id="<portlet:namespace />equipmentCalendarList"/></div>
 
             <!-- Other Calendars -->
 			<a class="calendar-portlet-list-header aui-toggler-header-expanded" href="javascript:void(0);">
@@ -196,12 +192,6 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 			after: {
 				calendarsChange: function(event) {
 					syncVisibleCalendarsMap();
-
-					window.<portlet:namespace />scheduler.loadCalendarBookings();
-
-					var calendarIds = A.Array.invoke(event.newVal, 'get', 'calendarId');
-
-					Liferay.Store('locationCalendars', calendarIds.join());
 				}
 			},
 			boundingBox: '#<portlet:namespace />locationCalendarList',
@@ -220,12 +210,6 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 			after: {
 				calendarsChange: function(event) {
 					syncVisibleCalendarsMap();
-
-					window.<portlet:namespace />scheduler.loadCalendarBookings();
-
-					var calendarIds = A.Array.invoke(event.newVal, 'get', 'calendarId');
-
-					Liferay.Store('equipmentCalendars', calendarIds.join());
 				}
 			},
 			boundingBox: '#<portlet:namespace />equipmentCalendarList',

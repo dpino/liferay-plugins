@@ -184,4 +184,18 @@ public class CalendarUtil {
 		return jsonObject;
 	}
 
+    public static JSONArray removePrefix(JSONArray jsonArray, String prefix) {
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject each = jsonArray.getJSONObject(i);
+            String value = each.getString("calendarResourceName");
+            value = value.replaceFirst(prefix, "");
+            each.put("calendarResourceName", value);
+            value = each.getString("name");
+            value = value.replaceFirst(prefix, "");
+            each.put("name", value);
+        }
+        return jsonArray;
+    }
+
+
 }
