@@ -39,6 +39,9 @@ page import="com.liferay.calendar.recurrence.Weekday" %><%@
 page import="com.liferay.calendar.search.CalendarResourceDisplayTerms" %><%@
 page import="com.liferay.calendar.search.CalendarResourceSearch" %><%@
 page import="com.liferay.calendar.search.CalendarResourceSearchTerms" %><%@
+page import="com.liferay.calendar.search.CalendarEventsListsDisplayTerms" %><%@
+page import="com.liferay.calendar.search.CalendarEventsListsSearch" %><%@
+page import="com.liferay.calendar.search.CalendarEventsListsSearchTerms" %><%@
 page import="com.liferay.calendar.service.CalendarBookingLocalServiceUtil" %><%@
 page import="com.liferay.calendar.service.CalendarBookingServiceUtil" %><%@
 page import="com.liferay.calendar.service.CalendarLocalServiceUtil" %><%@
@@ -90,6 +93,8 @@ page import="com.liferay.portlet.PortletPreferencesFactoryUtil" %>
 
 <%@ page import="java.util.ArrayList" %><%@
 page import="java.util.List" %><%@
+page import="java.text.SimpleDateFormat" %><%@
+page import="java.util.Date" %><%@
 page import="java.util.TimeZone" %>
 
 <%@ page import="javax.portlet.PortletPreferences" %><%@

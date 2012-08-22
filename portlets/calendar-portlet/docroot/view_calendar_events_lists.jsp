@@ -18,25 +18,26 @@
 
 <%
 String tabs1 = ParamUtil.getString(request, "tabs1", "calendar");
-
-PortletURL portletURL = renderResponse.createRenderURL();
-
-portletURL.setParameter("tabs1", tabs1);
 %>
 
-<liferay-ui:tabs
-	names="calendar,resources,Events Lists"
-	url="<%= portletURL.toString() %>"
-/>
+<liferay-portlet:renderURL varImpl="searchURL">
+	<portlet:param name="mvcPath" value="/view.jsp" />
+	<portlet:param name="tabs1" value="Events Lists" />
+</liferay-portlet:renderURL>
 
-<c:choose>
-	<c:when test='<%= tabs1.equals("calendar") %>'>
-		<liferay-util:include page="/view_calendar.jsp" servletContext="<%= application %>" />
-	</c:when>
-	<c:when test='<%= tabs1.equals("resources") %>'>
-		<liferay-util:include page="/view_calendar_resources.jsp" servletContext="<%= application %>" />
-	</c:when>
-	<c:when test='<%= tabs1.equals("Events Lists") %>'>
-		<liferay-util:include page="/view_calendar_events_lists.jsp" servletContext="<%= application %>" />
-	</c:when>
-</c:choose>
+<aui:form action="<%= searchURL %>" method="get" name="fm">
+	<liferay-portlet:renderURLParams varImpl="searchURL" />
+
+    <liferay-ui:search-form
+        page="/calendar_events_lists_search.jsp"
+        servletContext="<%= application %>"
+    />
+</aui:form>
+
+<div class="separator"><!-- --></div>
+
+<liferay-portlet:renderURL varImpl="iteratorURL">
+	<portlet:param name="mvcPath" value="/view_calendar_events_lists.jsp" />
+</liferay-portlet:renderURL>
+
+<%@ include file="/calendar_events_lists_search_container.jspf" %>

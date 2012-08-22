@@ -187,4 +187,20 @@ public class CalendarResourceUtil {
         return result;
     }
 
+    public static List<CalendarResource> getSearchableCalendarResources(long companyId) throws PortalException, SystemException {
+        List<CalendarResource> result = new ArrayList<CalendarResource>();
+        result.addAll(CalendarResourceServiceUtil.findByC_N_A(companyId, "%Location%", true));
+        result.addAll(CalendarResourceServiceUtil.findByC_N_A(companyId, "%Equipment%", true));
+        result.addAll(CalendarResourceUtil.getOtherCalendarResources(companyId));
+        return result;
+    }
+
+    private static List<CalendarResource> getOtherCalendarResources(long companyId) throws PortalException, SystemException {
+        List<CalendarResource> result = new ArrayList<CalendarResource>();
+        result.addAll(CalendarResourceServiceUtil.findByC_N_A(companyId, "%Holiday%", true));
+        result.addAll(CalendarResourceServiceUtil.findByC_N_A(companyId, "%Sick%", true));
+        result.addAll(CalendarResourceServiceUtil.findByC_N_A(companyId, "%Food and Drinks%", true));
+        return result;
+    }
+
 }
