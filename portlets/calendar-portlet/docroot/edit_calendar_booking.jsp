@@ -101,7 +101,6 @@ else if (calendar != null) {
 
 List<Calendar> manageableCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, null, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
 List<CalendarResource> locations = CalendarResourceServiceUtil.findByC_N_A(themeDisplay.getCompanyId(), "%Location%", true);
-System.out.println("locations.size: " + locations.size());
 
 %>
 
