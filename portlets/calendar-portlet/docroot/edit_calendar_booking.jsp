@@ -357,7 +357,7 @@ if (parentCalendarBooking != null) {
 
 			<c:if test="<%= invitable %>">
 				var calendarId = A.one('#<portlet:namespace />calendarId').val();
-				var childCalendarIds = A.Object.keys(Liferay.CalendarUtil.visibleCalendars);
+				var childCalendarIds = A.Object.keys(Liferay.CalendarUtil.availableCalendars);
 
 				A.Array.remove(childCalendarIds, A.Array.indexOf(childCalendarIds, calendarId));
 
@@ -391,8 +391,8 @@ if (parentCalendarBooking != null) {
 		}
 	}
 
-	var syncVisibleCalendarsMap = function() {
-		Liferay.CalendarUtil.syncVisibleCalendarsMap(
+	var syncCalendarsMap = function() {
+		Liferay.CalendarUtil.syncCalendarsMap(
 			window.<portlet:namespace />calendarListAccepted,
 			window.<portlet:namespace />calendarListDeclined,
 			window.<portlet:namespace />calendarListMaybe,
@@ -400,7 +400,7 @@ if (parentCalendarBooking != null) {
 		);
 
 		A.each(
-			Liferay.CalendarUtil.visibleCalendars,
+			Liferay.CalendarUtil.availableCalendars,
 			function(item, index, collection) {
 				item.set('disabled', true);
 			}
@@ -433,7 +433,7 @@ if (parentCalendarBooking != null) {
 					var instance = this;
 
 					A.each(
-						Liferay.CalendarUtil.visibleCalendars,
+						Liferay.CalendarUtil.availableCalendars,
 						function(item, index, collection) {
 							item.set('visible', false);
 						}
@@ -495,10 +495,11 @@ if (parentCalendarBooking != null) {
 
 					A.one('#<portlet:namespace />pendingCounter').html(event.newVal.length);
 
-					syncVisibleCalendarsMap();
+					syncCalendarsMap();
 
 					scheduler.loadCalendarBookings();
-				}
+				},
+				'scheduler-calendar:visibleChange': syncCalendarsMap
 			},
 			boundingBox: '#<portlet:namespace />calendarListPending',
 			calendars: <%= pendingCalendarsJSONArray %>,
@@ -517,10 +518,11 @@ if (parentCalendarBooking != null) {
 
 					A.one('#<portlet:namespace />acceptedCounter').html(event.newVal.length);
 
-					syncVisibleCalendarsMap();
+					syncCalendarsMap();
 
 					scheduler.loadCalendarBookings();
-				}
+				},
+				'scheduler-calendar:visibleChange': syncCalendarsMap
 			},
 			boundingBox: '#<portlet:namespace />calendarListAccepted',
 			calendars: <%= acceptedCalendarsJSONArray %>,
@@ -539,10 +541,11 @@ if (parentCalendarBooking != null) {
 
 					A.one('#<portlet:namespace />declinedCounter').html(event.newVal.length);
 
-					syncVisibleCalendarsMap();
+					syncCalendarsMap();
 
 					scheduler.loadCalendarBookings();
-				}
+				},
+				'scheduler-calendar:visibleChange': syncCalendarsMap
 			},
 			boundingBox: '#<portlet:namespace />calendarListDeclined',
 			calendars: <%= declinedCalendarsJSONArray %>,
@@ -561,10 +564,11 @@ if (parentCalendarBooking != null) {
 
 					A.one('#<portlet:namespace />maybeCounter').html(event.newVal.length);
 
-					syncVisibleCalendarsMap();
+					syncCalendarsMap();
 
 					scheduler.loadCalendarBookings();
-				}
+				},
+				'scheduler-calendar:visibleChange': syncCalendarsMap
 			},
 			boundingBox: '#<portlet:namespace />calendarListMaybe',
 			calendars: <%= maybeCalendarsJSONArray %>,
@@ -575,7 +579,7 @@ if (parentCalendarBooking != null) {
 		}
 	).render();
 
-	syncVisibleCalendarsMap();
+	syncCalendarsMap();
 
 	var formNode = A.one(document.<portlet:namespace />fm);
 
