@@ -29,7 +29,7 @@ public class CalendarEvent {
 	private String calendarResourceName;
 	private List<String> attendants;
 	
-	public CalendarEvent(long userId, String userName, String title, long startDate,
+	public CalendarEvent(long userId, String userName, long startDate,
 			long endDate, long calendarResourceId, String calendarResourceName,
 			List<String> attendants) {
 		super();
@@ -50,7 +50,7 @@ public class CalendarEvent {
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
-	
+
 	public String getUserName() {
 		return userName;
 	}

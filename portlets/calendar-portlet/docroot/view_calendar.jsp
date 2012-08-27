@@ -62,6 +62,15 @@ if (otherUserCalendarResources != null) {
     }
 }
 
+// Search CalendarEvents
+List<CalendarEvent> calendarEvents = CalendarBookingLocalServiceUtil
+    .findCalendarEvents(10456, Long.valueOf(1346029200000L),
+        Long.valueOf(1346036400000L), null);
+
+for (CalendarEvent each: calendarEvents) {
+	System.out.print("### calendarEvent: " + each);
+}
+
 JSONArray groupCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, groupCalendars);
 JSONArray userCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, userCalendars);
 JSONArray locationCalendarsJSONArray = CalendarUtil.removePrefix(CalendarUtil.toCalendarsJSONArray(themeDisplay, locationCalendars), "Location - ");
@@ -124,7 +133,7 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 
 		    <div class="calendar-portlet-calendar-list" id="<portlet:namespace />otherUserCalendarList"></div>
 
-			<c:if test="<%= groupCalendarResource != null %>">
+			<c:if test="<%=groupCalendarResource != null%>">
 				<a class="aui-toggler-header-expanded calendar-portlet-list-header" href="javascript:void(0);">
 					<span class="calendar-portlet-list-arrow"></span>
 
@@ -322,10 +331,10 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 			boundingBox: '#<portlet:namespace />otherCalendarList',
 
 			<%
-			updateCalendarsJSONArray(request, otherCalendarsJSONArray);
-			%>
+		updateCalendarsJSONArray(request, otherCalendarsJSONArray);
+	%>
 
-			calendars: <%= otherCalendarsJSONArray %>,
+			calendars: <%=otherCalendarsJSONArray%>,
 			simpleMenu: window.<portlet:namespace />calendarsMenu
 		}
 	).render();

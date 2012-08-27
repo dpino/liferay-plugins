@@ -312,6 +312,7 @@ public class CalendarBookingLocalServiceWrapper
 
 	public java.util.List<com.liferay.calendar.model.CalendarEvent> findCalendarEvents(
 		long userId, java.lang.Long startDate, java.lang.Long endDate,
+<<<<<<< HEAD
 		long[] calendarResourceIds, int start, int end, java.util.Locale locale)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _calendarBookingLocalService.findCalendarEvents(userId,
@@ -334,6 +335,12 @@ public class CalendarBookingLocalServiceWrapper
 	public java.lang.String getFoodAndDrinksName(long id)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _calendarBookingLocalService.getFoodAndDrinksName(id);
+=======
+		long[] calendarResourceIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _calendarBookingLocalService.findCalendarEvents(userId,
+			startDate, endDate, calendarResourceIds);
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 	}
 
 	public void checkCalendarBookings()

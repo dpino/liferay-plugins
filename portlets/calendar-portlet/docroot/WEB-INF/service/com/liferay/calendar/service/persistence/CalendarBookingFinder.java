@@ -103,6 +103,10 @@ public interface CalendarBookingFinder {
 	public java.util.List<com.liferay.calendar.model.CalendarEvent> findCalendarEvents(
 		long userId, java.lang.Long startDate, java.lang.Long endDate,
 		long[] calendarResourceIds, int start, int end, java.util.Locale locale)
+
+	public java.util.List<com.liferay.calendar.model.CalendarEvent> findCalendarEvents(
+		long userId, java.lang.Long startDate, java.lang.Long endDate,
+		long[] calendarResourceIds)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	public java.util.List<com.liferay.calendar.model.CalendarBooking> findByFutureReminders(

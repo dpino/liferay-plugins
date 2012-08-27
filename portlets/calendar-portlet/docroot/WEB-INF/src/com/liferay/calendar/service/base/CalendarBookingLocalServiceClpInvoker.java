@@ -128,6 +128,7 @@ public class CalendarBookingLocalServiceClpInvoker {
 		_methodName62 = "findCalendarEvents";
 
 		_methodParameterTypes62 = new String[] {
+<<<<<<< HEAD
 				"long", "java.lang.Long", "java.lang.Long", "long[][]", "int",
 				"int", "java.util.Locale"
 			};
@@ -138,9 +139,18 @@ public class CalendarBookingLocalServiceClpInvoker {
 				"long", "java.lang.Long", "java.lang.Long", "long[][]",
 				"java.util.Locale"
 			};
+=======
+				"long", "java.lang.Long", "java.lang.Long", "long[][]"
+			};
+
+		_methodName63 = "checkCalendarBookings";
+
+		_methodParameterTypes63 = new String[] {  };
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 
 		_methodName64 = "getFoodAndDrinksMap";
 
+<<<<<<< HEAD
 		_methodParameterTypes64 = new String[] {  };
 
 		_methodName65 = "getFoodAndDrinksName";
@@ -156,14 +166,35 @@ public class CalendarBookingLocalServiceClpInvoker {
 		_methodParameterTypes67 = new String[] {
 				"com.liferay.calendar.model.CalendarBooking"
 			};
+=======
+		_methodParameterTypes64 = new String[] {
+				"com.liferay.calendar.model.CalendarBooking"
+			};
+
+		_methodName65 = "deleteCalendarBooking";
+
+		_methodParameterTypes65 = new String[] { "long" };
+
+		_methodName66 = "deleteCalendarBookings";
+
+		_methodParameterTypes66 = new String[] { "long" };
+
+		_methodName67 = "fetchCalendarBooking";
+
+		_methodParameterTypes67 = new String[] { "java.lang.String", "long" };
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 
 		_methodName68 = "deleteCalendarBooking";
 
 		_methodParameterTypes68 = new String[] { "long" };
 
+<<<<<<< HEAD
 		_methodName69 = "deleteCalendarBookings";
+=======
+		_methodName69 = "getCalendarBooking";
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 
-		_methodParameterTypes69 = new String[] { "long" };
+		_methodParameterTypes69 = new String[] { "long", "long" };
 
 		_methodName70 = "fetchCalendarBooking";
 
@@ -181,6 +212,7 @@ public class CalendarBookingLocalServiceClpInvoker {
 
 		_methodParameterTypes73 = new String[] { "long" };
 
+<<<<<<< HEAD
 		_methodName74 = "getCalendarBookings";
 
 		_methodParameterTypes74 = new String[] { "long", "long", "long" };
@@ -190,9 +222,21 @@ public class CalendarBookingLocalServiceClpInvoker {
 		_methodParameterTypes75 = new String[] { "long", "long" };
 
 		_methodName76 = "getChildCalendarBookings";
+=======
+		_methodParameterTypes70 = new String[] { "long" };
+
+		_methodName71 = "getCalendarBookings";
+
+		_methodParameterTypes71 = new String[] { "long", "long", "long" };
+
+		_methodName72 = "getCalendarBookingsCount";
+
+		_methodParameterTypes72 = new String[] { "long", "long" };
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 
 		_methodParameterTypes76 = new String[] { "long" };
 
+<<<<<<< HEAD
 		_methodName77 = "getChildCalendarBookings";
 
 		_methodParameterTypes77 = new String[] { "long", "int" };
@@ -200,38 +244,73 @@ public class CalendarBookingLocalServiceClpInvoker {
 		_methodName78 = "search";
 
 		_methodParameterTypes78 = new String[] {
+=======
+		_methodParameterTypes73 = new String[] { "long" };
+
+		_methodName74 = "getChildCalendarBookings";
+
+		_methodParameterTypes74 = new String[] { "long", "int" };
+
+		_methodName75 = "search";
+
+		_methodParameterTypes75 = new String[] {
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 				"long", "long[][]", "long[][]", "long[][]", "long",
 				"java.lang.String", "long", "long", "boolean", "int[][]", "int",
 				"int", "com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
+<<<<<<< HEAD
 		_methodName79 = "search";
 
 		_methodParameterTypes79 = new String[] {
+=======
+		_methodName76 = "search";
+
+		_methodParameterTypes76 = new String[] {
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 				"long", "long[][]", "long[][]", "long[][]", "long",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"long", "long", "boolean", "int[][]", "boolean", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
+<<<<<<< HEAD
 		_methodName80 = "searchCount";
 
 		_methodParameterTypes80 = new String[] {
+=======
+		_methodName77 = "searchCount";
+
+		_methodParameterTypes77 = new String[] {
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 				"long", "long[][]", "long[][]", "long[][]", "long",
 				"java.lang.String", "long", "long", "int[][]"
 			};
 
+<<<<<<< HEAD
 		_methodName81 = "searchCount";
 
 		_methodParameterTypes81 = new String[] {
+=======
+		_methodName78 = "searchCount";
+
+		_methodParameterTypes78 = new String[] {
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 				"long", "long[][]", "long[][]", "long[][]", "long",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"long", "long", "int[][]", "boolean"
 			};
 
+<<<<<<< HEAD
 		_methodName82 = "updateCalendarBooking";
 
 		_methodParameterTypes82 = new String[] {
+=======
+		_methodName79 = "updateCalendarBooking";
+
+		_methodParameterTypes79 = new String[] {
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 				"long", "long", "long", "long[][]", "java.util.Map",
 				"java.util.Map", "java.lang.String", "long", "long", "boolean",
 				"java.lang.String", "long", "java.lang.String", "long",
@@ -239,9 +318,15 @@ public class CalendarBookingLocalServiceClpInvoker {
 				"com.liferay.portal.service.ServiceContext"
 			};
 
+<<<<<<< HEAD
 		_methodName83 = "updateCalendarBooking";
 
 		_methodParameterTypes83 = new String[] {
+=======
+		_methodName80 = "updateCalendarBooking";
+
+		_methodParameterTypes80 = new String[] {
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 				"long", "long", "long", "java.util.Map", "java.util.Map",
 				"java.lang.String", "long", "long", "boolean",
 				"java.lang.String", "long", "java.lang.String", "long",
@@ -249,9 +334,15 @@ public class CalendarBookingLocalServiceClpInvoker {
 				"com.liferay.portal.service.ServiceContext"
 			};
 
+<<<<<<< HEAD
 		_methodName84 = "updateStatus";
 
 		_methodParameterTypes84 = new String[] {
+=======
+		_methodName81 = "updateStatus";
+
+		_methodParameterTypes81 = new String[] {
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 				"long", "long", "int",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -385,72 +476,125 @@ public class CalendarBookingLocalServiceClpInvoker {
 				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
 			return CalendarBookingLocalServiceUtil.findCalendarEvents(((Long)arguments[0]).longValue(),
 				(java.lang.Long)arguments[1], (java.lang.Long)arguments[2],
+<<<<<<< HEAD
 				(long[])arguments[3], ((Integer)arguments[4]).intValue(),
 				((Integer)arguments[5]).intValue(),
 				(java.util.Locale)arguments[6]);
+=======
+				(long[])arguments[3]);
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 		}
 
 		if (_methodName63.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
+<<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.findCalendarEventsCount(((Long)arguments[0]).longValue(),
 				(java.lang.Long)arguments[1], (java.lang.Long)arguments[2],
 				(long[])arguments[3], (java.util.Locale)arguments[4]);
+=======
+			CalendarBookingLocalServiceUtil.checkCalendarBookings();
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 		}
 
 		if (_methodName64.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+<<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.getFoodAndDrinksMap();
+=======
+			return CalendarBookingLocalServiceUtil.deleteCalendarBooking((com.liferay.calendar.model.CalendarBooking)arguments[0]);
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 		}
 
 		if (_methodName65.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+<<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.getFoodAndDrinksName(((Long)arguments[0]).longValue());
+=======
+			return CalendarBookingLocalServiceUtil.deleteCalendarBooking(((Long)arguments[0]).longValue());
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 		}
 
 		if (_methodName66.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+<<<<<<< HEAD
 			CalendarBookingLocalServiceUtil.checkCalendarBookings();
+=======
+			CalendarBookingLocalServiceUtil.deleteCalendarBookings(((Long)arguments[0]).longValue());
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 		}
 
 		if (_methodName67.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+<<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.deleteCalendarBooking((com.liferay.calendar.model.CalendarBooking)arguments[0]);
+=======
+			return CalendarBookingLocalServiceUtil.fetchCalendarBooking((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 		}
 
 		if (_methodName68.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+<<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.deleteCalendarBooking(((Long)arguments[0]).longValue());
+=======
+			return CalendarBookingLocalServiceUtil.getCalendarBooking(((Long)arguments[0]).longValue());
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 		}
 
 		if (_methodName69.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+<<<<<<< HEAD
 			CalendarBookingLocalServiceUtil.deleteCalendarBookings(((Long)arguments[0]).longValue());
+=======
+			return CalendarBookingLocalServiceUtil.getCalendarBooking(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue());
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 		}
 
 		if (_methodName70.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
+<<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.fetchCalendarBooking((java.lang.String)arguments[0],
 				((Long)arguments[1]).longValue());
+=======
+			return CalendarBookingLocalServiceUtil.getCalendarBookings(((Long)arguments[0]).longValue());
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 		}
 
 		if (_methodName71.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
+<<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.getCalendarBooking(((Long)arguments[0]).longValue());
+=======
+			return CalendarBookingLocalServiceUtil.getCalendarBookings(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue());
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 		}
 
 		if (_methodName72.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
+<<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.getCalendarBooking(((Long)arguments[0]).longValue(),
+=======
+			return CalendarBookingLocalServiceUtil.getCalendarBookingsCount(((Long)arguments[0]).longValue(),
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName73.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
+<<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.getCalendarBookings(((Long)arguments[0]).longValue());
+=======
+			return CalendarBookingLocalServiceUtil.getChildCalendarBookings(((Long)arguments[0]).longValue());
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 		}
 
 		if (_methodName74.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
+<<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.getCalendarBookings(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Long)arguments[2]).longValue());
@@ -469,12 +613,19 @@ public class CalendarBookingLocalServiceClpInvoker {
 
 		if (_methodName77.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
+=======
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 			return CalendarBookingLocalServiceUtil.getChildCalendarBookings(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue());
 		}
 
+<<<<<<< HEAD
 		if (_methodName78.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
+=======
+		if (_methodName75.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes75, parameterTypes)) {
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 			return CalendarBookingLocalServiceUtil.search(((Long)arguments[0]).longValue(),
 				(long[])arguments[1], (long[])arguments[2],
 				(long[])arguments[3], ((Long)arguments[4]).longValue(),
@@ -487,8 +638,13 @@ public class CalendarBookingLocalServiceClpInvoker {
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[12]);
 		}
 
+<<<<<<< HEAD
 		if (_methodName79.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
+=======
+		if (_methodName76.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 			return CalendarBookingLocalServiceUtil.search(((Long)arguments[0]).longValue(),
 				(long[])arguments[1], (long[])arguments[2],
 				(long[])arguments[3], ((Long)arguments[4]).longValue(),
@@ -503,8 +659,13 @@ public class CalendarBookingLocalServiceClpInvoker {
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[15]);
 		}
 
+<<<<<<< HEAD
 		if (_methodName80.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
+=======
+		if (_methodName77.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 			return CalendarBookingLocalServiceUtil.searchCount(((Long)arguments[0]).longValue(),
 				(long[])arguments[1], (long[])arguments[2],
 				(long[])arguments[3], ((Long)arguments[4]).longValue(),
@@ -513,8 +674,13 @@ public class CalendarBookingLocalServiceClpInvoker {
 				((Long)arguments[7]).longValue(), (int[])arguments[8]);
 		}
 
+<<<<<<< HEAD
 		if (_methodName81.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes81, parameterTypes)) {
+=======
+		if (_methodName78.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 			return CalendarBookingLocalServiceUtil.searchCount(((Long)arguments[0]).longValue(),
 				(long[])arguments[1], (long[])arguments[2],
 				(long[])arguments[3], ((Long)arguments[4]).longValue(),
@@ -525,8 +691,13 @@ public class CalendarBookingLocalServiceClpInvoker {
 				((Boolean)arguments[11]).booleanValue());
 		}
 
+<<<<<<< HEAD
 		if (_methodName82.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
+=======
+		if (_methodName79.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 			return CalendarBookingLocalServiceUtil.updateCalendarBooking(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Long)arguments[2]).longValue(), (long[])arguments[3],
@@ -546,8 +717,13 @@ public class CalendarBookingLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[17]);
 		}
 
+<<<<<<< HEAD
 		if (_methodName83.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes83, parameterTypes)) {
+=======
+		if (_methodName80.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 			return CalendarBookingLocalServiceUtil.updateCalendarBooking(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Long)arguments[2]).longValue(),
@@ -566,8 +742,13 @@ public class CalendarBookingLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[15]);
 		}
 
+<<<<<<< HEAD
 		if (_methodName84.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes84, parameterTypes)) {
+=======
+		if (_methodName81.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes81, parameterTypes)) {
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 			return CalendarBookingLocalServiceUtil.updateStatus(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Integer)arguments[2]).intValue(),
@@ -657,10 +838,13 @@ public class CalendarBookingLocalServiceClpInvoker {
 	private String[] _methodParameterTypes80;
 	private String _methodName81;
 	private String[] _methodParameterTypes81;
+<<<<<<< HEAD
 	private String _methodName82;
 	private String[] _methodParameterTypes82;
 	private String _methodName83;
 	private String[] _methodParameterTypes83;
 	private String _methodName84;
 	private String[] _methodParameterTypes84;
+=======
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 }

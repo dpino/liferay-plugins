@@ -294,6 +294,11 @@ public class CalendarResourceServiceClp implements CalendarResourceService {
 						companyId,
 						
 					ClpSerializer.translateInput(name),
+<<<<<<< HEAD
+=======
+						
+					active
+>>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 					});
 		}
 		catch (Throwable t) {

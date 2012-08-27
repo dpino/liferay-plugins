@@ -163,6 +163,11 @@ public class CalendarBookingLocalServiceImpl
 	public String getFoodAndDrinksName(long id) throws SystemException {
 		return calendarBookingFinder.getFoodAndDrinksName(id);
 	}
+			long userId, Long startDate, Long endDate, long[] calendarResourceIds)
+			throws com.liferay.portal.kernel.exception.SystemException {
+		return calendarBookingFinder.findCalendarEvents(userId, startDate,
+				endDate, calendarResourceIds);
+	}	
 
 	public void checkCalendarBookings()
 		throws PortalException, SystemException {
