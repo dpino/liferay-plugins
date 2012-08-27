@@ -109,7 +109,8 @@ public class CalendarUtil {
 		throws SystemException {
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
-
+		if (calendar == null) return jsonObject;
+		
 		jsonObject.put("calendarId", calendar.getCalendarId());
 
 		CalendarResource calendarResource =
