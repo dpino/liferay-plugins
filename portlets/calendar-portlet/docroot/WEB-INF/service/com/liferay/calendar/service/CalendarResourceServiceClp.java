@@ -292,9 +292,9 @@ public class CalendarResourceServiceClp implements CalendarResourceService {
 					_methodParameterTypes6,
 					new Object[] {
 						companyId,
-
+						
 					ClpSerializer.translateInput(name),
-
+						
 					active
 					});
 		}

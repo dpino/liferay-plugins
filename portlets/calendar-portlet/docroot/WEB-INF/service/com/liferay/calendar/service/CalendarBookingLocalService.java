@@ -278,6 +278,11 @@ public interface CalendarBookingLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
+	public java.util.List<com.liferay.calendar.model.CalendarEvent> findCalendarEvents(
+		long userId, java.lang.Long startDate, java.lang.Long endDate,
+		long[] calendarResourceIds)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public void checkCalendarBookings()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;

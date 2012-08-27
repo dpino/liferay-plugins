@@ -86,6 +86,11 @@ public interface CalendarBookingFinder {
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public java.util.List<com.liferay.calendar.model.CalendarEvent> findCalendarEvents(
+		long userId, java.lang.Long startDate, java.lang.Long endDate,
+		long[] calendarResourceIds)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public java.util.List<com.liferay.calendar.model.CalendarBooking> findByFutureReminders(
 		long startDate)
 		throws com.liferay.portal.kernel.exception.SystemException;

@@ -14,10 +14,16 @@
 
 package com.liferay.calendar.service.impl;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
 import com.liferay.calendar.CalendarBookingDurationException;
 import com.liferay.calendar.CalendarBookingTitleException;
 import com.liferay.calendar.model.Calendar;
 import com.liferay.calendar.model.CalendarBooking;
+import com.liferay.calendar.model.CalendarEvent;
 import com.liferay.calendar.notification.NotificationType;
 import com.liferay.calendar.service.base.CalendarBookingLocalServiceBaseImpl;
 import com.liferay.calendar.util.JCalendarUtil;
@@ -34,11 +40,6 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 /**
  * @author Eduardo Lundgren
@@ -140,6 +141,13 @@ public class CalendarBookingLocalServiceImpl
 
 		return calendarBooking;
 	}
+	
+	public List<CalendarEvent> findCalendarEvents(
+			long userId, Long startDate, Long endDate, long[] calendarResourceIds)
+			throws com.liferay.portal.kernel.exception.SystemException {
+		return calendarBookingFinder.findCalendarEvents(userId, startDate,
+				endDate, calendarResourceIds);
+	}	
 
 	public void checkCalendarBookings()
 		throws PortalException, SystemException {

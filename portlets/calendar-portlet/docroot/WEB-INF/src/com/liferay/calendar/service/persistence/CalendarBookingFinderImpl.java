@@ -14,8 +14,17 @@
 
 package com.liferay.calendar.service.persistence;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import com.liferay.calendar.model.Calendar;
 import com.liferay.calendar.model.CalendarBooking;
+import com.liferay.calendar.model.CalendarEvent;
 import com.liferay.calendar.model.impl.CalendarBookingImpl;
+import com.liferay.portal.kernel.dao.orm.Query;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
@@ -31,16 +40,13 @@ import com.liferay.portal.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.util.dao.orm.CustomSQLUtil;
 
-import java.util.Iterator;
-import java.util.List;
-
 /**
  * @author Eduardo Lundgren
  * @author Fabio Pezzutto
  */
 public class CalendarBookingFinderImpl
 	extends BasePersistenceImpl<CalendarBooking>
-	implements CalendarBookingFinder {
+	implements CalendarBookingFinder {	
 
 	public static final String COUNT_BY_C_G_C_C_P_T_D_L_S_E_S =
 		CalendarBookingFinder.class.getName() +
@@ -228,6 +234,86 @@ public class CalendarBookingFinderImpl
 			parentCalendarBookingId, titles, descriptions, locations, startDate,
 			endDate, recurring, statuses, andOperator, start, end,
 			orderByComparator, true);
+	}
+	
+	public List<CalendarEvent> findCalendarEvents(long userId, Long startDate,
+			Long endDate, long[] calendarResourceIds) throws SystemException {
+		Session session = null;
+		
+		List<CalendarEvent> result = new ArrayList<CalendarEvent>();
+		try {
+			session = openSession();
+			
+			String sql = "FROM CalendarBooking WHERE userId = :userId";
+			if (startDate != null) {
+				sql += String.format(" AND startDate >= %d", startDate);
+			}
+			if (endDate != null) {
+				sql += String.format(" AND endDate >= %d", endDate);				
+			}
+			if (calendarResourceIds != null) {
+				sql += String.format(" AND calendarResourceId IN (%s)",
+						StringUtil.merge(calendarResourceIds, ","));
+			}
+			Query query = session.createQuery(sql);
+			query.setLong("userId", userId);
+			
+			List<CalendarBooking> bookings = query.list();			
+
+			// Create map with id of the booking and list of people that are part of that booking
+			Map<Long, List<String>> eventAttendants = new HashMap<Long, List<String>>();
+			for (CalendarBooking each: bookings) {
+				String name = findUserNameByCalendarResource(each.getCalendarResourceId());
+				if (!name.isEmpty()) {
+					long key = each.getParentCalendarBookingId();
+					List<String> attendants = eventAttendants.get(key);
+					if (attendants == null) {
+						attendants = new ArrayList<String>();
+					}
+					attendants.add(name);
+					eventAttendants.put(key, attendants);
+				}
+			}
+			
+			// For each booked resource create entity with name of the resource,
+			// what time is being used and people attending
+			for(CalendarBooking each: bookings) {
+				List<String> attendants = eventAttendants.get(each.getParentCalendarBookingId());
+				CalendarEvent event = new CalendarEvent(each.getUserId(),
+						each.getUserName(), each.getStartDate(),
+						each.getEndDate(), each.getCalendarResourceId(), each
+								.getCalendarResource().getName(), attendants);
+				result.add(event);
+			}
+			
+			return result;			
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+		
+	}
+	
+	private String findUserNameByCalendarResource(long calendarResourceId) throws SystemException {
+		Session session = null;
+		
+		try {
+			session = openSession();
+			
+			String sql = "FROM Calendar WHERE calendarResourceId = :calendarResourceId";
+			Query query = session.createQuery(sql);
+			query.setLong("calendarResourceId", calendarResourceId);
+			Calendar calendar = (Calendar) query.uniqueResult();
+			return (calendar != null) ? calendar.getUserName() : null;
+		} catch (Exception e) {
+			throw new SystemException(e);			
+		} finally {
+			closeSession(session);
+		}
+		
 	}
 
 	public List<CalendarBooking> findByFutureReminders(long startDate)

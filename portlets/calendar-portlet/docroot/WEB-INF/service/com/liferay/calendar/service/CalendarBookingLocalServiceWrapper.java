@@ -310,6 +310,14 @@ public class CalendarBookingLocalServiceWrapper
 			secondReminderType, serviceContext);
 	}
 
+	public java.util.List<com.liferay.calendar.model.CalendarEvent> findCalendarEvents(
+		long userId, java.lang.Long startDate, java.lang.Long endDate,
+		long[] calendarResourceIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _calendarBookingLocalService.findCalendarEvents(userId,
+			startDate, endDate, calendarResourceIds);
+	}
+
 	public void checkCalendarBookings()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {

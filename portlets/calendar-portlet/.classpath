@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <classpath>
-	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="docroot/WEB-INF/service" />
-	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="docroot/WEB-INF/src" />
-	<classpathentry kind="src" path="/portal-trunk" />
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" />
-	<classpathentry kind="lib" path="/portal-trunk/lib/development/activation.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/lib/development/annotations.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/lib/development/jsp-api.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/lib/development/mail.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/lib/development/servlet-api.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/lib/global/portlet.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/lib/portal/backport-concurrent.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/lib/portal/commons-codec.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/lib/portal/commons-lang.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/lib/portal/commons-logging.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/lib/portal/ical4j.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/lib/portal/jstl-api.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/lib/portal/jstl-impl.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/lib/portal/log4j.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/portal-service/portal-service.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/util-bridges/util-bridges.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/util-java/util-java.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/util-taglib/util-taglib.jar" />
-	<classpathentry kind="lib" path="docroot/WEB-INF/lib/google-rfc-2445.jar" />
-	<classpathentry kind="output" path="bin" />
+	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="docroot/WEB-INF/service"/>
+	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="docroot/WEB-INF/src"/>
+	<classpathentry kind="src" path="/portal-trunk"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="docroot/WEB-INF/lib/google-rfc-2445.jar"/>
+    <classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/lib/development/activation.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/lib/development/annotations.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/lib/development/mail.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/lib/portal/backport-concurrent.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/lib/portal/commons-codec.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/lib/portal/commons-lang.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/lib/portal/commons-logging.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/lib/portal/ical4j.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/lib/portal/jstl-api.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/lib/portal/jstl-impl.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/lib/global/portlet.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/lib/development/servlet-api.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/util-taglib/util-taglib.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/util-java/util-java.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/util-bridges/util-bridges.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/lib/development/jsf-api.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/lib/portal/log4j.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/dpino/workspace/DesignCollective/liferay-portal/portal-service/portal-service.jar"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>

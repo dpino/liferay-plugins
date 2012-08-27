@@ -312,6 +312,15 @@ public class CalendarBookingLocalServiceUtil {
 			serviceContext);
 	}
 
+	public static java.util.List<com.liferay.calendar.model.CalendarEvent> findCalendarEvents(
+		long userId, java.lang.Long startDate, java.lang.Long endDate,
+		long[] calendarResourceIds)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .findCalendarEvents(userId, startDate, endDate,
+			calendarResourceIds);
+	}
+
 	public static void checkCalendarBookings()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {

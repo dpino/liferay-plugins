@@ -17,20 +17,32 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String activeView = ParamUtil.getString(request, "activeView", defaultView);
-long currentDate = ParamUtil.getLong(request, "currentDate", now.getTimeInMillis());
+	String activeView = ParamUtil.getString(request, "activeView",
+			defaultView);
+	long currentDate = ParamUtil.getLong(request, "currentDate",
+			now.getTimeInMillis());
 
-List<Calendar> groupCalendars = null;
+	List<Calendar> groupCalendars = null;
 
-if (groupCalendarResource != null) {
-	groupCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, new long[] {groupCalendarResource.getCalendarResourceId()}, null, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, (OrderByComparator)null);
-}
+	if (groupCalendarResource != null) {
+		groupCalendars = CalendarServiceUtil.search(themeDisplay
+				.getCompanyId(), null,
+				new long[] { groupCalendarResource
+						.getCalendarResourceId() }, null, true,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+				(OrderByComparator) null);
+	}
 
-List<Calendar> userCalendars = null;
+	List<Calendar> userCalendars = null;
 
-if (userCalendarResource != null) {
-	userCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, new long[] {userCalendarResource.getCalendarResourceId()}, null, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, (OrderByComparator)null);
-}
+	if (userCalendarResource != null) {
+		userCalendars = CalendarServiceUtil.search(themeDisplay
+				.getCompanyId(), null,
+				new long[] { userCalendarResource
+						.getCalendarResourceId() }, null, true,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+				(OrderByComparator) null);
+	}
 
 // Location Calendars
 List<Calendar> locationCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, "Location", true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
@@ -50,6 +62,15 @@ if (otherUserCalendarResources != null) {
     }
 }
 
+// Search CalendarEvents
+List<CalendarEvent> calendarEvents = CalendarBookingLocalServiceUtil
+    .findCalendarEvents(10456, Long.valueOf(1346029200000L),
+        Long.valueOf(1346036400000L), null);
+
+for (CalendarEvent each: calendarEvents) {
+	System.out.print("### calendarEvent: " + each);
+}
+
 JSONArray groupCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, groupCalendars);
 JSONArray userCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, userCalendars);
 JSONArray locationCalendarsJSONArray = CalendarUtil.removePrefix(CalendarUtil.toCalendarsJSONArray(themeDisplay, locationCalendars), "Location - ");
@@ -67,8 +88,8 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 
 				<span class="calendar-portlet-list-text"><liferay-ui:message key="my-calendars" /></span>
 
-				<c:if test="<%= userCalendarResource != null %>">
-					<span class="aui-calendar-list-item-arrow" data-calendarResourceId="<%= userCalendarResource.getCalendarResourceId() %>" tabindex="0"></span>
+				<c:if test="<%=userCalendarResource != null%>">
+					<span class="aui-calendar-list-item-arrow" data-calendarResourceId="<%=userCalendarResource.getCalendarResourceId()%>" tabindex="0"></span>
 				</c:if>
 			</a>
 
@@ -110,14 +131,17 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 
 		    <div class="calendar-portlet-calendar-list" id="<portlet:namespace />otherUserCalendarList"></div>
 
-			<c:if test="<%= groupCalendarResource != null %>">
+			<c:if test="<%=groupCalendarResource != null%>">
 				<a class="aui-toggler-header-expanded calendar-portlet-list-header" href="javascript:void(0);">
 					<span class="calendar-portlet-list-arrow"></span>
 
 					<span class="calendar-portlet-list-text"><liferay-ui:message key="current-site-calendars" /></span>
 
-					<c:if test="<%= CalendarResourcePermission.contains(permissionChecker, groupCalendarResource, ActionKeys.VIEW) %>">
-						<span class="aui-calendar-list-item-arrow" data-calendarResourceId="<%= groupCalendarResource.getCalendarResourceId() %>" tabindex="0"></span>
+					<c:if test="<%=CalendarResourcePermission.contains(
+									permissionChecker, groupCalendarResource,
+									ActionKeys.VIEW)%>">
+						<span class="aui-calendar-list-item-arrow" data-calendarResourceId="<%=groupCalendarResource
+									.getCalendarResourceId()%>" tabindex="0"></span>
 					</c:if>
 				</a>
 
@@ -129,13 +153,14 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 	</aui:column>
 
 	<aui:column columnWidth="100">
-		<liferay-util:include page="/scheduler.jsp" servletContext="<%= application %>">
-			<liferay-util:param name="activeView" value="<%= activeView %>" />
-			<liferay-util:param name="currentDate" value="<%= String.valueOf(currentDate) %>" />
+		<liferay-util:include page="/scheduler.jsp" servletContext="<%=application%>">
+			<liferay-util:param name="activeView" value="<%=activeView%>" />
+			<liferay-util:param name="currentDate" value="<%=String.valueOf(currentDate)%>" />
 
 			<portlet:renderURL var="editCalendarBookingURL">
 				<portlet:param name="jspPage" value="/edit_calendar_booking.jsp" />
-				<portlet:param name="redirect" value="<%= String.valueOf(renderResponse.createRenderURL()) %>" />
+				<portlet:param name="redirect" value="<%=String.valueOf(renderResponse
+									.createRenderURL())%>" />
 				<portlet:param name="activeView" value="{activeView}" />
 				<portlet:param name="allDay" value="{allDay}" />
 				<portlet:param name="calendarBookingId" value="{calendarBookingId}" />
@@ -146,9 +171,9 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 				<portlet:param name="titleCurrentValue" value="{titleCurrentValue}" />
 			</portlet:renderURL>
 
-			<liferay-util:param name="editCalendarBookingURL" value="<%= editCalendarBookingURL %>" />
+			<liferay-util:param name="editCalendarBookingURL" value="<%=editCalendarBookingURL%>" />
 
-			<liferay-util:param name="readOnly" value="<%= String.valueOf(false) %>" />
+			<liferay-util:param name="readOnly" value="<%=String.valueOf(false)%>" />
 		</liferay-util:include>
 	</aui:column>
 </aui:fieldset>
@@ -156,8 +181,9 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 <%@ include file="/view_calendar_menus.jspf" %>
 
 <aui:script use="aui-toggler,liferay-calendar-list,liferay-scheduler,liferay-store,json">
-	<c:if test="<%= userCalendars != null %>">
-		Liferay.CalendarUtil.DEFAULT_CALENDAR = <%= CalendarUtil.toCalendarJSONObject(themeDisplay, userCalendars.get(0)) %>;
+	<c:if test="<%=userCalendars != null%>">
+		Liferay.CalendarUtil.DEFAULT_CALENDAR = <%=CalendarUtil.toCalendarJSONObject(themeDisplay,
+							userCalendars.get(0))%>;
 	</c:if>
 
 	var syncVisibleCalendarsMap = function() {
@@ -179,10 +205,10 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 			boundingBox: '#<portlet:namespace />myCalendarList',
 
 			<%
-			updateCalendarsJSONArray(request, userCalendarsJSONArray);
-			%>
+		updateCalendarsJSONArray(request, userCalendarsJSONArray);
+	%>
 
-			calendars: <%= userCalendarsJSONArray %>,
+			calendars: <%=userCalendarsJSONArray%>,
 			simpleMenu: window.<portlet:namespace />calendarsMenu
 		}
 	).render();
@@ -231,10 +257,10 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 			boundingBox: '#<portlet:namespace />otherCalendarList',
 
 			<%
-			updateCalendarsJSONArray(request, otherCalendarsJSONArray);
-			%>
+		updateCalendarsJSONArray(request, otherCalendarsJSONArray);
+	%>
 
-			calendars: <%= otherCalendarsJSONArray %>,
+			calendars: <%=otherCalendarsJSONArray%>,
 			simpleMenu: window.<portlet:namespace />calendarsMenu
 		}
 	).render();
@@ -263,10 +289,10 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 			boundingBox: '#<portlet:namespace />siteCalendarList',
 
 			<%
-			updateCalendarsJSONArray(request, groupCalendarsJSONArray);
-			%>
+		updateCalendarsJSONArray(request, groupCalendarsJSONArray);
+	%>
 
-			calendars: <%= groupCalendarsJSONArray %>,
+			calendars: <%=groupCalendarsJSONArray%>,
 			simpleMenu: window.<portlet:namespace />calendarsMenu
 		}
 	).render();
@@ -294,7 +320,7 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 		}
 	);
 
-	<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="calendarResources" var="calendarResourcesURL" />
+	<liferay-portlet:resourceURL copyCurrentRenderParameters="<%=false%>" id="calendarResources" var="calendarResourcesURL" />
 
 	var addLocationCalendarInput = A.one('#<portlet:namespace />addLocationCalendar');
 
@@ -321,12 +347,12 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 	);
 </aui:script>
 
-<%!
-protected void updateCalendarsJSONArray(HttpServletRequest request, JSONArray calendarsJSONArray) {
-	for (int i = 0; i < calendarsJSONArray.length(); i++) {
-		JSONObject jsonObject = calendarsJSONArray.getJSONObject(i);
+<%!protected void updateCalendarsJSONArray(HttpServletRequest request,
+			JSONArray calendarsJSONArray) {
+		for (int i = 0; i < calendarsJSONArray.length(); i++) {
+			JSONObject jsonObject = calendarsJSONArray.getJSONObject(i);
 
-		long calendarId = jsonObject.getLong("calendarId");
+			long calendarId = jsonObject.getLong("calendarId");
 
 		jsonObject.put("color", GetterUtil.getString(SessionClicks.get(request, "calendar-portlet-calendar-" + calendarId + "-color", jsonObject.getString("color"))));
 		jsonObject.put("visible", GetterUtil.getBoolean(SessionClicks.get(request, "calendar-portlet-calendar-" + calendarId + "-visible", "true")));
