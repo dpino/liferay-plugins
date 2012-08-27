@@ -40,6 +40,12 @@ import java.util.Map;
  */
 public class CalendarServiceImpl extends CalendarServiceBaseImpl {
 
+	private static final String HOLIDAYS = "Holidays";
+	
+	private static final String SICK  = "Sick";
+	
+	private static final String FOOD_AND_DRINKS = "Food";	
+	
 	public Calendar addCalendar(
 			long groupId, long calendarResourceId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, int color,
@@ -243,13 +249,20 @@ public class CalendarServiceImpl extends CalendarServiceBaseImpl {
 
     public List<Calendar> getOtherCalendars(long companyId) throws PortalException, SystemException {
         List<Calendar> result = new ArrayList<Calendar>();
-        result.add(findCalendarByName(companyId, "Holidays"));
-        result.add(findCalendarByName(companyId, "Sick"));
-        result.add(findCalendarByName(companyId, "Food"));
+        addCalendarIfExists(result, findCalendarByName(companyId, HOLIDAYS));
+        addCalendarIfExists(result, findCalendarByName(companyId, SICK));
+        addCalendarIfExists(result, findCalendarByName(companyId, FOOD_AND_DRINKS));
         return result;
     }
 
-    private Calendar findCalendarByName(long companyId, String keyword) throws PortalException, SystemException {
+    private void addCalendarIfExists(List<Calendar> list,
+			Calendar calendar) {
+    	if (calendar != null) {
+    		list.add(calendar);
+    	}
+	}
+
+	private Calendar findCalendarByName(long companyId, String keyword) throws PortalException, SystemException {
         List<Calendar> result = calendarFinder.findByKeywords(
                 companyId, null, null, keyword,
                 QueryUtil.ALL_POS, QueryUtil.ALL_POS, (OrderByComparator) null);
