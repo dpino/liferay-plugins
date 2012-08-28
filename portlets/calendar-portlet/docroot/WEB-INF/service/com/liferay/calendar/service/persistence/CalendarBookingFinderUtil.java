@@ -145,6 +145,7 @@ public class CalendarBookingFinderUtil {
 			calendarResourceIds, locale);
 	}
 
+<<<<<<< HEAD
 	public static java.util.Map<java.lang.Long, java.lang.String> getFoodAndDrinksMap()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getFinder().getFoodAndDrinksMap();
@@ -160,13 +161,15 @@ public class CalendarBookingFinderUtil {
 		return getFinder().getEndDate(now);
 	}
 
+=======
+>>>>>>> fa02886... Do search of CalendarEvents and show results
 	public static java.util.List<com.liferay.calendar.model.CalendarEvent> findCalendarEvents(
 		long userId, java.lang.Long startDate, java.lang.Long endDate,
-		long[] calendarResourceIds)
+		long[] calendarResourceIds, int start, int end, java.util.Locale locale)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getFinder()
 				   .findCalendarEvents(userId, startDate, endDate,
-			calendarResourceIds);
+			calendarResourceIds, start, end, locale);
 	}
 
 	public static java.util.List<com.liferay.calendar.model.CalendarBooking> findByFutureReminders(

@@ -62,15 +62,6 @@ if (otherUserCalendarResources != null) {
     }
 }
 
-// Search CalendarEvents
-List<CalendarEvent> calendarEvents = CalendarBookingLocalServiceUtil
-    .findCalendarEvents(10456, Long.valueOf(1346029200000L),
-        Long.valueOf(1346036400000L), null);
-
-for (CalendarEvent each: calendarEvents) {
-	System.out.print("### calendarEvent: " + each);
-}
-
 JSONArray groupCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, groupCalendars);
 JSONArray userCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeDisplay, userCalendars);
 JSONArray locationCalendarsJSONArray = CalendarUtil.removePrefix(CalendarUtil.toCalendarsJSONArray(themeDisplay, locationCalendars), "Location - ");

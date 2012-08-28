@@ -286,6 +286,7 @@ public interface CalendarBookingLocalService extends BaseLocalService,
 	public int findCalendarEventsCount(long userId, java.lang.Long startDate,
 		java.lang.Long endDate, long[] calendarResourceIds,
 		java.util.Locale locale)
+<<<<<<< HEAD
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -294,6 +295,8 @@ public interface CalendarBookingLocalService extends BaseLocalService,
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.lang.String getFoodAndDrinksName(long id)
+=======
+>>>>>>> fa02886... Do search of CalendarEvents and show results
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	public void checkCalendarBookings()

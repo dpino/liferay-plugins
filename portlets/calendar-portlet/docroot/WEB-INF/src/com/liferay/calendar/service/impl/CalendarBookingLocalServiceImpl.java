@@ -166,8 +166,15 @@ public class CalendarBookingLocalServiceImpl
 			long userId, Long startDate, Long endDate, long[] calendarResourceIds)
 			throws com.liferay.portal.kernel.exception.SystemException {
 		return calendarBookingFinder.findCalendarEvents(userId, startDate,
-				endDate, calendarResourceIds);
+				endDate, calendarResourceIds, start, end, locale);		
 	}	
+	
+	public int findCalendarEventsCount(
+			long userId, Long startDate, Long endDate, long[] calendarResourceIds, Locale locale)
+			throws SystemException {
+		return calendarBookingFinder.findCalendarEventsCount(userId, startDate,
+				endDate, calendarResourceIds, locale);
+	}		
 
 	public void checkCalendarBookings()
 		throws PortalException, SystemException {

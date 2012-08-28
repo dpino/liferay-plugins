@@ -313,6 +313,7 @@ public class CalendarBookingLocalServiceWrapper
 	public java.util.List<com.liferay.calendar.model.CalendarEvent> findCalendarEvents(
 		long userId, java.lang.Long startDate, java.lang.Long endDate,
 <<<<<<< HEAD
+<<<<<<< HEAD
 		long[] calendarResourceIds, int start, int end, java.util.Locale locale)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _calendarBookingLocalService.findCalendarEvents(userId,
@@ -341,6 +342,20 @@ public class CalendarBookingLocalServiceWrapper
 		return _calendarBookingLocalService.findCalendarEvents(userId,
 			startDate, endDate, calendarResourceIds);
 >>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
+=======
+		long[] calendarResourceIds, int start, int end, java.util.Locale locale)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _calendarBookingLocalService.findCalendarEvents(userId,
+			startDate, endDate, calendarResourceIds, start, end, locale);
+	}
+
+	public int findCalendarEventsCount(long userId, java.lang.Long startDate,
+		java.lang.Long endDate, long[] calendarResourceIds,
+		java.util.Locale locale)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _calendarBookingLocalService.findCalendarEventsCount(userId,
+			startDate, endDate, calendarResourceIds, locale);
+>>>>>>> fa02886... Do search of CalendarEvents and show results
 	}
 
 	public void checkCalendarBookings()
