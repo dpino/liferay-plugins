@@ -18,21 +18,35 @@
 
 <%
 
-CalendarEventsListsDisplayTerms displayTerms = new CalendarEventsListsDisplayTerms(renderRequest);
-CalendarEventsListsSearchTerms searchTerms = new CalendarEventsListsSearchTerms(renderRequest);
-
 final java.text.SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 final java.util.Date currentDate = new Date();
 
-// First Day of Month
-java.util.Calendar calendar = java.util.Calendar.getInstance();
-calendar.setTime(currentDate);
-calendar.set(java.util.Calendar.DATE, 1);
-java.util.Date startDate = calendar.getTime();
+CalendarEventsListsDisplayTerms displayTerms = new CalendarEventsListsDisplayTerms(renderRequest);
+CalendarEventsListsSearchTerms searchTerms = new CalendarEventsListsSearchTerms(renderRequest);
 
-// Last Day of Month
-calendar.set(java.util.Calendar.DATE, calendar.getActualMaximum(java.util.Calendar.DATE));
-java.util.Date endDate = calendar.getTime();
+java.util.Calendar calendar = java.util.Calendar.getInstance();
+calendar.setTime(new Date());
+
+// Get startDate
+Date startDate;
+String _startDate = renderRequest.getParameter("startDate");
+if (_startDate != null && !_startDate.isEmpty()) {
+    startDate = sdf.parse(_startDate);
+} else {
+    calendar.set(java.util.Calendar.DATE, 1);
+    startDate = calendar.getTime();
+}
+
+// Get endDate
+Date endDate;
+String _endDate = renderRequest.getParameter("endDate");
+if (_endDate != null && !_endDate.isEmpty()) {
+    endDate = sdf.parse(_endDate);
+} else {
+    calendar.set(java.util.Calendar.DATE, 
+        calendar.getActualMaximum(java.util.Calendar.DATE));
+    endDate = calendar.getTime();
+}
 
 List<CalendarResource> searchableResources = CalendarResourceUtil.getSearchableCalendarResources(themeDisplay.getCompanyId());
 

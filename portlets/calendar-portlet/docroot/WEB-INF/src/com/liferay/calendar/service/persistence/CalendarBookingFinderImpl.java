@@ -14,7 +14,10 @@
 
 package com.liferay.calendar.service.persistence;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -28,7 +31,6 @@ import com.liferay.calendar.model.CalendarBooking;
 import com.liferay.calendar.model.CalendarEvent;
 import com.liferay.calendar.model.CalendarResource;
 import com.liferay.calendar.model.impl.CalendarBookingImpl;
-import com.liferay.calendar.service.CalendarServiceUtil;
 import com.liferay.portal.kernel.dao.orm.Query;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -36,16 +38,12 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.util.LocaleUtil;
-import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.User;
 import com.liferay.portal.security.permission.InlineSQLHelperUtil;
-import com.liferay.portal.service.UserServiceUtil;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.util.dao.orm.CustomSQLUtil;
 
@@ -252,6 +250,24 @@ public class CalendarBookingFinderImpl
 				locale).size();
 	}	
 	
+	private SimpleDateFormat sdf = new SimpleDateFormat();
+	
+	public java.util.Date getEndDate(final Date now) throws ParseException {
+	    java.util.Calendar calendar = java.util.Calendar.getInstance();
+
+	    calendar.setTime(now);
+	    String endDate = ""; 
+//	    renderRequest.getParamenter("endDate");
+	    if (endDate != null && !endDate.isEmpty()) {
+	        return sdf.parse(endDate);
+	    } else {
+	        calendar.set(java.util.Calendar.DATE,
+	            calendar.getActualMaximum(java.util.Calendar.DATE));
+	        return calendar.getTime();
+	    }
+	}
+
+	
 	public List<CalendarEvent> findCalendarEvents(long userId, Long startDate,
 			Long endDate, long[] calendarResourceIds, int start, int end,
 			Locale locale) throws SystemException {
@@ -270,6 +286,7 @@ public class CalendarBookingFinderImpl
 				sql += String.format(" AND endDate <= %d", endDate);				
 			}
 			if (calendarResourceIds == null) {
+				// FIXME: Replace for CalendarResourceUtil.getSearchableCalendarResources(companyId);
 				calendarResourceIds = onlyIds(getNotUserCalendarResources(locale));
 			}
 			sql += String.format(" AND calendarResourceId IN (%s)",
