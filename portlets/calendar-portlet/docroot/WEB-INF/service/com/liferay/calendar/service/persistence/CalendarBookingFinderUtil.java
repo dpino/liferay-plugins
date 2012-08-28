@@ -136,13 +136,22 @@ public class CalendarBookingFinderUtil {
 			andOperator, start, end, orderByComparator);
 	}
 
+	public static int findCalendarEventsCount(long userId,
+		java.lang.Long startDate, java.lang.Long endDate,
+		long[] calendarResourceIds, java.util.Locale locale)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getFinder()
+				   .findCalendarEventsCount(userId, startDate, endDate,
+			calendarResourceIds, locale);
+	}
+
 	public static java.util.List<com.liferay.calendar.model.CalendarEvent> findCalendarEvents(
 		long userId, java.lang.Long startDate, java.lang.Long endDate,
-		long[] calendarResourceIds)
+		long[] calendarResourceIds, int start, int end, java.util.Locale locale)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getFinder()
 				   .findCalendarEvents(userId, startDate, endDate,
-			calendarResourceIds);
+			calendarResourceIds, start, end, locale);
 	}
 
 	public static java.util.List<com.liferay.calendar.model.CalendarBooking> findByFutureReminders(
