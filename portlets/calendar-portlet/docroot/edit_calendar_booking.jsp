@@ -99,8 +99,7 @@ else if (calendar != null) {
 	}
 }
 
-List<Calendar> manageableCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, null, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
-List<CalendarResource> locations = CalendarResourceServiceUtil.findByC_N_A(themeDisplay.getCompanyId(), "%Location%", true);
+List<Calendar> locationCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, "%Location%", true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
 
 %>
 
@@ -143,16 +142,18 @@ List<CalendarResource> locations = CalendarResourceServiceUtil.findByC_N_A(theme
 	<aui:fieldset>
 		<liferay-ui:panel-container extended="<%= false %>" id="calendarBookingDetailsPanelContainer" persistState="<%= true %>">
 			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="calendarBookingDetailsPanel" persistState="<%= true %>" title="details">
-				<aui:select label="calendar" name="calendarId">
+				<aui:select label="location" name="calendarId">
 
 					<%
-					for (Calendar curCalendar : manageableCalendars) {
+					for (Calendar curCalendar : locationCalendars) {
 						if ((calendarBooking != null) && (curCalendar.getCalendarId() != calendarId) && (CalendarBookingLocalServiceUtil.getCalendarBookingsCount(curCalendar.getCalendarId(), calendarBooking.getParentCalendarBookingId()) > 0)) {
 							continue;
 						}
+                        String label = curCalendar.getName(locale);
+                        label = label.replaceFirst("Location -", "").trim();
 					%>
 
-						<aui:option selected="<%= curCalendar.getCalendarId() == calendarId %>" value="<%= curCalendar.getCalendarId() %>"><%= curCalendar.getName(locale) %></aui:option>
+						<aui:option selected="<%= curCalendar.getCalendarId() == calendarId %>" value="<%= curCalendar.getCalendarId() %>"><%= label %></aui:option>
 
 					<%
 					}
@@ -161,19 +162,6 @@ List<CalendarResource> locations = CalendarResourceServiceUtil.findByC_N_A(theme
 				</aui:select>
 
 				<aui:input name="description" />
-
-                <!-- Location -->
-				<aui:select label="location" name="locationId">
-					<%
-					for (CalendarResource location: locations) {
-                        String label = location.getName(locale);
-                        label = label.replaceFirst("Location -", "").trim();
-					%>
-						<aui:option value="<%= location.getCalendarResourceId() %>"><%= label %></aui:option>
-					<%
-					}
-					%>
-				</aui:select>
 
 			</liferay-ui:panel>
 
@@ -537,7 +525,7 @@ List<CalendarResource> locations = CalendarResourceServiceUtil.findByC_N_A(theme
 			function(event) {
 				var calendarId = parseInt(event.target.val(), 10);
 
-				var calendarJSON = Liferay.CalendarUtil.getCalendarJSONById(<%= CalendarUtil.toCalendarsJSONArray(themeDisplay, manageableCalendars) %>, calendarId);
+				var calendarJSON = Liferay.CalendarUtil.getCalendarJSONById(<%= CalendarUtil.toCalendarsJSONArray(themeDisplay, locationCalendars) %>, calendarId);
 
 				A.Array.each(
 					[<portlet:namespace />calendarListAccepted, <portlet:namespace />calendarListDeclined, <portlet:namespace />calendarListMaybe, <portlet:namespace />calendarListPending],
