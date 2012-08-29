@@ -100,6 +100,7 @@ else if (calendar != null) {
 }
 
 List<Calendar> locationCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, "%Location%", true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
+List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, "%Equipment%", true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
 
 %>
 
@@ -162,6 +163,16 @@ List<Calendar> locationCalendars = CalendarServiceUtil.search(themeDisplay.getCo
 				</aui:select>
 
 				<aui:input name="description" />
+
+                <!-- Equipments -->
+                <aui:select label="Equipments" id="equipments" name="equipments" multiple="true" style="width: 300px;" >
+                <% for (Calendar each : equipmentCalendars) { 
+                        String label = each.getName(locale);
+                        label = label.replaceFirst("Equipment -", "").trim();
+                %>
+                        <aui:option value="<%= each.getCalendarId() %>"><%= label %></aui:option>
+                    <% } %>
+                </aui:select>
 
 			</liferay-ui:panel>
 
@@ -540,6 +551,44 @@ List<Calendar> locationCalendars = CalendarServiceUtil.search(themeDisplay.getCo
 				defaultCalendarId = calendarId;
 			}
 		);
+
+		A.one('#<portlet:namespace />equipments').on(
+			'click',
+			function(event) {
+                var equipments, options;
+
+                equipments = document.getElementById('<portlet:namespace />equipments');
+                options = equipments.options;
+
+                // Remove all equipments from assigned lists
+                for (i = 0; i < options.length; i++) {
+                    removeCalendar(options[i].value);
+                }
+
+                // Add only those that are checked
+                for (i = 0; i < options.length; i++) {
+                    if (options[i].selected) {
+                        addCalendar(options[i].value);
+                    }
+                } 
+			}
+		);
+
+        function removeCalendar(calendarId) {
+            var calendarId = parseInt(calendarId, 10);
+            A.Array.each(
+                [<portlet:namespace />calendarListAccepted, <portlet:namespace />calendarListDeclined, <portlet:namespace />calendarListMaybe, <portlet:namespace />calendarListPending],
+                function(calendarList) {
+                    calendarList.remove(calendarList.getCalendar(calendarId));
+                }
+            );
+        }
+
+        function addCalendar(calendarId) {
+            var calendarId = parseInt(calendarId, 10);
+            var calendarJSON = Liferay.CalendarUtil.getCalendarJSONById(<%= CalendarUtil.toCalendarsJSONArray(themeDisplay, equipmentCalendars) %>, calendarId);
+            <portlet:namespace />calendarListPending.add(calendarJSON);
+        }
 
 		<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="calendarResources" var="calendarResourcesURL"></liferay-portlet:resourceURL>
 
