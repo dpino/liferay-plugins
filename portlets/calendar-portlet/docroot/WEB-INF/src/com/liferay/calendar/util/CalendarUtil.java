@@ -133,6 +133,7 @@ public class CalendarUtil {
 			_getPermissionsJSONObject(
 				themeDisplay.getPermissionChecker(), calendar));
 		jsonObject.put("userId", calendar.getUserId());
+		jsonObject.put("userName", calendar.getUserName());
 
 		return jsonObject;
 	}
