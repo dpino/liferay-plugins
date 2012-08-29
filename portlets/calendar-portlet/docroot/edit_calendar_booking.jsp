@@ -16,6 +16,31 @@
 
 <%@ include file="/init.jsp" %>
 
+<%!
+
+List<CalendarBooking> acceptedCalendars = new ArrayList<CalendarBooking>();
+List<CalendarBooking> declinedCalendars = new ArrayList<CalendarBooking>();
+List<CalendarBooking> maybeCalendars = new ArrayList<CalendarBooking>();
+List<CalendarBooking> pendingCalendars = new ArrayList<CalendarBooking>();
+
+public boolean isSelected(Calendar calendar) {
+    long calendarId = calendar.getCalendarId();
+    return (inCalendar(calendarId, acceptedCalendars) ||
+        inCalendar(calendarId, declinedCalendars) ||
+        inCalendar(calendarId, maybeCalendars));
+}
+
+public boolean inCalendar(long calendarId, List<CalendarBooking> calendars) {
+    for (CalendarBooking each: calendars) {
+        if (each.getCalendarId() == calendarId) {
+            return true;
+        }
+    }
+    return false;
+}
+
+%>
+
 <%
 String redirect = ParamUtil.getString(request, "redirect");
 
@@ -73,10 +98,15 @@ if (calendarBooking != null) {
 	startDateJCalendar.setTimeInMillis(calendarBooking.getStartDate());
 	endDateJCalendar.setTimeInMillis(calendarBooking.getEndDate());
 
-	acceptedCalendarsJSONArray = CalendarUtil.toCalendarBookingsJSONArray(themeDisplay, CalendarBookingServiceUtil.getChildCalendarBookings(calendarBooking.getParentCalendarBookingId(), CalendarBookingWorkflowConstants.STATUS_APPROVED));
-	declinedCalendarsJSONArray = CalendarUtil.toCalendarBookingsJSONArray(themeDisplay, CalendarBookingServiceUtil.getChildCalendarBookings(calendarBooking.getParentCalendarBookingId(), CalendarBookingWorkflowConstants.STATUS_DENIED));
-	maybeCalendarsJSONArray = CalendarUtil.toCalendarBookingsJSONArray(themeDisplay, CalendarBookingServiceUtil.getChildCalendarBookings(calendarBooking.getParentCalendarBookingId(), CalendarBookingWorkflowConstants.STATUS_MAYBE));
-	pendingCalendarsJSONArray = CalendarUtil.toCalendarBookingsJSONArray(themeDisplay, CalendarBookingServiceUtil.getChildCalendarBookings(calendarBooking.getParentCalendarBookingId(), CalendarBookingWorkflowConstants.STATUS_PENDING));
+    acceptedCalendars = CalendarBookingServiceUtil.getChildCalendarBookings(calendarBooking.getParentCalendarBookingId(), CalendarBookingWorkflowConstants.STATUS_APPROVED);
+    declinedCalendars = CalendarBookingServiceUtil.getChildCalendarBookings(calendarBooking.getParentCalendarBookingId(), CalendarBookingWorkflowConstants.STATUS_DENIED);
+    maybeCalendars = CalendarBookingServiceUtil.getChildCalendarBookings(calendarBooking.getParentCalendarBookingId(), CalendarBookingWorkflowConstants.STATUS_MAYBE);
+    pendingCalendars = CalendarBookingServiceUtil.getChildCalendarBookings(calendarBooking.getParentCalendarBookingId(), CalendarBookingWorkflowConstants.STATUS_PENDING);
+
+	acceptedCalendarsJSONArray = CalendarUtil.toCalendarBookingsJSONArray(themeDisplay, acceptedCalendars); 
+	declinedCalendarsJSONArray = CalendarUtil.toCalendarBookingsJSONArray(themeDisplay, declinedCalendars); 
+	maybeCalendarsJSONArray = CalendarUtil.toCalendarBookingsJSONArray(themeDisplay, maybeCalendars); 
+	pendingCalendarsJSONArray = CalendarUtil.toCalendarBookingsJSONArray(themeDisplay, pendingCalendars);
 
 	if (!calendarBooking.isMasterBooking()) {
 		invitable = false;
@@ -169,9 +199,16 @@ List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getC
                 <% for (Calendar each : equipmentCalendars) { 
                         String label = each.getName(locale);
                         label = label.replaceFirst("Equipment -", "").trim();
-                %>
-                        <aui:option value="<%= each.getCalendarId() %>"><%= label %></aui:option>
-                    <% } %>
+                        if (isSelected(each)) { %>
+
+                            <aui:option value="<%= each.getCalendarId() %>" selected="true"><%= label %></aui:option>
+
+                <%      } else { %>
+
+                            <aui:option value="<%= each.getCalendarId() %>"><%= label %></aui:option>
+
+                <%      } %>
+                <% } %>
                 </aui:select>
 
 			</liferay-ui:panel>
@@ -555,39 +592,50 @@ List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getC
 		A.one('#<portlet:namespace />equipments').on(
 			'click',
 			function(event) {
-                var equipments, options;
+                var equipments, options, option, calendarId;
 
                 equipments = document.getElementById('<portlet:namespace />equipments');
                 options = equipments.options;
 
-                // Remove all equipments from assigned lists
+                // Add or remove equipments depending if they are selected or not
                 for (i = 0; i < options.length; i++) {
-                    removeCalendar(options[i].value);
-                }
-
-                // Add only those that are checked
-                for (i = 0; i < options.length; i++) {
-                    if (options[i].selected) {
-                        addCalendar(options[i].value);
+                    option = options[i]; 
+                    calendarId = parseInt(option.value, 10);
+                    if (option.selected) {
+                        addCalendarToPending(calendarId);
+                    } else {
+                        removeCalendar(calendarId);
                     }
-                } 
+                }
 			}
 		);
 
         function removeCalendar(calendarId) {
-            var calendarId = parseInt(calendarId, 10);
             A.Array.each(
-                [<portlet:namespace />calendarListAccepted, <portlet:namespace />calendarListDeclined, <portlet:namespace />calendarListMaybe, <portlet:namespace />calendarListPending],
+                [<portlet:namespace />calendarListPending, <portlet:namespace />calendarListAccepted, <portlet:namespace />calendarListDeclined, <portlet:namespace />calendarListMaybe],
                 function(calendarList) {
                     calendarList.remove(calendarList.getCalendar(calendarId));
                 }
             );
         }
 
-        function addCalendar(calendarId) {
-            var calendarId = parseInt(calendarId, 10);
+        function addCalendarToPending(calendarId) {
             var calendarJSON = Liferay.CalendarUtil.getCalendarJSONById(<%= CalendarUtil.toCalendarsJSONArray(themeDisplay, equipmentCalendars) %>, calendarId);
-            <portlet:namespace />calendarListPending.add(calendarJSON);
+            var canAdd = true;
+
+            // If it's already added, return
+            A.Array.each(
+                [<portlet:namespace />calendarListPending, <portlet:namespace />calendarListAccepted, <portlet:namespace />calendarListDeclined, <portlet:namespace />calendarListMaybe],
+                function(calendarList) {
+                    if (calendarList.getCalendar(calendarId) != null) {
+                        canAdd = false;
+                    }
+                }
+            );
+
+            if (canAdd) {
+                <portlet:namespace />calendarListPending.add(calendarJSON);
+            }
         }
 
 		<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="calendarResources" var="calendarResourcesURL"></liferay-portlet:resourceURL>
