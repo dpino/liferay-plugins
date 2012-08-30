@@ -91,7 +91,6 @@ public interface CalendarBookingFinder {
 		java.util.Locale locale)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
-<<<<<<< HEAD
 	public java.util.Map<java.lang.Long, java.lang.String> getFoodAndDrinksMap()
 		throws com.liferay.portal.kernel.exception.SystemException;
 
@@ -105,8 +104,9 @@ public interface CalendarBookingFinder {
 		long userId, java.lang.Long startDate, java.lang.Long endDate,
 		long[] calendarResourceIds, int start, int end, java.util.Locale locale)
 
-=======
->>>>>>> fa02886... Do search of CalendarEvents and show results
+	public java.util.Date getEndDate(java.util.Date now)
+		throws java.text.ParseException;
+
 	public java.util.List<com.liferay.calendar.model.CalendarEvent> findCalendarEvents(
 		long userId, java.lang.Long startDate, java.lang.Long endDate,
 		long[] calendarResourceIds, int start, int end, java.util.Locale locale)
