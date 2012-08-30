@@ -93,6 +93,7 @@ page import="com.liferay.portlet.PortletPreferencesFactoryUtil" %>
 
 <%@ page import="java.util.ArrayList" %><%@
 page import="java.util.List" %><%@
+page import="java.util.Map" %><%@
 page import="java.text.ParseException" %><%@
 page import="java.text.SimpleDateFormat" %><%@
 page import="java.util.Date" %><%@

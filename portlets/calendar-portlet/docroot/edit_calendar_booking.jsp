@@ -173,6 +173,8 @@ List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getC
 	<aui:fieldset>
 		<liferay-ui:panel-container extended="<%= false %>" id="calendarBookingDetailsPanelContainer" persistState="<%= true %>">
 			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="calendarBookingDetailsPanel" persistState="<%= true %>" title="details">
+
+                <!-- Location -->
 				<aui:select label="location" name="calendarId">
 
 					<%
@@ -192,6 +194,7 @@ List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getC
 
 				</aui:select>
 
+                <!-- Description -->
 				<aui:input name="description" />
 
                 <!-- Equipments -->
@@ -210,6 +213,22 @@ List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getC
                 <%      } %>
                 <% } %>
                 </aui:select>
+
+                <!-- Food and Drinks -->
+                <% 
+                    Map<Long, String> mapFoodAndDrinks = CalendarBookingLocalServiceUtil.getFoodAndDrinksMap(); 
+                    long selectedFoodAndDrinksId = calendarBooking != null ? calendarBooking.getFoodAndDrinksId() : 0L;
+                %>
+
+				<aui:select label="Food And Drinks" name="foodAndDrinksId">
+
+					<%
+					    for (Long foodAndDrinksId : mapFoodAndDrinks.keySet()) {
+                            String label = mapFoodAndDrinks.get(foodAndDrinksId); %>
+						   <aui:option selected="<%= foodAndDrinksId == selectedFoodAndDrinksId %>" value="<%= foodAndDrinksId %>"><%= label %></aui:option>
+                    <%  } %>
+
+				</aui:select>
 
 			</liferay-ui:panel>
 
