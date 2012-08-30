@@ -30,6 +30,7 @@ import com.liferay.calendar.model.Calendar;
 import com.liferay.calendar.model.CalendarBooking;
 import com.liferay.calendar.model.CalendarEvent;
 import com.liferay.calendar.model.CalendarResource;
+import com.liferay.calendar.model.FoodAndDrinks;
 import com.liferay.calendar.model.impl.CalendarBookingImpl;
 import com.liferay.portal.kernel.dao.orm.Query;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
@@ -248,7 +249,49 @@ public class CalendarBookingFinderImpl
 		return findCalendarEvents(userId, startDate, endDate,
 				calendarResourceIds, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
 				locale).size();
-	}	
+	}
+	
+	public Map<Long, String> getFoodAndDrinksMap() throws SystemException {
+		Map<Long, String> result = new HashMap<Long, String>();
+		
+		Session session = null;		
+		try {
+			session = openSession();
+
+			String sql = "SELECT id, name FROM FoodAndDrinks ORDER BY name";
+			SQLQuery query = session.createSQLQuery(sql);
+			query.addScalar("id", Type.LONG);
+			query.addScalar("name", Type.STRING);
+			
+			List<Object[]> list = (List<Object[]>) QueryUtil.list(query,
+					getDialect(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+			for (Object[] each: list) {
+				result.put((Long) each[0], (String) each[1]);
+			}
+		} catch (Exception e) {
+			throw new SystemException(e);			
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+	
+	public String getFoodAndDrinksName(long id) throws SystemException {
+		Session session = null;		
+		try {
+			session = openSession();
+
+			String sql = "SELECT name FROM FoodAndDrinks WHERE id = %d";
+			SQLQuery query = session.createSQLQuery(String.format(sql, id));
+			query.addScalar("name", Type.STRING);
+			Object[] object = (Object[]) query.uniqueResult();
+			return object != null ? (String) object[0] : "";
+		} catch (Exception e) {
+			throw new SystemException(e);
+		} finally {
+			session.close();
+		}
+	}
 	
 	private SimpleDateFormat sdf = new SimpleDateFormat();
 	

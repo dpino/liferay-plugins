@@ -91,6 +91,12 @@ public interface CalendarBookingFinder {
 		java.util.Locale locale)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public java.util.Map<java.lang.Long, java.lang.String> getFoodAndDrinksMap()
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public java.lang.String getFoodAndDrinksName(long id)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public java.util.Date getEndDate(java.util.Date now)
 		throws java.text.ParseException;
 

@@ -288,6 +288,14 @@ public interface CalendarBookingLocalService extends BaseLocalService,
 		java.util.Locale locale)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.Map<java.lang.Long, java.lang.String> getFoodAndDrinksMap()
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.lang.String getFoodAndDrinksName(long id)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public void checkCalendarBookings()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;

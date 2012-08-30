@@ -330,6 +330,16 @@ public class CalendarBookingLocalServiceUtil {
 			calendarResourceIds, locale);
 	}
 
+	public static java.util.Map<java.lang.Long, java.lang.String> getFoodAndDrinksMap()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getFoodAndDrinksMap();
+	}
+
+	public static java.lang.String getFoodAndDrinksName(long id)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getFoodAndDrinksName(id);
+	}
+
 	public static void checkCalendarBookings()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {

@@ -145,6 +145,16 @@ public class CalendarBookingFinderUtil {
 			calendarResourceIds, locale);
 	}
 
+	public static java.util.Map<java.lang.Long, java.lang.String> getFoodAndDrinksMap()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getFinder().getFoodAndDrinksMap();
+	}
+
+	public static java.lang.String getFoodAndDrinksName(long id)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getFinder().getFoodAndDrinksName(id);
+	}
+
 	public static java.util.Date getEndDate(java.util.Date now)
 		throws java.text.ParseException {
 		return getFinder().getEndDate(now);

@@ -154,7 +154,15 @@ public class CalendarBookingLocalServiceImpl
 			throws SystemException {
 		return calendarBookingFinder.findCalendarEventsCount(userId, startDate,
 				endDate, calendarResourceIds, locale);
-	}		
+	}
+	
+	public Map<Long, String> getFoodAndDrinksMap() throws SystemException {
+		return calendarBookingFinder.getFoodAndDrinksMap();
+	}
+	
+	public String getFoodAndDrinksName(long id) throws SystemException {
+		return calendarBookingFinder.getFoodAndDrinksName(id);
+	}
 
 	public void checkCalendarBookings()
 		throws PortalException, SystemException {
