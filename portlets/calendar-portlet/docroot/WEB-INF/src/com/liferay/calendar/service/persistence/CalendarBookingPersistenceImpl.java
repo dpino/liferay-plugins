@@ -781,6 +781,7 @@ public class CalendarBookingPersistenceImpl extends BasePersistenceImpl<Calendar
 		calendarBookingImpl.setCalendarId(calendarBooking.getCalendarId());
 		calendarBookingImpl.setCalendarResourceId(calendarBooking.getCalendarResourceId());
 		calendarBookingImpl.setParentCalendarBookingId(calendarBooking.getParentCalendarBookingId());
+		calendarBookingImpl.setFoodAndDrinksId(calendarBooking.getFoodAndDrinksId());
 		calendarBookingImpl.setTitle(calendarBooking.getTitle());
 		calendarBookingImpl.setDescription(calendarBooking.getDescription());
 		calendarBookingImpl.setLocation(calendarBooking.getLocation());

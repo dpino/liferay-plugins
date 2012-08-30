@@ -42,6 +42,7 @@ public class CalendarBookingSoap implements Serializable {
 		soapModel.setCalendarId(model.getCalendarId());
 		soapModel.setCalendarResourceId(model.getCalendarResourceId());
 		soapModel.setParentCalendarBookingId(model.getParentCalendarBookingId());
+		soapModel.setFoodAndDrinksId(model.getFoodAndDrinksId());
 		soapModel.setTitle(model.getTitle());
 		soapModel.setDescription(model.getDescription());
 		soapModel.setLocation(model.getLocation());
@@ -199,6 +200,14 @@ public class CalendarBookingSoap implements Serializable {
 		_parentCalendarBookingId = parentCalendarBookingId;
 	}
 
+	public long getFoodAndDrinksId() {
+		return _foodAndDrinksId;
+	}
+
+	public void setFoodAndDrinksId(long foodAndDrinksId) {
+		_foodAndDrinksId = foodAndDrinksId;
+	}
+
 	public String getTitle() {
 		return _title;
 	}
@@ -334,6 +343,7 @@ public class CalendarBookingSoap implements Serializable {
 	private long _calendarId;
 	private long _calendarResourceId;
 	private long _parentCalendarBookingId;
+	private long _foodAndDrinksId;
 	private String _title;
 	private String _description;
 	private String _location;

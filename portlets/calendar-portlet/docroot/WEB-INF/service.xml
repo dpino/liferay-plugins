@@ -76,6 +76,7 @@
 		<column name="calendarId" type="long" />
 		<column name="calendarResourceId" type="long" />
 		<column name="parentCalendarBookingId" type="long" />
+		<column name="foodAndDrinksId" type="long" />
 		<column name="title" type="String" localized="true" />
 		<column name="description" type="String" localized="true" />
 		<column name="location" type="String" />

@@ -27,6 +27,7 @@ create table CalendarBooking (
 	calendarId LONG,
 	calendarResourceId LONG,
 	parentCalendarBookingId LONG,
+	foodAndDrinksId LONG,
 	title STRING null,
 	description STRING null,
 	location VARCHAR(75) null,

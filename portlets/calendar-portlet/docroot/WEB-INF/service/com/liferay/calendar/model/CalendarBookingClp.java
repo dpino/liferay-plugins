@@ -85,6 +85,7 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 		attributes.put("calendarId", getCalendarId());
 		attributes.put("calendarResourceId", getCalendarResourceId());
 		attributes.put("parentCalendarBookingId", getParentCalendarBookingId());
+		attributes.put("foodAndDrinksId", getFoodAndDrinksId());
 		attributes.put("title", getTitle());
 		attributes.put("description", getDescription());
 		attributes.put("location", getLocation());
@@ -171,6 +172,12 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 
 		if (parentCalendarBookingId != null) {
 			setParentCalendarBookingId(parentCalendarBookingId);
+		}
+
+		Long foodAndDrinksId = (Long)attributes.get("foodAndDrinksId");
+
+		if (foodAndDrinksId != null) {
+			setFoodAndDrinksId(foodAndDrinksId);
 		}
 
 		String title = (String)attributes.get("title");
@@ -358,6 +365,14 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 
 	public void setParentCalendarBookingId(long parentCalendarBookingId) {
 		_parentCalendarBookingId = parentCalendarBookingId;
+	}
+
+	public long getFoodAndDrinksId() {
+		return _foodAndDrinksId;
+	}
+
+	public void setFoodAndDrinksId(long foodAndDrinksId) {
+		_foodAndDrinksId = foodAndDrinksId;
 	}
 
 	public String getTitle() {
@@ -848,6 +863,7 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 		clone.setCalendarId(getCalendarId());
 		clone.setCalendarResourceId(getCalendarResourceId());
 		clone.setParentCalendarBookingId(getParentCalendarBookingId());
+		clone.setFoodAndDrinksId(getFoodAndDrinksId());
 		clone.setTitle(getTitle());
 		clone.setDescription(getDescription());
 		clone.setLocation(getLocation());
@@ -926,7 +942,7 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(53);
+		StringBundler sb = new StringBundler(55);
 
 		sb.append("{uuid=");
 		sb.append(getUuid());
@@ -950,6 +966,8 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 		sb.append(getCalendarResourceId());
 		sb.append(", parentCalendarBookingId=");
 		sb.append(getParentCalendarBookingId());
+		sb.append(", foodAndDrinksId=");
+		sb.append(getFoodAndDrinksId());
 		sb.append(", title=");
 		sb.append(getTitle());
 		sb.append(", description=");
@@ -986,7 +1004,7 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(82);
+		StringBundler sb = new StringBundler(85);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.calendar.model.CalendarBooking");
@@ -1035,6 +1053,10 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 		sb.append(
 			"<column><column-name>parentCalendarBookingId</column-name><column-value><![CDATA[");
 		sb.append(getParentCalendarBookingId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>foodAndDrinksId</column-name><column-value><![CDATA[");
+		sb.append(getFoodAndDrinksId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>title</column-name><column-value><![CDATA[");
@@ -1114,6 +1136,7 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 	private long _calendarId;
 	private long _calendarResourceId;
 	private long _parentCalendarBookingId;
+	private long _foodAndDrinksId;
 	private String _title;
 	private String _titleCurrentLanguageId;
 	private String _description;

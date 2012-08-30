@@ -83,6 +83,7 @@ public class CalendarBookingModelImpl extends BaseModelImpl<CalendarBooking>
 			{ "calendarId", Types.BIGINT },
 			{ "calendarResourceId", Types.BIGINT },
 			{ "parentCalendarBookingId", Types.BIGINT },
+			{ "foodAndDrinksId", Types.BIGINT },
 			{ "title", Types.VARCHAR },
 			{ "description", Types.VARCHAR },
 			{ "location", Types.VARCHAR },
@@ -99,7 +100,7 @@ public class CalendarBookingModelImpl extends BaseModelImpl<CalendarBooking>
 			{ "statusByUserName", Types.VARCHAR },
 			{ "statusDate", Types.TIMESTAMP }
 		};
-	public static final String TABLE_SQL_CREATE = "create table CalendarBooking (uuid_ VARCHAR(75) null,calendarBookingId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,calendarId LONG,calendarResourceId LONG,parentCalendarBookingId LONG,title STRING null,description STRING null,location VARCHAR(75) null,startDate LONG,endDate LONG,allDay BOOLEAN,recurrence VARCHAR(75) null,firstReminder LONG,firstReminderType VARCHAR(75) null,secondReminder LONG,secondReminderType VARCHAR(75) null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
+	public static final String TABLE_SQL_CREATE = "create table CalendarBooking (uuid_ VARCHAR(75) null,calendarBookingId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,calendarId LONG,calendarResourceId LONG,parentCalendarBookingId LONG,foodAndDrinksId LONG,title STRING null,description STRING null,location VARCHAR(75) null,startDate LONG,endDate LONG,allDay BOOLEAN,recurrence VARCHAR(75) null,firstReminder LONG,firstReminderType VARCHAR(75) null,secondReminder LONG,secondReminderType VARCHAR(75) null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
 	public static final String TABLE_SQL_DROP = "drop table CalendarBooking";
 	public static final String ORDER_BY_JPQL = " ORDER BY calendarBooking.startDate ASC, calendarBooking.title ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY CalendarBooking.startDate ASC, CalendarBooking.title ASC";
@@ -149,6 +150,7 @@ public class CalendarBookingModelImpl extends BaseModelImpl<CalendarBooking>
 		model.setCalendarId(soapModel.getCalendarId());
 		model.setCalendarResourceId(soapModel.getCalendarResourceId());
 		model.setParentCalendarBookingId(soapModel.getParentCalendarBookingId());
+		model.setFoodAndDrinksId(soapModel.getFoodAndDrinksId());
 		model.setTitle(soapModel.getTitle());
 		model.setDescription(soapModel.getDescription());
 		model.setLocation(soapModel.getLocation());
@@ -234,6 +236,7 @@ public class CalendarBookingModelImpl extends BaseModelImpl<CalendarBooking>
 		attributes.put("calendarId", getCalendarId());
 		attributes.put("calendarResourceId", getCalendarResourceId());
 		attributes.put("parentCalendarBookingId", getParentCalendarBookingId());
+		attributes.put("foodAndDrinksId", getFoodAndDrinksId());
 		attributes.put("title", getTitle());
 		attributes.put("description", getDescription());
 		attributes.put("location", getLocation());
@@ -320,6 +323,12 @@ public class CalendarBookingModelImpl extends BaseModelImpl<CalendarBooking>
 
 		if (parentCalendarBookingId != null) {
 			setParentCalendarBookingId(parentCalendarBookingId);
+		}
+
+		Long foodAndDrinksId = (Long)attributes.get("foodAndDrinksId");
+
+		if (foodAndDrinksId != null) {
+			setFoodAndDrinksId(foodAndDrinksId);
 		}
 
 		String title = (String)attributes.get("title");
@@ -596,6 +605,15 @@ public class CalendarBookingModelImpl extends BaseModelImpl<CalendarBooking>
 
 	public long getOriginalParentCalendarBookingId() {
 		return _originalParentCalendarBookingId;
+	}
+
+	@JSON
+	public long getFoodAndDrinksId() {
+		return _foodAndDrinksId;
+	}
+
+	public void setFoodAndDrinksId(long foodAndDrinksId) {
+		_foodAndDrinksId = foodAndDrinksId;
 	}
 
 	@JSON
@@ -1105,6 +1123,7 @@ public class CalendarBookingModelImpl extends BaseModelImpl<CalendarBooking>
 		calendarBookingImpl.setCalendarId(getCalendarId());
 		calendarBookingImpl.setCalendarResourceId(getCalendarResourceId());
 		calendarBookingImpl.setParentCalendarBookingId(getParentCalendarBookingId());
+		calendarBookingImpl.setFoodAndDrinksId(getFoodAndDrinksId());
 		calendarBookingImpl.setTitle(getTitle());
 		calendarBookingImpl.setDescription(getDescription());
 		calendarBookingImpl.setLocation(getLocation());
@@ -1276,6 +1295,8 @@ public class CalendarBookingModelImpl extends BaseModelImpl<CalendarBooking>
 
 		calendarBookingCacheModel.parentCalendarBookingId = getParentCalendarBookingId();
 
+		calendarBookingCacheModel.foodAndDrinksId = getFoodAndDrinksId();
+
 		calendarBookingCacheModel.title = getTitle();
 
 		String title = calendarBookingCacheModel.title;
@@ -1360,7 +1381,7 @@ public class CalendarBookingModelImpl extends BaseModelImpl<CalendarBooking>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(53);
+		StringBundler sb = new StringBundler(55);
 
 		sb.append("{uuid=");
 		sb.append(getUuid());
@@ -1384,6 +1405,8 @@ public class CalendarBookingModelImpl extends BaseModelImpl<CalendarBooking>
 		sb.append(getCalendarResourceId());
 		sb.append(", parentCalendarBookingId=");
 		sb.append(getParentCalendarBookingId());
+		sb.append(", foodAndDrinksId=");
+		sb.append(getFoodAndDrinksId());
 		sb.append(", title=");
 		sb.append(getTitle());
 		sb.append(", description=");
@@ -1420,7 +1443,7 @@ public class CalendarBookingModelImpl extends BaseModelImpl<CalendarBooking>
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(82);
+		StringBundler sb = new StringBundler(85);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.calendar.model.CalendarBooking");
@@ -1469,6 +1492,10 @@ public class CalendarBookingModelImpl extends BaseModelImpl<CalendarBooking>
 		sb.append(
 			"<column><column-name>parentCalendarBookingId</column-name><column-value><![CDATA[");
 		sb.append(getParentCalendarBookingId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>foodAndDrinksId</column-name><column-value><![CDATA[");
+		sb.append(getFoodAndDrinksId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>title</column-name><column-value><![CDATA[");
@@ -1563,6 +1590,7 @@ public class CalendarBookingModelImpl extends BaseModelImpl<CalendarBooking>
 	private long _parentCalendarBookingId;
 	private long _originalParentCalendarBookingId;
 	private boolean _setOriginalParentCalendarBookingId;
+	private long _foodAndDrinksId;
 	private String _title;
 	private String _titleCurrentLanguageId;
 	private String _description;

@@ -238,6 +238,20 @@ public interface CalendarBookingModel extends BaseModel<CalendarBooking>,
 	public void setParentCalendarBookingId(long parentCalendarBookingId);
 
 	/**
+	 * Returns the food and drinks ID of this calendar booking.
+	 *
+	 * @return the food and drinks ID of this calendar booking
+	 */
+	public long getFoodAndDrinksId();
+
+	/**
+	 * Sets the food and drinks ID of this calendar booking.
+	 *
+	 * @param foodAndDrinksId the food and drinks ID of this calendar booking
+	 */
+	public void setFoodAndDrinksId(long foodAndDrinksId);
+
+	/**
 	 * Returns the title of this calendar booking.
 	 *
 	 * @return the title of this calendar booking

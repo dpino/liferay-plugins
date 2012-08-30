@@ -91,6 +91,9 @@ public interface CalendarBookingFinder {
 		java.util.Locale locale)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public java.util.Date getEndDate(java.util.Date now)
+		throws java.text.ParseException;
+
 	public java.util.List<com.liferay.calendar.model.CalendarEvent> findCalendarEvents(
 		long userId, java.lang.Long startDate, java.lang.Long endDate,
 		long[] calendarResourceIds, int start, int end, java.util.Locale locale)

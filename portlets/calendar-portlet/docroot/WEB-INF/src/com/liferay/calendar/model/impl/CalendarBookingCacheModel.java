@@ -35,7 +35,7 @@ public class CalendarBookingCacheModel implements CacheModel<CalendarBooking>,
 	Serializable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(53);
+		StringBundler sb = new StringBundler(55);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -59,6 +59,8 @@ public class CalendarBookingCacheModel implements CacheModel<CalendarBooking>,
 		sb.append(calendarResourceId);
 		sb.append(", parentCalendarBookingId=");
 		sb.append(parentCalendarBookingId);
+		sb.append(", foodAndDrinksId=");
+		sb.append(foodAndDrinksId);
 		sb.append(", title=");
 		sb.append(title);
 		sb.append(", description=");
@@ -133,6 +135,7 @@ public class CalendarBookingCacheModel implements CacheModel<CalendarBooking>,
 		calendarBookingImpl.setCalendarId(calendarId);
 		calendarBookingImpl.setCalendarResourceId(calendarResourceId);
 		calendarBookingImpl.setParentCalendarBookingId(parentCalendarBookingId);
+		calendarBookingImpl.setFoodAndDrinksId(foodAndDrinksId);
 
 		if (title == null) {
 			calendarBookingImpl.setTitle(StringPool.BLANK);
@@ -217,6 +220,7 @@ public class CalendarBookingCacheModel implements CacheModel<CalendarBooking>,
 	public long calendarId;
 	public long calendarResourceId;
 	public long parentCalendarBookingId;
+	public long foodAndDrinksId;
 	public String title;
 	public String description;
 	public String location;

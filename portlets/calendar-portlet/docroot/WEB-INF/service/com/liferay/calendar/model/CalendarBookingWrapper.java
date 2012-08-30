@@ -57,6 +57,7 @@ public class CalendarBookingWrapper implements CalendarBooking,
 		attributes.put("calendarId", getCalendarId());
 		attributes.put("calendarResourceId", getCalendarResourceId());
 		attributes.put("parentCalendarBookingId", getParentCalendarBookingId());
+		attributes.put("foodAndDrinksId", getFoodAndDrinksId());
 		attributes.put("title", getTitle());
 		attributes.put("description", getDescription());
 		attributes.put("location", getLocation());
@@ -142,6 +143,12 @@ public class CalendarBookingWrapper implements CalendarBooking,
 
 		if (parentCalendarBookingId != null) {
 			setParentCalendarBookingId(parentCalendarBookingId);
+		}
+
+		Long foodAndDrinksId = (Long)attributes.get("foodAndDrinksId");
+
+		if (foodAndDrinksId != null) {
+			setFoodAndDrinksId(foodAndDrinksId);
 		}
 
 		String title = (String)attributes.get("title");
@@ -469,6 +476,24 @@ public class CalendarBookingWrapper implements CalendarBooking,
 	*/
 	public void setParentCalendarBookingId(long parentCalendarBookingId) {
 		_calendarBooking.setParentCalendarBookingId(parentCalendarBookingId);
+	}
+
+	/**
+	* Returns the food and drinks ID of this calendar booking.
+	*
+	* @return the food and drinks ID of this calendar booking
+	*/
+	public long getFoodAndDrinksId() {
+		return _calendarBooking.getFoodAndDrinksId();
+	}
+
+	/**
+	* Sets the food and drinks ID of this calendar booking.
+	*
+	* @param foodAndDrinksId the food and drinks ID of this calendar booking
+	*/
+	public void setFoodAndDrinksId(long foodAndDrinksId) {
+		_calendarBooking.setFoodAndDrinksId(foodAndDrinksId);
 	}
 
 	/**
