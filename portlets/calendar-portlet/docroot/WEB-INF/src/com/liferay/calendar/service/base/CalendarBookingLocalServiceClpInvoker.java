@@ -182,23 +182,22 @@ public class CalendarBookingLocalServiceClpInvoker {
 				"java.util.Locale"
 			};
 
-		_methodName64 = "checkCalendarBookings";
+		_methodName64 = "getFoodAndDrinksMap";
 
 		_methodParameterTypes64 = new String[] {  };
 >>>>>>> fa02886... Do search of CalendarEvents and show results
 
-		_methodName65 = "deleteCalendarBooking";
+		_methodName65 = "getFoodAndDrinksName";
 
-		_methodParameterTypes65 = new String[] {
-				"com.liferay.calendar.model.CalendarBooking"
-			};
+		_methodParameterTypes65 = new String[] { "long" };
 
-		_methodName66 = "deleteCalendarBooking";
+		_methodName66 = "checkCalendarBookings";
 
-		_methodParameterTypes66 = new String[] { "long" };
+		_methodParameterTypes66 = new String[] {  };
 
-		_methodName67 = "deleteCalendarBookings";
+		_methodName67 = "deleteCalendarBooking";
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 		_methodParameterTypes67 = new String[] { "java.lang.String", "long" };
 >>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
@@ -209,9 +208,17 @@ public class CalendarBookingLocalServiceClpInvoker {
 
 		_methodName68 = "fetchCalendarBooking";
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+		_methodParameterTypes67 = new String[] {
+				"com.liferay.calendar.model.CalendarBooking"
+			};
 
-		_methodParameterTypes68 = new String[] { "java.lang.String", "long" };
+		_methodName68 = "deleteCalendarBooking";
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 
+		_methodParameterTypes68 = new String[] { "long" };
+
+<<<<<<< HEAD
 <<<<<<< HEAD
 		_methodName69 = "deleteCalendarBookings";
 =======
@@ -254,13 +261,25 @@ public class CalendarBookingLocalServiceClpInvoker {
 
 		_methodParameterTypes70 = new String[] { "long", "long" };
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+		_methodName69 = "deleteCalendarBookings";
 
-		_methodName71 = "getCalendarBookings";
+		_methodParameterTypes69 = new String[] { "long" };
+
+		_methodName70 = "fetchCalendarBooking";
+
+		_methodParameterTypes70 = new String[] { "java.lang.String", "long" };
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
+
+		_methodName71 = "getCalendarBooking";
 
 		_methodParameterTypes71 = new String[] { "long" };
 
-		_methodName72 = "getCalendarBookings";
+		_methodName72 = "getCalendarBooking";
 
+		_methodParameterTypes72 = new String[] { "long", "long" };
+
+<<<<<<< HEAD
 <<<<<<< HEAD
 		_methodParameterTypes72 = new String[] { "long", "long" };
 >>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
@@ -279,20 +298,28 @@ public class CalendarBookingLocalServiceClpInvoker {
 		_methodParameterTypes73 = new String[] { "long" };
 =======
 		_methodParameterTypes72 = new String[] { "long", "long", "long" };
+=======
+		_methodName73 = "getCalendarBookings";
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 
-		_methodName73 = "getCalendarBookingsCount";
+		_methodParameterTypes73 = new String[] { "long" };
 
+<<<<<<< HEAD
 		_methodParameterTypes73 = new String[] { "long", "long" };
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+		_methodName74 = "getCalendarBookings";
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 
-		_methodName74 = "getChildCalendarBookings";
+		_methodParameterTypes74 = new String[] { "long", "long", "long" };
 
-		_methodParameterTypes74 = new String[] { "long" };
+		_methodName75 = "getCalendarBookingsCount";
 
-		_methodName75 = "getChildCalendarBookings";
+		_methodParameterTypes75 = new String[] { "long", "long" };
 
-		_methodParameterTypes75 = new String[] { "long", "int" };
+		_methodName76 = "getChildCalendarBookings";
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 		_methodParameterTypes75 = new String[] {
 >>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
@@ -301,11 +328,23 @@ public class CalendarBookingLocalServiceClpInvoker {
 
 		_methodParameterTypes76 = new String[] {
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+		_methodParameterTypes76 = new String[] { "long" };
+
+		_methodName77 = "getChildCalendarBookings";
+
+		_methodParameterTypes77 = new String[] { "long", "int" };
+
+		_methodName78 = "search";
+
+		_methodParameterTypes78 = new String[] {
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 				"long", "long[][]", "long[][]", "long[][]", "long",
 				"java.lang.String", "long", "long", "boolean", "int[][]", "int",
 				"int", "com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		_methodName79 = "search";
@@ -321,12 +360,18 @@ public class CalendarBookingLocalServiceClpInvoker {
 
 		_methodParameterTypes77 = new String[] {
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+		_methodName79 = "search";
+
+		_methodParameterTypes79 = new String[] {
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 				"long", "long[][]", "long[][]", "long[][]", "long",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"long", "long", "boolean", "int[][]", "boolean", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		_methodName80 = "searchCount";
@@ -342,10 +387,16 @@ public class CalendarBookingLocalServiceClpInvoker {
 
 		_methodParameterTypes78 = new String[] {
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+		_methodName80 = "searchCount";
+
+		_methodParameterTypes80 = new String[] {
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 				"long", "long[][]", "long[][]", "long[][]", "long",
 				"java.lang.String", "long", "long", "int[][]"
 			};
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		_methodName81 = "searchCount";
@@ -361,11 +412,17 @@ public class CalendarBookingLocalServiceClpInvoker {
 
 		_methodParameterTypes79 = new String[] {
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+		_methodName81 = "searchCount";
+
+		_methodParameterTypes81 = new String[] {
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 				"long", "long[][]", "long[][]", "long[][]", "long",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"long", "long", "int[][]", "boolean"
 			};
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		_methodName82 = "updateCalendarBooking";
@@ -381,6 +438,11 @@ public class CalendarBookingLocalServiceClpInvoker {
 
 		_methodParameterTypes80 = new String[] {
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+		_methodName82 = "updateCalendarBooking";
+
+		_methodParameterTypes82 = new String[] {
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 				"long", "long", "long", "long[][]", "java.util.Map",
 				"java.util.Map", "java.lang.String", "long", "long", "boolean",
 				"java.lang.String", "long", "java.lang.String", "long",
@@ -388,6 +450,7 @@ public class CalendarBookingLocalServiceClpInvoker {
 				"com.liferay.portal.service.ServiceContext"
 			};
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		_methodName83 = "updateCalendarBooking";
@@ -403,6 +466,11 @@ public class CalendarBookingLocalServiceClpInvoker {
 
 		_methodParameterTypes81 = new String[] {
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+		_methodName83 = "updateCalendarBooking";
+
+		_methodParameterTypes83 = new String[] {
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 				"long", "long", "long", "java.util.Map", "java.util.Map",
 				"java.lang.String", "long", "long", "boolean",
 				"java.lang.String", "long", "java.lang.String", "long",
@@ -410,6 +478,7 @@ public class CalendarBookingLocalServiceClpInvoker {
 				"com.liferay.portal.service.ServiceContext"
 			};
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		_methodName84 = "updateStatus";
@@ -425,6 +494,11 @@ public class CalendarBookingLocalServiceClpInvoker {
 
 		_methodParameterTypes82 = new String[] {
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+		_methodName84 = "updateStatus";
+
+		_methodParameterTypes84 = new String[] {
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 				"long", "long", "int",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -594,6 +668,7 @@ public class CalendarBookingLocalServiceClpInvoker {
 				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.getFoodAndDrinksMap();
 =======
 			return CalendarBookingLocalServiceUtil.deleteCalendarBooking((com.liferay.calendar.model.CalendarBooking)arguments[0]);
@@ -601,10 +676,14 @@ public class CalendarBookingLocalServiceClpInvoker {
 =======
 			CalendarBookingLocalServiceUtil.checkCalendarBookings();
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+			return CalendarBookingLocalServiceUtil.getFoodAndDrinksMap();
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 		}
 
 		if (_methodName65.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.getFoodAndDrinksName(((Long)arguments[0]).longValue());
@@ -614,10 +693,14 @@ public class CalendarBookingLocalServiceClpInvoker {
 =======
 			return CalendarBookingLocalServiceUtil.deleteCalendarBooking((com.liferay.calendar.model.CalendarBooking)arguments[0]);
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+			return CalendarBookingLocalServiceUtil.getFoodAndDrinksName(((Long)arguments[0]).longValue());
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 		}
 
 		if (_methodName66.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 			CalendarBookingLocalServiceUtil.checkCalendarBookings();
@@ -627,10 +710,14 @@ public class CalendarBookingLocalServiceClpInvoker {
 =======
 			return CalendarBookingLocalServiceUtil.deleteCalendarBooking(((Long)arguments[0]).longValue());
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+			CalendarBookingLocalServiceUtil.checkCalendarBookings();
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 		}
 
 		if (_methodName67.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.deleteCalendarBooking((com.liferay.calendar.model.CalendarBooking)arguments[0]);
@@ -641,10 +728,14 @@ public class CalendarBookingLocalServiceClpInvoker {
 =======
 			CalendarBookingLocalServiceUtil.deleteCalendarBookings(((Long)arguments[0]).longValue());
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+			return CalendarBookingLocalServiceUtil.deleteCalendarBooking((com.liferay.calendar.model.CalendarBooking)arguments[0]);
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 		}
 
 		if (_methodName68.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.deleteCalendarBooking(((Long)arguments[0]).longValue());
@@ -655,10 +746,14 @@ public class CalendarBookingLocalServiceClpInvoker {
 			return CalendarBookingLocalServiceUtil.fetchCalendarBooking((java.lang.String)arguments[0],
 				((Long)arguments[1]).longValue());
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+			return CalendarBookingLocalServiceUtil.deleteCalendarBooking(((Long)arguments[0]).longValue());
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 		}
 
 		if (_methodName69.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 			CalendarBookingLocalServiceUtil.deleteCalendarBookings(((Long)arguments[0]).longValue());
@@ -669,10 +764,14 @@ public class CalendarBookingLocalServiceClpInvoker {
 =======
 			return CalendarBookingLocalServiceUtil.getCalendarBooking(((Long)arguments[0]).longValue());
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+			CalendarBookingLocalServiceUtil.deleteCalendarBookings(((Long)arguments[0]).longValue());
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 		}
 
 		if (_methodName70.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.fetchCalendarBooking((java.lang.String)arguments[0],
@@ -682,12 +781,16 @@ public class CalendarBookingLocalServiceClpInvoker {
 >>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 =======
 			return CalendarBookingLocalServiceUtil.getCalendarBooking(((Long)arguments[0]).longValue(),
+=======
+			return CalendarBookingLocalServiceUtil.fetchCalendarBooking((java.lang.String)arguments[0],
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 				((Long)arguments[1]).longValue());
 >>>>>>> fa02886... Do search of CalendarEvents and show results
 		}
 
 		if (_methodName71.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.getCalendarBooking(((Long)arguments[0]).longValue());
@@ -699,10 +802,14 @@ public class CalendarBookingLocalServiceClpInvoker {
 =======
 			return CalendarBookingLocalServiceUtil.getCalendarBookings(((Long)arguments[0]).longValue());
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+			return CalendarBookingLocalServiceUtil.getCalendarBooking(((Long)arguments[0]).longValue());
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 		}
 
 		if (_methodName72.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.getCalendarBooking(((Long)arguments[0]).longValue(),
@@ -715,10 +822,15 @@ public class CalendarBookingLocalServiceClpInvoker {
 				((Long)arguments[1]).longValue(),
 				((Long)arguments[2]).longValue());
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+			return CalendarBookingLocalServiceUtil.getCalendarBooking(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue());
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 		}
 
 		if (_methodName73.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.getCalendarBookings(((Long)arguments[0]).longValue());
@@ -729,10 +841,14 @@ public class CalendarBookingLocalServiceClpInvoker {
 			return CalendarBookingLocalServiceUtil.getCalendarBookingsCount(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue());
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+			return CalendarBookingLocalServiceUtil.getCalendarBookings(((Long)arguments[0]).longValue());
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 		}
 
 		if (_methodName74.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 			return CalendarBookingLocalServiceUtil.getCalendarBookings(((Long)arguments[0]).longValue(),
@@ -760,6 +876,11 @@ public class CalendarBookingLocalServiceClpInvoker {
 =======
 			return CalendarBookingLocalServiceUtil.getChildCalendarBookings(((Long)arguments[0]).longValue());
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+			return CalendarBookingLocalServiceUtil.getCalendarBookings(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue());
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 		}
 
 <<<<<<< HEAD
@@ -769,15 +890,34 @@ public class CalendarBookingLocalServiceClpInvoker {
 		if (_methodName75.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes75, parameterTypes)) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 4d22ffb... Add CalendarEvent and method to find CalendarEvents
 =======
 			return CalendarBookingLocalServiceUtil.getChildCalendarBookings(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue());
+=======
+			return CalendarBookingLocalServiceUtil.getCalendarBookingsCount(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue());
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 		}
 
 		if (_methodName76.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
+<<<<<<< HEAD
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+			return CalendarBookingLocalServiceUtil.getChildCalendarBookings(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName77.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
+			return CalendarBookingLocalServiceUtil.getChildCalendarBookings(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue());
+		}
+
+		if (_methodName78.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 			return CalendarBookingLocalServiceUtil.search(((Long)arguments[0]).longValue(),
 				(long[])arguments[1], (long[])arguments[2],
 				(long[])arguments[3], ((Long)arguments[4]).longValue(),
@@ -792,6 +932,7 @@ public class CalendarBookingLocalServiceClpInvoker {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (_methodName79.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
 =======
@@ -802,6 +943,10 @@ public class CalendarBookingLocalServiceClpInvoker {
 		if (_methodName77.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+		if (_methodName79.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 			return CalendarBookingLocalServiceUtil.search(((Long)arguments[0]).longValue(),
 				(long[])arguments[1], (long[])arguments[2],
 				(long[])arguments[3], ((Long)arguments[4]).longValue(),
@@ -818,6 +963,7 @@ public class CalendarBookingLocalServiceClpInvoker {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (_methodName80.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
 =======
@@ -828,6 +974,10 @@ public class CalendarBookingLocalServiceClpInvoker {
 		if (_methodName78.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+		if (_methodName80.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 			return CalendarBookingLocalServiceUtil.searchCount(((Long)arguments[0]).longValue(),
 				(long[])arguments[1], (long[])arguments[2],
 				(long[])arguments[3], ((Long)arguments[4]).longValue(),
@@ -836,6 +986,7 @@ public class CalendarBookingLocalServiceClpInvoker {
 				((Long)arguments[7]).longValue(), (int[])arguments[8]);
 		}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		if (_methodName81.equals(name) &&
@@ -848,6 +999,10 @@ public class CalendarBookingLocalServiceClpInvoker {
 		if (_methodName79.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+		if (_methodName81.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes81, parameterTypes)) {
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 			return CalendarBookingLocalServiceUtil.searchCount(((Long)arguments[0]).longValue(),
 				(long[])arguments[1], (long[])arguments[2],
 				(long[])arguments[3], ((Long)arguments[4]).longValue(),
@@ -860,6 +1015,7 @@ public class CalendarBookingLocalServiceClpInvoker {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (_methodName82.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
 =======
@@ -870,6 +1026,10 @@ public class CalendarBookingLocalServiceClpInvoker {
 		if (_methodName80.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+		if (_methodName82.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 			return CalendarBookingLocalServiceUtil.updateCalendarBooking(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Long)arguments[2]).longValue(), (long[])arguments[3],
@@ -891,6 +1051,7 @@ public class CalendarBookingLocalServiceClpInvoker {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (_methodName83.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes83, parameterTypes)) {
 =======
@@ -901,6 +1062,10 @@ public class CalendarBookingLocalServiceClpInvoker {
 		if (_methodName81.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes81, parameterTypes)) {
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+		if (_methodName83.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes83, parameterTypes)) {
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 			return CalendarBookingLocalServiceUtil.updateCalendarBooking(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Long)arguments[2]).longValue(),
@@ -921,6 +1086,7 @@ public class CalendarBookingLocalServiceClpInvoker {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (_methodName84.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes84, parameterTypes)) {
 =======
@@ -931,6 +1097,10 @@ public class CalendarBookingLocalServiceClpInvoker {
 		if (_methodName82.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+		if (_methodName84.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes84, parameterTypes)) {
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 			return CalendarBookingLocalServiceUtil.updateStatus(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Integer)arguments[2]).intValue(),
@@ -1033,5 +1203,12 @@ public class CalendarBookingLocalServiceClpInvoker {
 =======
 	private String _methodName82;
 	private String[] _methodParameterTypes82;
+<<<<<<< HEAD
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+	private String _methodName83;
+	private String[] _methodParameterTypes83;
+	private String _methodName84;
+	private String[] _methodParameterTypes84;
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 }

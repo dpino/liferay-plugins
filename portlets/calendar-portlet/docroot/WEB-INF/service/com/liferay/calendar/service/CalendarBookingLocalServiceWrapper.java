@@ -336,6 +336,7 @@ public class CalendarBookingLocalServiceWrapper
 	public java.lang.String getFoodAndDrinksName(long id)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _calendarBookingLocalService.getFoodAndDrinksName(id);
+<<<<<<< HEAD
 =======
 		long[] calendarResourceIds)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -356,6 +357,8 @@ public class CalendarBookingLocalServiceWrapper
 		return _calendarBookingLocalService.findCalendarEventsCount(userId,
 			startDate, endDate, calendarResourceIds, locale);
 >>>>>>> fa02886... Do search of CalendarEvents and show results
+=======
+>>>>>>> b658ece... Added services for retrieving a map of FoodAndDrinks and the name of a FoodAndDrink by Id
 	}
 
 	public void checkCalendarBookings()
