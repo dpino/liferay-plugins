@@ -266,7 +266,8 @@ public class CalendarBookingFinderImpl
 	
 	public Map<Long, String> getFoodAndDrinksMap() throws SystemException {
 		Map<Long, String> result = new HashMap<Long, String>();
-		
+		result.put(Long.valueOf(0), "NONE");
+
 		Session session = null;		
 		try {
 			session = openSession();
