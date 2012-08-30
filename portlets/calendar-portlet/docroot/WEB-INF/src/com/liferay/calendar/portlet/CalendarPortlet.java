@@ -214,7 +214,7 @@ public class CalendarPortlet extends MVCPortlet {
 
 		long calendarBookingId = ParamUtil.getLong(
 			actionRequest, "calendarBookingId");
-
+		
 		long calendarId = ParamUtil.getLong(actionRequest, "calendarId");
 		long[] childCalendarIds = ParamUtil.getLongValues(
 			actionRequest, "childCalendarIds");
@@ -230,6 +230,7 @@ public class CalendarPortlet extends MVCPortlet {
 		boolean allDay = ParamUtil.getBoolean(actionRequest, "allDay");
 		String recurrence = getRecurrence(actionRequest);
 		int status = ParamUtil.getInteger(actionRequest, "status");
+		long foodAndDrinksId = ParamUtil.getLong(actionRequest, "foodAndDrinksId");
 
 		long[] reminders = getReminders(actionRequest);
 		String[] remindersType = getRemindersType(actionRequest);
@@ -253,7 +254,7 @@ public class CalendarPortlet extends MVCPortlet {
 				descriptionMap, location, startDateJCalendar.getTimeInMillis(),
 				endDateJCalendar.getTimeInMillis(), allDay, recurrence,
 				reminders[0], remindersType[0], reminders[1], remindersType[1],
-				status, serviceContext);
+				status, foodAndDrinksId, serviceContext);
 		}
 	}
 

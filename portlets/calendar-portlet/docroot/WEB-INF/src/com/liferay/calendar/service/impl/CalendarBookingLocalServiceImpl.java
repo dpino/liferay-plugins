@@ -362,14 +362,13 @@ public class CalendarBookingLocalServiceImpl
 			endDate, statuses, andOperator);
 	}
 
-	public CalendarBooking updateCalendarBooking(
-			long userId, long calendarBookingId, long calendarId,
-			long[] childCalendarIds, Map<Locale, String> titleMap,
-			Map<Locale, String> descriptionMap, String location, long startDate,
-			long endDate, boolean allDay, String recurrence, long firstReminder,
-			String firstReminderType, long secondReminder,
-			String secondReminderType, int status,
-			ServiceContext serviceContext)
+	public CalendarBooking updateCalendarBooking(long userId,
+			long calendarBookingId, long calendarId, long[] childCalendarIds,
+			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
+			String location, long startDate, long endDate, boolean allDay,
+			String recurrence, long firstReminder, String firstReminderType,
+			long secondReminder, String secondReminderType, int status,
+			long foodAndDrinksId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		// Calendar booking
@@ -415,6 +414,7 @@ public class CalendarBookingLocalServiceImpl
 		calendarBooking.setFirstReminderType(firstReminderType);
 		calendarBooking.setSecondReminder(secondReminder);
 		calendarBooking.setSecondReminderType(secondReminderType);
+		calendarBooking.setFoodAndDrinksId(foodAndDrinksId);
 
 		calendarBookingPersistence.update(calendarBooking, false);
 
@@ -460,12 +460,14 @@ public class CalendarBookingLocalServiceImpl
 				childCalendarIds[i] = childCalendarBooking.getCalendarId();
 			}
 		}
-
+		
+		long foodAndDrinksId = calendarBooking.getFoodAndDrinksId();
+		
 		return updateCalendarBooking(
 			userId, calendarBookingId, calendarId, childCalendarIds, titleMap,
 			descriptionMap, location, startDate, endDate, allDay, recurrence,
 			firstReminder, firstReminderType, secondReminder,
-			secondReminderType, status, serviceContext);
+			secondReminderType, status, foodAndDrinksId, serviceContext);
 	}
 
 	public CalendarBooking updateStatus(

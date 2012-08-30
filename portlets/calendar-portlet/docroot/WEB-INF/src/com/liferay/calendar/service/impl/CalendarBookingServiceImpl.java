@@ -234,13 +234,13 @@ public class CalendarBookingServiceImpl extends CalendarBookingServiceBaseImpl {
 		return calendarBookings.size();
 	}
 
-	public CalendarBooking updateCalendarBooking(
-			long calendarBookingId, long calendarId, long[] childCalendarIds,
+	public CalendarBooking updateCalendarBooking(long calendarBookingId,
+			long calendarId, long[] childCalendarIds,
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
 			String location, long startDate, long endDate, boolean allDay,
 			String recurrence, long firstReminder, String firstReminderType,
 			long secondReminder, String secondReminderType, int status,
-			ServiceContext serviceContext)
+			long foodAndDrinksId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		CalendarPermission.check(
@@ -250,7 +250,7 @@ public class CalendarBookingServiceImpl extends CalendarBookingServiceBaseImpl {
 			getUserId(), calendarBookingId, calendarId, childCalendarIds,
 			titleMap, descriptionMap, location, startDate, endDate, allDay,
 			recurrence, firstReminder, firstReminderType, secondReminder,
-			secondReminderType, status, serviceContext);
+			secondReminderType, status, foodAndDrinksId, serviceContext);
 	}
 
 	public CalendarBooking updateCalendarBooking(

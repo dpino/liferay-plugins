@@ -223,7 +223,7 @@ public class CalendarBookingLocalServiceClp
 				"long", "long", "long", "long[][]", "java.util.Map",
 				"java.util.Map", "java.lang.String", "long", "long", "boolean",
 				"java.lang.String", "long", "java.lang.String", "long",
-				"java.lang.String", "int",
+				"java.lang.String", "int", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
@@ -1527,7 +1527,7 @@ public class CalendarBookingLocalServiceClp
 		java.lang.String location, long startDate, long endDate,
 		boolean allDay, java.lang.String recurrence, long firstReminder,
 		java.lang.String firstReminderType, long secondReminder,
-		java.lang.String secondReminderType, int status,
+		java.lang.String secondReminderType, int status, long foodAndDrinksId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -1568,6 +1568,8 @@ public class CalendarBookingLocalServiceClp
 					ClpSerializer.translateInput(secondReminderType),
 						
 					status,
+						
+					foodAndDrinksId,
 						
 					ClpSerializer.translateInput(serviceContext)
 					});

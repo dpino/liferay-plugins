@@ -205,7 +205,7 @@ public class CalendarBookingServiceUtil {
 		java.lang.String location, long startDate, long endDate,
 		boolean allDay, java.lang.String recurrence, long firstReminder,
 		java.lang.String firstReminderType, long secondReminder,
-		java.lang.String secondReminderType, int status,
+		java.lang.String secondReminderType, int status, long foodAndDrinksId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -213,7 +213,8 @@ public class CalendarBookingServiceUtil {
 				   .updateCalendarBooking(calendarBookingId, calendarId,
 			childCalendarIds, titleMap, descriptionMap, location, startDate,
 			endDate, allDay, recurrence, firstReminder, firstReminderType,
-			secondReminder, secondReminderType, status, serviceContext);
+			secondReminder, secondReminderType, status, foodAndDrinksId,
+			serviceContext);
 	}
 
 	public static com.liferay.calendar.model.CalendarBooking updateCalendarBooking(
