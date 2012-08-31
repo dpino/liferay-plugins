@@ -54,6 +54,11 @@ redirect = HttpUtil.setParameter(redirect, renderResponse.getNamespace() + "curr
 
 CalendarBooking calendarBooking = (CalendarBooking)request.getAttribute(WebKeys.CALENDAR_BOOKING);
 
+CalendarBooking parentCalendarBooking = null;
+if (calendarBooking != null) {
+    parentCalendarBooking = calendarBooking.getParentCalendarBooking();
+}
+
 long calendarBookingId = BeanParamUtil.getLong(calendarBooking, request, "calendarBookingId");
 
 long calendarId = BeanParamUtil.getLong(calendarBooking, request, "calendarId", userDefaultCalendar.getCalendarId());
@@ -170,12 +175,17 @@ List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getC
 		</aui:field-wrapper>
 	</aui:fieldset>
 
+    <% 
+        // Disabled widgets if they are child bookings 
+        boolean disabled = CalendarBookingUtil.isDisabled(calendarBooking); 
+    %>
+
 	<aui:fieldset>
 		<liferay-ui:panel-container extended="<%= false %>" id="calendarBookingDetailsPanelContainer" persistState="<%= true %>">
 			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="calendarBookingDetailsPanel" persistState="<%= true %>" title="details">
 
                 <!-- Location -->
-				<aui:select label="location" name="calendarId">
+				<aui:select label="location" name="calendarId" disabled="<%= disabled %>">
 
 					<%
 					for (Calendar curCalendar : locationCalendars) {
@@ -198,7 +208,8 @@ List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getC
 				<aui:input name="description" />
 
                 <!-- Equipments -->
-                <aui:select label="Equipments" id="equipments" name="equipments" multiple="true" style="width: 300px;" >
+                <aui:select label="Equipments" id="equipments" name="equipments" multiple="true" style="width: 300px;"
+                    disabled="<%= disabled %>" >
                 <% for (Calendar each : equipmentCalendars) { 
                         String label = each.getName(locale);
                         label = label.replaceFirst("Equipment -", "").trim();
@@ -220,7 +231,7 @@ List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getC
                     long selectedFoodAndDrinksId = calendarBooking != null ? calendarBooking.getFoodAndDrinksId() : 0L;
                 %>
 
-				<aui:select label="Food And Drinks" name="foodAndDrinksId">
+                <aui:select label="Food And Drinks" name="foodAndDrinksId" disabled="<%= disabled %>">
 
 					<%
 					    for (Long foodAndDrinksId : mapFoodAndDrinks.keySet()) {

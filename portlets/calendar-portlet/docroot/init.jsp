@@ -53,6 +53,7 @@ page import="com.liferay.calendar.service.permission.CalendarResourcePermission"
 page import="com.liferay.calendar.util.ActionKeys" %><%@
 page import="com.liferay.calendar.util.CalendarResourceUtil" %><%@
 page import="com.liferay.calendar.util.CalendarUtil" %><%@
+page import="com.liferay.calendar.util.CalendarBookingUtil" %><%@
 page import="com.liferay.calendar.util.ColorUtil" %><%@
 page import="com.liferay.calendar.util.JCalendarUtil" %><%@
 page import="com.liferay.calendar.util.NotificationUtil" %><%@
