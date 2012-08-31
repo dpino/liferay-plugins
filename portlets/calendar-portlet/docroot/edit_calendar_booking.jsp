@@ -131,6 +131,18 @@ else if (calendar != null) {
 
 List<Calendar> locationCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, "%Location%", true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
 List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, "%Equipment%", true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
+List<Calendar> foodAndDrinksCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, "%Food%", true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
+
+/*
+equipmentCalendarsJSONArray = CalendarUtil.toCalendarBookingsJSONArray(themeDisplay, equipmentCalendars); 
+foodAndDrinksCalendarsJSONArray = CalendarUtil.toCalendarBookingsJSONArray(themeDisplay, foodAndDrinksCalendars); 
+*/
+
+// Get Food And Drinks Calendar
+long foodAndDrinksCalendarId = 0;
+// if (foodAndDrinksCalendars.isEmpty()) throw new SystemException("A FoodAndDrinks CalendarResource must be created");
+Calendar foodAndDrinkCalendar = foodAndDrinksCalendars.get(0);
+foodAndDrinksCalendarId = foodAndDrinkCalendar.getCalendarId();
 
 %>
 
@@ -147,6 +159,7 @@ List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getC
 <aui:form action="<%= updateCalendarBookingURL %>" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "updateCalendarBooking();" %>'>
 	<aui:input name="calendarBookingId" type="hidden" value="<%= calendarBookingId %>" />
 	<aui:input name="childCalendarIds" type="hidden" />
+    <aui:input name="foodAndDrinksCalendarId" type="hidden" value="<%= foodAndDrinksCalendarId %>" />
 
 	<aui:model-context bean="<%= calendarBooking %>" model="<%= CalendarBooking.class %>" />
 
@@ -652,12 +665,22 @@ List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getC
 		A.one('#<portlet:namespace />_foodAndDrinksId').on(
 			'change',
 			function(event) {
-                var equipments, options, option, calendarId;
+                var _foodAndDrinksId, foodAndDrinksId, foodAndDrinksCalendarId, calendarId;
 
-                foodAndDrinksId = document.getElementById('<portlet:namespace />foodAndDrinksId');
                 _foodAndDrinksId = document.getElementById('<portlet:namespace />_foodAndDrinksId');
+                foodAndDrinksId = document.getElementById('<portlet:namespace />foodAndDrinksId');
 
                 foodAndDrinksId.value = _foodAndDrinksId.value;
+
+                foodAndDrinksCalendarId = document.getElementById('<portlet:namespace />foodAndDrinksCalendarId');
+				calendarId = parseInt(foodAndDrinksCalendarId.value, 10);
+
+                // Add CalendarResource
+                removeCalendar(calendarId);
+                if (foodAndDrinksId.value != 0) { 
+                    addFoodAndDrinksCalendar(calendarId);
+                }
+
 			}
 		);
 
@@ -668,6 +691,11 @@ List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getC
                     calendarList.remove(calendarList.getCalendar(calendarId));
                 }
             );
+        }
+
+        function addFoodAndDrinksCalendar(calendarId) {
+            var calendarJSON = Liferay.CalendarUtil.getCalendarJSONById(<%= CalendarUtil.toCalendarsJSONArray(themeDisplay, foodAndDrinksCalendars) %>, calendarId);
+            <portlet:namespace />calendarListPending.add(calendarJSON);
         }
 
         function addEquipmentCalendar(calendarId) {
