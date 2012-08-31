@@ -54,6 +54,11 @@ redirect = HttpUtil.setParameter(redirect, renderResponse.getNamespace() + "curr
 
 CalendarBooking calendarBooking = (CalendarBooking)request.getAttribute(WebKeys.CALENDAR_BOOKING);
 
+CalendarBooking parentCalendarBooking = null;
+if (calendarBooking != null) {
+    parentCalendarBooking = calendarBooking.getParentCalendarBooking();
+}
+
 long calendarBookingId = BeanParamUtil.getLong(calendarBooking, request, "calendarBookingId");
 
 long calendarId = BeanParamUtil.getLong(calendarBooking, request, "calendarId", userDefaultCalendar.getCalendarId());
