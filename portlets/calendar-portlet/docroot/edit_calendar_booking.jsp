@@ -54,11 +54,6 @@ redirect = HttpUtil.setParameter(redirect, renderResponse.getNamespace() + "curr
 
 CalendarBooking calendarBooking = (CalendarBooking)request.getAttribute(WebKeys.CALENDAR_BOOKING);
 
-CalendarBooking parentCalendarBooking = null;
-if (calendarBooking != null) {
-    parentCalendarBooking = calendarBooking.getParentCalendarBooking();
-}
-
 long calendarBookingId = BeanParamUtil.getLong(calendarBooking, request, "calendarBookingId");
 
 long calendarId = BeanParamUtil.getLong(calendarBooking, request, "calendarId", userDefaultCalendar.getCalendarId());
@@ -226,12 +221,23 @@ List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getC
                 </aui:select>
 
                 <!-- Food and Drinks -->
+
+                <!-- 
+                    _foodAndDrinksId is a mock property to control how to show the value of Food And Drinks. Parent bookings can change the value,
+                        child bookings show the Food and Drinks value of their parent
+                    foodAndDrinksId stores the real value of the property
+
+                    When a new value is selected in the combobox, the value of foodAndDrinksId is updated via Javascript
+                -->
                 <% 
                     Map<Long, String> mapFoodAndDrinks = CalendarBookingLocalServiceUtil.getFoodAndDrinksMap(); 
-                    long selectedFoodAndDrinksId = calendarBooking != null ? calendarBooking.getFoodAndDrinksId() : 0L;
+                    CalendarBooking parentCalendarBooking = calendarBooking != null ? calendarBooking.getParentCalendarBooking() : null;
+                    long selectedFoodAndDrinksId = parentCalendarBooking != null ? parentCalendarBooking.getFoodAndDrinksId() : 0L;
                 %>
+    
+	            <aui:input name="foodAndDrinksId" type="hidden" value="<%= selectedFoodAndDrinksId %>" />
 
-                <aui:select label="Food And Drinks" name="foodAndDrinksId" disabled="<%= disabled %>">
+                <aui:select label="Food And Drinks" name="_foodAndDrinksId" disabled="<%= disabled %>">
 
 					<%
 					    for (Long foodAndDrinksId : mapFoodAndDrinks.keySet()) {
@@ -637,6 +643,21 @@ List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getC
                         removeCalendar(calendarId);
                     }
                 }
+			}
+		);
+
+        /**
+        * Update real value of foodAndDrinks
+        */
+		A.one('#<portlet:namespace />_foodAndDrinksId').on(
+			'change',
+			function(event) {
+                var equipments, options, option, calendarId;
+
+                foodAndDrinksId = document.getElementById('<portlet:namespace />foodAndDrinksId');
+                _foodAndDrinksId = document.getElementById('<portlet:namespace />_foodAndDrinksId');
+
+                foodAndDrinksId.value = _foodAndDrinksId.value;
 			}
 		);
 
