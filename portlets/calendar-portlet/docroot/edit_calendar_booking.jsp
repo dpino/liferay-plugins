@@ -638,7 +638,7 @@ List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getC
                     option = options[i]; 
                     calendarId = parseInt(option.value, 10);
                     if (option.selected) {
-                        addCalendarToPending(calendarId);
+                        addEquipmentCalendar(calendarId);
                     } else {
                         removeCalendar(calendarId);
                     }
@@ -670,8 +670,13 @@ List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getC
             );
         }
 
-        function addCalendarToPending(calendarId) {
+        function addEquipmentCalendar(calendarId) {
             var calendarJSON = Liferay.CalendarUtil.getCalendarJSONById(<%= CalendarUtil.toCalendarsJSONArray(themeDisplay, equipmentCalendars) %>, calendarId);
+            addCalendarToPending(calendarJSON);
+        }
+
+        function addCalendarToPending(calendarJSON) {
+            var calendarId = calendarJSON.calendarId;
             var canAdd = true;
 
             // If it's already added, return
