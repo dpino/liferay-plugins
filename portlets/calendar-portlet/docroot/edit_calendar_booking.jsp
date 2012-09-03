@@ -144,6 +144,8 @@ long foodAndDrinksCalendarId = 0;
 Calendar foodAndDrinkCalendar = foodAndDrinksCalendars.get(0);
 foodAndDrinksCalendarId = foodAndDrinkCalendar.getCalendarId();
 
+CalendarBooking parentCalendarBooking = calendarBooking != null ? calendarBooking.getParentCalendarBooking() : null;
+
 %>
 
 <liferay-ui:header
@@ -193,13 +195,10 @@ foodAndDrinksCalendarId = foodAndDrinkCalendar.getCalendarId();
 			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="calendarBookingDetailsPanel" persistState="<%= true %>" title="details">
 
                 <!-- Location -->
-				<aui:select label="location" name="calendarId" disabled="<%= disabled %>">
+				<aui:select label="location" id="sbLocation" name="calendarId" disabled="<%= disabled %>">
 
 					<%
 					for (Calendar curCalendar : locationCalendars) {
-						if ((calendarBooking != null) && (curCalendar.getCalendarId() != calendarId) && (CalendarBookingLocalServiceUtil.getCalendarBookingsCount(curCalendar.getCalendarId(), calendarBooking.getParentCalendarBookingId()) > 0)) {
-							continue;
-						}
                         String label = curCalendar.getName(locale);
                         label = label.replaceFirst("Location -", "").trim();
 					%>
@@ -244,7 +243,6 @@ foodAndDrinksCalendarId = foodAndDrinkCalendar.getCalendarId();
                 -->
                 <% 
                     Map<Long, String> mapFoodAndDrinks = CalendarBookingLocalServiceUtil.getFoodAndDrinksMap(); 
-                    CalendarBooking parentCalendarBooking = calendarBooking != null ? calendarBooking.getParentCalendarBooking() : null;
                     long selectedFoodAndDrinksId = parentCalendarBooking != null ? parentCalendarBooking.getFoodAndDrinksId() : 0L;
                 %>
     
@@ -341,6 +339,31 @@ foodAndDrinksCalendarId = foodAndDrinkCalendar.getCalendarId();
 		<aui:button href="<%= redirect %>" type="cancel" />
 	</aui:button-row>
 </aui:form>
+
+<%
+
+    // If edited Event is a child booking, select the Location Calendar of the parent booking
+    if (parentCalendarBooking != null) { 
+        long parentCalendarId = parentCalendarBooking.getCalendarId();
+%>
+        <aui:script>
+
+            AUI().ready(function() {
+                var sbLocation, options, option, i;
+                var parentCalendarId = <%= parentCalendarId %>;
+
+                sbLocation = document.getElementById('<portlet:namespace />sbLocation');
+                options = sbLocation.options;
+                for (i = 0; i < options.length; i++) {
+                    option = options[i];
+                    if (option.value == parentCalendarId) {
+                        option.selected = true; 
+                    }
+                }
+            });
+
+        </aui:script>
+<%  } %>
 
 <aui:script>
 	function <portlet:namespace />filterCalendarBookings(calendarBooking) {
