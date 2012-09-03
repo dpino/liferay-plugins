@@ -30,7 +30,6 @@ import com.liferay.calendar.model.Calendar;
 import com.liferay.calendar.model.CalendarBooking;
 import com.liferay.calendar.model.CalendarEvent;
 import com.liferay.calendar.model.CalendarResource;
-import com.liferay.calendar.model.FoodAndDrinks;
 import com.liferay.calendar.model.impl.CalendarBookingImpl;
 import com.liferay.portal.kernel.dao.orm.Query;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
@@ -351,17 +350,17 @@ public class CalendarBookingFinderImpl
 			List<CalendarBooking> bookings = query.list();
 
 			// Create map with id of the booking and list of people that are part of that booking
-			Map<Long, List<String>> eventAttendants = new HashMap<Long, List<String>>();
+			HashMap<Long, Set<String>> eventAttendants = new HashMap<Long, Set<String>>();
 			for (CalendarBooking each: bookings) {
 				String name = findUserNameByCalendarResource(each.getCalendarResourceId());
 				if (!name.isEmpty()) {
 					long key = each.getParentCalendarBookingId();
-					List<String> attendants = eventAttendants.get(key);
+					Set<String> attendants = eventAttendants.get(key);
 					if (attendants == null) {
-						attendants = new ArrayList<String>();
+						attendants = new HashSet<String>();
 					}
 					attendants.add(name);
-					eventAttendants.put(key, attendants);
+					eventAttendants.put(Long.valueOf(key), attendants);
 				}
 			}
 			
@@ -369,14 +368,14 @@ public class CalendarBookingFinderImpl
 			// what time is being used and people attending
 			for(CalendarBooking each: bookings) {
 				if (!isUserCalendar(locale, each.getCalendar())) {
-					List<String> attendants = eventAttendants.get(each
+					Set<String> attendants = eventAttendants.get(each
 							.getParentCalendarBookingId());
 					CalendarEvent event = new CalendarEvent(each.getUserId(),
 							each.getUserName(), each.getTitle(),
 							each.getStartDate(), each.getEndDate(),
 							each.getCalendarResourceId(), each
 									.getCalendarResource().getName(),
-							attendants);
+							new ArrayList(attendants));
 					result.add(event);
 				}
 			}
