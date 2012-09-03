@@ -20,8 +20,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import javax.portlet.PortletRequest;
 
 /**
- * @author Eduardo Lundgren
- * @author Fabio Pezzutto
+ * @author Diego Pino García <dpino@igalia.com>
  */
 public class CalendarEventsListsDisplayTerms extends DisplayTerms {
 
@@ -63,4 +62,14 @@ public class CalendarEventsListsDisplayTerms extends DisplayTerms {
 	protected String endDate;
 	protected String attendants;
 
+	@Override
+	public boolean isAdvancedSearch() {
+		return true;
+	}
+
+	@Override
+	public boolean isAndOperator() {
+		return true;
+	}
+	
 }

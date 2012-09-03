@@ -16,6 +16,19 @@
 
 <%@ include file="/init.jsp" %>
 
+<%!
+
+public String toJSONArray(String[] array) {
+    return array != null ? String.format("[%s]", StringUtil.merge(array, ",")) : "[]";
+}
+
+%>
+
+<%
+String key = "toggle_id_calendar_events_lists_search";
+SessionClicks.put(request, key, "advanced");
+%>
+
 <%
 
 final java.text.SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -49,13 +62,14 @@ if (_endDate != null && !_endDate.isEmpty()) {
 }
 
 List<CalendarResource> searchableResources = CalendarResourceUtil.getSearchableCalendarResources(themeDisplay.getCompanyId());
+String[] selectedResources = renderRequest.getParameterValues("resources");
 
 %>
 
 <liferay-ui:search-toggle
 	buttonLabel="search"
 	displayTerms="<%= displayTerms %>"
-	id="toggle_id_calendar_resource_search"
+	id="toggle_id_calendar_events_lists_search"
 >
 	<aui:fieldset>
 
@@ -72,28 +86,57 @@ List<CalendarResource> searchableResources = CalendarResourceUtil.getSearchableC
         </div>
 
         <!-- CalendarResources -->
-        <aui:select label="Calendar Resource" name="<%= searchTerms.RESOURCES %>" multiple="true" style="width: 400px;">
+        <aui:select label="Calendar Resource" id="resources" name="<%= searchTerms.RESOURCES %>" multiple="true" style="width: 400px;">
             <% for (CalendarResource each : searchableResources) { %>
                 <aui:option value="<%= each.getCalendarResourceId() %>"><%= each.getName(locale) %></aui:option>
             <% } %>
         </aui:select>
 
+
+        <aui:script>
+
+            AUI().use('aui-datepicker', function(A) {
+               var simpleDatepicker1 = new A.DatePicker({
+                 trigger: '#<%= searchTerms.START_DATE %>',
+               }).render('#startDatePicker');
+               A.one('#<%= searchTerms.START_DATE %>').val("<%= sdf.format(startDate) %>");
+
+               var simpleDatepicker1 = new A.DatePicker({
+                trigger: '#<%= searchTerms.END_DATE %>',
+               }).render('#endDatePicker');
+               A.one('#<%= searchTerms.END_DATE %>').val("<%= sdf.format(endDate) %>");
+            });
+
+            AUI().ready(function() {
+                var resources, options, option, i;
+                var selectedResources = <%= toJSONArray(selectedResources) %>;
+
+                resources = document.getElementById('<portlet:namespace />resources');
+                options = resources.options;
+                for (i = 0; i < options.length; i++) {
+                    var option = options[i];
+                    if (include(selectedResources, option.value)) {
+                        option.selected = true;
+                    }
+                }
+            });
+
+            function include(arr, value) {
+                var i = 0;
+                while (i++ < arr.length) {
+                    if (arr[i] == value) return true;
+                }
+                return false;
+            }
+
+        </aui:script>
+
 	</aui:fieldset>
 
-    <aui:script>
-
-        AUI().use('aui-datepicker', function(A) {
-           var simpleDatepicker1 = new A.DatePicker({
-             trigger: '#<%= searchTerms.START_DATE %>',
-           }).render('#startDatePicker');
-           A.one('#<%= searchTerms.START_DATE %>').val("<%= sdf.format(startDate) %>");
-
-           var simpleDatepicker1 = new A.DatePicker({
-            trigger: '#<%= searchTerms.END_DATE %>',
-           }).render('#endDatePicker');
-           A.one('#<%= searchTerms.END_DATE %>').val("<%= sdf.format(endDate) %>");
-        });
-
-    </aui:script>
+<style type="text/css">
+.toggle_id_calendar_events_lists_searchtoggle-link {
+    display: none;
+}
+</style>
 
 </liferay-ui:search-toggle>
