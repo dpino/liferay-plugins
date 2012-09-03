@@ -133,14 +133,8 @@ List<Calendar> locationCalendars = CalendarServiceUtil.search(themeDisplay.getCo
 List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, "%Equipment%", true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
 List<Calendar> foodAndDrinksCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, "%Food%", true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
 
-/*
-equipmentCalendarsJSONArray = CalendarUtil.toCalendarBookingsJSONArray(themeDisplay, equipmentCalendars); 
-foodAndDrinksCalendarsJSONArray = CalendarUtil.toCalendarBookingsJSONArray(themeDisplay, foodAndDrinksCalendars); 
-*/
-
 // Get Food And Drinks Calendar
 long foodAndDrinksCalendarId = 0;
-// if (foodAndDrinksCalendars.isEmpty()) throw new SystemException("A FoodAndDrinks CalendarResource must be created");
 Calendar foodAndDrinkCalendar = foodAndDrinksCalendars.get(0);
 foodAndDrinksCalendarId = foodAndDrinkCalendar.getCalendarId();
 
