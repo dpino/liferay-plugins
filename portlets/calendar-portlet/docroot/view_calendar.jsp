@@ -296,60 +296,6 @@ JSONArray otherUserCalendarsJSONArray = CalendarUtil.toCalendarsJSONArray(themeD
 		}
 	).render();
 
-	window.<portlet:namespace />equipmentCalendarList = new Liferay.CalendarList(
-		{
-			after: {
-				calendarsChange: function(event) {
-					syncVisibleCalendarsMap();
-				}
-			},
-			boundingBox: '#<portlet:namespace />equipmentCalendarList',
-
-			<%
-			updateCalendarsJSONArray(request, equipmentCalendarsJSONArray);
-			%>
-
-			calendars: <%= equipmentCalendarsJSONArray %>,
-			simpleMenu: window.<portlet:namespace />calendarsMenu
-		}
-	).render();
-
-	window.<portlet:namespace />otherCalendarList = new Liferay.CalendarList(
-		{
-			after: {
-				calendarsChange: function(event) {
-					syncVisibleCalendarsMap();
-				}
-			},
-			boundingBox: '#<portlet:namespace />otherCalendarList',
-
-			<%
-		    updateCalendarsJSONArray(request, otherCalendarsJSONArray);
-	        %>
-
-			calendars: <%=otherCalendarsJSONArray%>,
-			simpleMenu: window.<portlet:namespace />calendarsMenu
-		}
-	).render();
-
-	window.<portlet:namespace />otherUserCalendarList = new Liferay.CalendarList(
-		{
-			after: {
-				calendarsChange: function(event) {
-					syncVisibleCalendarsMap();
-				}
-			},
-			boundingBox: '#<portlet:namespace />otherUserCalendarList',
-
-			<%
-			updateCalendarsJSONArray(request, otherUserCalendarsJSONArray);
-			%>
-
-			calendars: <%= otherUserCalendarsJSONArray %>,
-			simpleMenu: window.<portlet:namespace />calendarsMenu
-		}
-	).render();
-
 	window.<portlet:namespace />siteCalendarList = new Liferay.CalendarList(
 		{
 			after: {
