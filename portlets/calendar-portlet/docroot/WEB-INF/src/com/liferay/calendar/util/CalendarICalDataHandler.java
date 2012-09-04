@@ -332,13 +332,13 @@ public class CalendarICalDataHandler implements CalendarDataHandler {
 				serviceContext);
 		}
 		else {
-			CalendarBookingServiceUtil.updateCalendarBooking(
+		   	CalendarBookingServiceUtil.updateCalendarBooking(
 				calendarBooking.getCalendarBookingId(), calendarId,
 				childCalendarIdsArray, titleMap, descriptionMap, locationString,
 				startDate.getTime(), endDate.getTime(), allDay, recurrence,
 				firstReminder, firstReminderType, secondReminder,
 				secondReminderType, calendarBooking.getStatus(),
-				serviceContext);
+				calendarBooking.getFoodAndDrinksId(), serviceContext);
 		}
 	}
 
