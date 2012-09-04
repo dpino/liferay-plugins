@@ -451,6 +451,19 @@ if (parentCalendarBooking != null) {
 				},
 				id: 'check-availability'
 			}
+			<c:if test="<%= invitable %>">
+				,{
+					caption: '<liferay-ui:message key="remove" />',
+					fn: function(event) {
+						var instance = this;
+
+						var calendarList = instance.get('host');
+
+						removeCalendarResource(calendarList, calendarList.activeItem, instance);
+					},
+					id: 'remove'
+				}
+			</c:if>
 		],
 		<c:if test="<%= invitable %>">
 			on: {
