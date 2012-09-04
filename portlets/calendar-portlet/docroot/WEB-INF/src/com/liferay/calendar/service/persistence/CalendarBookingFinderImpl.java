@@ -25,22 +25,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
 
 import com.liferay.calendar.model.Calendar;
 import com.liferay.calendar.model.CalendarBooking;
 import com.liferay.calendar.model.CalendarEvent;
 import com.liferay.calendar.model.CalendarResource;
-import com.liferay.calendar.model.FoodAndDrinks;
 import com.liferay.calendar.model.impl.CalendarBookingImpl;
-import com.liferay.calendar.service.CalendarServiceUtil;
 import com.liferay.portal.kernel.dao.orm.Query;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -48,16 +38,12 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.util.LocaleUtil;
-import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.User;
 import com.liferay.portal.security.permission.InlineSQLHelperUtil;
-import com.liferay.portal.service.UserServiceUtil;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.util.dao.orm.CustomSQLUtil;
 
@@ -456,56 +442,6 @@ public class CalendarBookingFinderImpl
 		}
 		
 	}
-
-	public int findCalendarEventsCount(long userId, Long startDate,
-			Long endDate, long[] calendarResourceIds, Locale locale) throws SystemException {
-		return findCalendarEvents(userId, startDate, endDate,
-				calendarResourceIds, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-				locale).size();
-	}
-	
-	public Map<Long, String> getFoodAndDrinksMap() throws SystemException {
-		Map<Long, String> result = new HashMap<Long, String>();
-		result.put(Long.valueOf(0), "NONE");
-
-		Session session = null;		
-		try {
-			session = openSession();
-
-			String sql = "SELECT id, name FROM FoodAndDrinks ORDER BY name";
-			SQLQuery query = session.createSQLQuery(sql);
-			query.addScalar("id", Type.LONG);
-			query.addScalar("name", Type.STRING);
-			
-			List<Object[]> list = (List<Object[]>) QueryUtil.list(query,
-					getDialect(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-			for (Object[] each: list) {
-				result.put((Long) each[0], (String) each[1]);
-			}
-		} catch (Exception e) {
-			throw new SystemException(e);			
-		} finally {
-			session.close();
-		}
-		return result;
-	}
-	
-	public String getFoodAndDrinksName(long id) throws SystemException {
-		Session session = null;		
-		try {
-			session = openSession();
-
-			String sql = "SELECT name FROM FoodAndDrinks WHERE id = %d";
-			SQLQuery query = session.createSQLQuery(String.format(sql, id));
-			query.addScalar("name", Type.STRING);
-			Object[] object = (Object[]) query.uniqueResult();
-			return object != null ? (String) object[0] : "";
-		} catch (Exception e) {
-			throw new SystemException(e);
-		} finally {
-			session.close();
-		}
-	}
 	
 	private SimpleDateFormat sdf = new SimpleDateFormat();
 	
@@ -514,7 +450,6 @@ public class CalendarBookingFinderImpl
 
 	    calendar.setTime(now);
 	    String endDate = ""; 
-//	    renderRequest.getParamenter("endDate");
 	    if (endDate != null && !endDate.isEmpty()) {
 	        return sdf.parse(endDate);
 	    } else {
@@ -522,159 +457,7 @@ public class CalendarBookingFinderImpl
 	            calendar.getActualMaximum(java.util.Calendar.DATE));
 	        return calendar.getTime();
 	    }
-	}
-
-	
-	public List<CalendarEvent> findCalendarEvents(long userId, Long startDate,
-			Long endDate, long[] calendarResourceIds, int start, int end,
-			Locale locale) throws SystemException {
-		
-		Session session = null;
-		
-		List<CalendarEvent> result = new ArrayList<CalendarEvent>();
-		try {
-			session = openSession();
-			
-			String sql = "FROM CalendarBooking WHERE userId = :userId";
-			if (startDate != null && startDate != 0) {
-				sql += String.format(" AND startDate >= %d", startDate);
-			}
-			if (endDate != null && endDate != 0) {
-				sql += String.format(" AND endDate <= %d", endDate);				
-			}
-			if (calendarResourceIds == null) {
-				// FIXME: Replace for CalendarResourceUtil.getSearchableCalendarResources(companyId);
-				calendarResourceIds = onlyIds(getNotUserCalendarResources(locale));
-			}
-			sql += String.format(" AND calendarResourceId IN (%s)",
-					StringUtil.merge(calendarResourceIds, ","));
-			
-			Query query = session.createQuery(sql);
-			query.setLong("userId", userId);
-			
-			List<CalendarBooking> parentCalendarBookings = query.list();
-			if (parentCalendarBookings.isEmpty()) return result;
-			
-			sql = String
-					.format("FROM CalendarBooking WHERE parentCalendarBookingId IN (%s)",
-							getParentCalendarIds(parentCalendarBookings));
-			query = session.createQuery(sql);
-			
-			QueryUtil.list(query, getDialect(), start, end);
-			List<CalendarBooking> bookings = query.list();
-
-			// Create map with id of the booking and list of people that are part of that booking
-			HashMap<Long, Set<String>> eventAttendants = new HashMap<Long, Set<String>>();
-			for (CalendarBooking each: bookings) {
-				String name = findUserNameByCalendarResource(each.getCalendarResourceId());
-				if (!name.isEmpty()) {
-					long key = each.getParentCalendarBookingId();
-					Set<String> attendants = eventAttendants.get(key);
-					if (attendants == null) {
-						attendants = new HashSet<String>();
-					}
-					attendants.add(name);
-					eventAttendants.put(Long.valueOf(key), attendants);
-				}
-			}
-			
-			// For each booked resource create entity with name of the resource,
-			// what time is being used and people attending
-			for(CalendarBooking each: bookings) {
-				if (!isUserCalendar(locale, each.getCalendar())) {
-					Set<String> attendants = eventAttendants.get(each
-							.getParentCalendarBookingId());
-					CalendarEvent event = new CalendarEvent(each.getUserId(),
-							each.getUserName(), each.getTitle(),
-							each.getStartDate(), each.getEndDate(),
-							each.getCalendarResourceId(), each
-									.getCalendarResource().getName(),
-							new ArrayList(attendants));
-					result.add(event);
-				}
-			}
-			
-			return result;			
-		}
-		catch (Exception e) {
-			throw new SystemException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-		
-	}
-	
-	private long[] onlyIds(List<CalendarResource> list) {
-		long[] result = new long[list.size()];
-		int i = 0;
-		for (CalendarResource each: list) {
-			result[i++] = each.getCalendarResourceId();
-		}
-		return result;
-	}
-
-	private boolean isUserCalendar(Locale locale, Calendar calendar) throws SystemException {
-		return calendar.getName(locale).equals(calendar.getUserName());
-	}
-	
-	/**
-	 * Returns all {@link CalendarResource} that don't represent the User's
-	 * default {@link CalendarResource}
-	 * 
-	 * For example, user 'John Smith' has a {@link CalendarResource} called
-	 * 'John Smith', so that {@link CalendarResource} won't be in the list
-	 * 
-	 * @param locale
-	 * @return
-	 * @throws SystemException
-	 */
-	private List<CalendarResource> getNotUserCalendarResources(Locale locale) throws SystemException {
-		List<CalendarResource> result = new ArrayList<CalendarResource>();
-		Session session = null;
-		try {
-			session = openSession();
-			Query query = session.createQuery("FROM Calendar");
-			List<Calendar> calendars = query.list();
-			for (Calendar each: calendars) {
-				if (!each.getName(locale).equals(each.getUserName())) {
-					result.add(each.getCalendarResource());
-				}
-			}
-			return result;
-		} catch (Exception e) {
-			throw new SystemException(e);
-		} finally {
-			session.close();			
-		}
-	}
-	
-	private String getParentCalendarIds(List<CalendarBooking> calendarBookings) {		
-		Set<Long> ids = new HashSet<Long>();
-		for (CalendarBooking each: calendarBookings) {
-			ids.add(each.getParentCalendarBookingId());
-		}
-		return StringUtil.merge(ids, ",");
-	}
-
-	private String findUserNameByCalendarResource(long calendarResourceId) throws SystemException {
-		Session session = null;
-		
-		try {
-			session = openSession();
-			
-			String sql = "FROM Calendar WHERE calendarResourceId = :calendarResourceId";
-			Query query = session.createQuery(sql);
-			query.setLong("calendarResourceId", calendarResourceId);
-			Calendar calendar = (Calendar) query.uniqueResult();
-			return (calendar != null) ? calendar.getUserName() : null;
-		} catch (Exception e) {
-			throw new SystemException(e);			
-		} finally {
-			closeSession(session);
-		}
-		
-	}
+	}		
 
 	public List<CalendarBooking> findByFutureReminders(long startDate)
 		throws SystemException {

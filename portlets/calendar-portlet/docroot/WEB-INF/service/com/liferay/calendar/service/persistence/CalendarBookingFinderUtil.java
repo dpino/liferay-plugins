@@ -155,11 +155,6 @@ public class CalendarBookingFinderUtil {
 		return getFinder().getFoodAndDrinksName(id);
 	}
 
-	public static java.util.Date getEndDate(java.util.Date now)
-		throws java.text.ParseException {
-		return getFinder().getEndDate(now);
-	}
-
 	public static java.util.List<com.liferay.calendar.model.CalendarEvent> findCalendarEvents(
 		long userId, java.lang.Long startDate, java.lang.Long endDate,
 		long[] calendarResourceIds, int start, int end, java.util.Locale locale)
@@ -167,6 +162,11 @@ public class CalendarBookingFinderUtil {
 		return getFinder()
 				   .findCalendarEvents(userId, startDate, endDate,
 			calendarResourceIds, start, end, locale);
+	}
+
+	public static java.util.Date getEndDate(java.util.Date now)
+		throws java.text.ParseException {
+		return getFinder().getEndDate(now);
 	}
 
 	public static java.util.List<com.liferay.calendar.model.CalendarBooking> findByFutureReminders(
