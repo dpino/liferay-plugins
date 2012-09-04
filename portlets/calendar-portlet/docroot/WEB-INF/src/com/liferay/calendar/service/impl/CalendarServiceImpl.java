@@ -249,8 +249,6 @@ public class CalendarServiceImpl extends CalendarServiceBaseImpl {
 
     public List<Calendar> getOtherCalendars(long companyId) throws PortalException, SystemException {
         List<Calendar> result = new ArrayList<Calendar>();
-        addCalendarIfExists(result, findCalendarByName(companyId, HOLIDAYS));
-        addCalendarIfExists(result, findCalendarByName(companyId, SICK));
         addCalendarIfExists(result, findCalendarByName(companyId, FOOD_AND_DRINKS));
         return result;
     }
