@@ -138,6 +138,12 @@ long foodAndDrinksCalendarId = 0;
 Calendar foodAndDrinkCalendar = foodAndDrinksCalendars.get(0);
 foodAndDrinksCalendarId = foodAndDrinkCalendar.getCalendarId();
 
+long parentCalendarId = 0;
+CalendarBooking parentCalendarBooking = calendarBooking != null ? calendarBooking.getParentCalendarBooking() : null;
+if (parentCalendarBooking != null) {
+    parentCalendarId = parentCalendarBooking.getCalendarId();
+}
+
 %>
 
 <liferay-ui:header
@@ -186,22 +192,25 @@ foodAndDrinksCalendarId = foodAndDrinkCalendar.getCalendarId();
 		<liferay-ui:panel-container extended="<%= false %>" id="calendarBookingDetailsPanelContainer" persistState="<%= true %>">
 			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="calendarBookingDetailsPanel" persistState="<%= true %>" title="details">
 
+				<aui:input type="hidden" name="calendarId" />
+
                 <!-- Location -->
-				<aui:select label="location" name="calendarId" disabled="<%= disabled %>">
+				<aui:select label="location" name="_calendarId" disabled="<%= disabled %>">
 
 					<%
 					for (Calendar curCalendar : locationCalendars) {
-						if ((calendarBooking != null) && (curCalendar.getCalendarId() != calendarId) && (CalendarBookingLocalServiceUtil.getCalendarBookingsCount(curCalendar.getCalendarId(), calendarBooking.getParentCalendarBookingId()) > 0)) {
-							continue;
-						}
                         String label = curCalendar.getName(locale);
                         label = label.replaceFirst("Location -", "").trim();
-					%>
 
-						<aui:option selected="<%= curCalendar.getCalendarId() == calendarId %>" value="<%= curCalendar.getCalendarId() %>"><%= label %></aui:option>
-
-					<%
-					}
+                        if (parentCalendarBooking != null) { %>
+			                <aui:option selected="<%= curCalendar.getCalendarId() == parentCalendarId %>" value="<%= curCalendar.getCalendarId() %>"><%= label %></aui:option>
+                    <%  
+                        } else {
+                    %>
+			                <aui:option selected="<%= curCalendar.getCalendarId() == calendarId %>" value="<%= curCalendar.getCalendarId() %>"><%= label %></aui:option>
+                    <%
+                        }
+                    }
 					%>
 
 				</aui:select>
@@ -238,7 +247,6 @@ foodAndDrinksCalendarId = foodAndDrinkCalendar.getCalendarId();
                 -->
                 <% 
                     Map<Long, String> mapFoodAndDrinks = CalendarBookingLocalServiceUtil.getFoodAndDrinksMap(); 
-                    CalendarBooking parentCalendarBooking = calendarBooking != null ? calendarBooking.getParentCalendarBooking() : null;
                     long selectedFoodAndDrinksId = parentCalendarBooking != null ? parentCalendarBooking.getFoodAndDrinksId() : 0L;
                 %>
     
@@ -639,6 +647,23 @@ foodAndDrinksCalendarId = foodAndDrinkCalendar.getCalendarId();
                 }
 			}
 		);
+
+
+        /**
+        * Update real value of calendarId
+        */
+		A.one('#<portlet:namespace />_calendarId').on(
+			'change',
+			function(event) {
+                var _calendarId, calendarId;
+
+                _calendarId = document.getElementById('<portlet:namespace />_calendarId');
+                calendarId = document.getElementById('<portlet:namespace />calendarId');
+
+                calendarId.value = _calendarId.value;
+			}
+		);
+
 
         /**
         * Update real value of foodAndDrinks
