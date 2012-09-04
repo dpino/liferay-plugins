@@ -12,7 +12,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 public class CalendarBookingUtil {
 
 	public static boolean isDisabled(CalendarBooking calendarBooking) {
-		if (calendarBooking == null) return true;
+		if (calendarBooking == null) return false;
 		try {
 			CalendarBooking parentCalendarBooking = calendarBooking
 					.getParentCalendarBooking();
