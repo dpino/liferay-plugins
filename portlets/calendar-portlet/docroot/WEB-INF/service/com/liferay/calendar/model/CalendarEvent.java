@@ -2,8 +2,8 @@ package com.liferay.calendar.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -16,7 +16,7 @@ import com.liferay.portal.kernel.util.StringUtil;
  * @author Diego Pino García <dpino@igalia.com>
  *
  */
-public class CalendarEvent {
+public class CalendarEvent {	
 
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy - hh:mm a");
 	
@@ -27,11 +27,12 @@ public class CalendarEvent {
 	private long endDate;
 	private long calendarResourceId;
 	private String calendarResourceName;
-	private List<String> attendants;
+	private Set<String> attendants;
+	private Set<String> resources;
 	
 	public CalendarEvent(long userId, String userName, String title, long startDate,
 			long endDate, long calendarResourceId, String calendarResourceName,
-			List<String> attendants) {
+			Set<String> attendants, Set<String> resources) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -41,6 +42,7 @@ public class CalendarEvent {
 		this.calendarResourceId = calendarResourceId;
 		this.calendarResourceName = calendarResourceName;
 		this.attendants = attendants;
+		this.resources = resources;
 	}	
 
 	public long getUserId() {
@@ -115,12 +117,16 @@ public class CalendarEvent {
 		this.calendarResourceName = calendarResourceName;
 	}
 
-	public List<String> getAttendants() {
+	public Set<String> getAttendants() {
 		return attendants;
 	}
 
-	public void setAttendants(List<String> attendants) {
+	public void setAttendants(Set<String> attendants) {
 		this.attendants = attendants;
+	}
+	
+	public Set<String> getResources() {
+		return resources;
 	}
 	
 	public String getCalendar() {
@@ -134,6 +140,10 @@ public class CalendarEvent {
 	public String getEndDateStr() {
 		return sdf.format(new Date(endDate));		
 	}
+
+	public String getResourcesStr() {
+		return StringUtil.merge(resources, ",");
+	}
 	
 	public String getAttendantsStr() {
 		return StringUtil.merge(attendants, ",");
@@ -146,6 +156,7 @@ public class CalendarEvent {
 				+ ", startDate=" + startDate + ", endDate=" + endDate
 				+ ", calendarResourceId=" + calendarResourceId
 				+ ", calendarResourceName=" + calendarResourceName
+				+ ", resources=" + resources
 				+ ", attendants=" + attendants + "]";
 	}	
 

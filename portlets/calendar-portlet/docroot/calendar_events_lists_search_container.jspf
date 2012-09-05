@@ -69,6 +69,11 @@
 		/>
 
 		<liferay-ui:search-container-column-text
+			name="Resources"
+			value="<%= calendarEvent.getResourcesStr() %>"
+		/>
+
+		<liferay-ui:search-container-column-text
 			name="Attendants"
 			value="<%= calendarEvent.getAttendantsStr() %>"
 		/>

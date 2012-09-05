@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -284,8 +285,7 @@ public class CalendarBookingFinderImpl
 			String sql = "SELECT name FROM FoodAndDrinks WHERE id = %d";
 			SQLQuery query = session.createSQLQuery(String.format(sql, id));
 			query.addScalar("name", Type.STRING);
-			Object[] object = (Object[]) query.uniqueResult();
-			return object != null ? (String) object[0] : "";
+			return (String) query.uniqueResult();
 		} catch (Exception e) {
 			throw new SystemException(e);
 		} finally {
@@ -330,38 +330,50 @@ public class CalendarBookingFinderImpl
 			QueryUtil.list(query, getDialect(), start, end);
 			List<CalendarBooking> bookings = query.list();
 
+			// Create map with id of the event and list resources used in that event
+			Map<Long, Set<String>> eventResources = new HashMap<Long, Set<String>>();
+			for (CalendarBooking each : bookings) {
+				if (isParent(each)) {
+					if (hasFoodAndDrinks(each)) {
+						safeInsert(eventResources, each.getParentCalendarBookingId(),
+								getFoodAndDrinksName(each.getFoodAndDrinksId()));						
+					}
+				} else {
+					String name = getCalendarResourceName(each, locale);
+					safeInsert(eventResources,
+							each.getParentCalendarBookingId(), name);
+				}
+			}
+			
 			// Create map with id of the booking and list of people that are part of that booking
 			Map<Long, Set<String>> eventAttendants = new HashMap<Long, Set<String>>();
 			for (CalendarBooking each: bookings) {
 				String name = findUserNameByCalendarResource(each.getCalendarResourceId());
 				if (!name.isEmpty()) {
-					long key = each.getParentCalendarBookingId();
-					Set<String> attendants = eventAttendants.get(key);
-					if (attendants == null) {
-						attendants = new HashSet<String>();
-					}
-					attendants.add(name);
-					eventAttendants.put(key, attendants);
+					safeInsert(eventAttendants,
+							each.getParentCalendarBookingId(), name);
 				}
 			}
 			
 			// For each booked resource create entity with name of the resource,
 			// what time is being used and people attending
-			for(CalendarBooking each: bookings) {
-				if (!isUserCalendar(locale, each.getCalendar())) {
-					Set<String> attendants = eventAttendants.get(each
-							.getParentCalendarBookingId());
+			for (CalendarBooking each: bookings) {
+				if (isParent(each)) {
+					long parentCalendarBookingId = each.getParentCalendarBookingId();
+					Set<String> attendants = eventAttendants.get(parentCalendarBookingId);
+					Set<String> resources = eventResources.get(parentCalendarBookingId);
+					
 					CalendarEvent event = new CalendarEvent(each.getUserId(),
 							each.getUserName(), each.getTitle(),
 							each.getStartDate(), each.getEndDate(),
 							each.getCalendarResourceId(), each
 									.getCalendarResource().getName(),
-							new ArrayList<String>(attendants));
+							attendants, resources);
 					result.add(event);
 				}
 			}
 			
-			return result;			
+			return result;
 		}
 		catch (Exception e) {
 			throw new SystemException(e);
@@ -372,6 +384,45 @@ public class CalendarBookingFinderImpl
 		
 	}
 	
+	private boolean hasFoodAndDrinks(CalendarBooking booking) {
+		return booking.getFoodAndDrinksId() != 0;
+	}
+
+	private String getCalendarResourceName(CalendarBooking booking, Locale locale) {
+		CalendarResource resource;
+		try {
+			resource = booking.getCalendarResource();
+			String name = resource.getName(locale);
+			if (name.startsWith("Equipment - ")) {
+				return name.replaceFirst("Equipment - ", "");
+			}
+			if (name.startsWith("Location - ")) {
+				return name.replaceFirst("Location - ", "");
+			}
+		} catch (PortalException e) {
+			e.printStackTrace();
+		} catch (SystemException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+
+	private boolean isParent(CalendarBooking calendarBooking) {
+		return calendarBooking.getParentCalendarBookingId() == calendarBooking
+				.getCalendarBookingId();
+	}
+	
+	private void safeInsert(Map<Long, Set<String>> map, long key, String value) {
+		Set<String> values = map.get(key);
+		if (values == null) {
+			values = new HashSet<String>();
+		}
+		if (value != null && !value.isEmpty()) {
+			values.add(value);
+			map.put(key, values);
+		}
+	}
+
 	private long[] onlyIds(List<CalendarResource> list) {
 		long[] result = new long[list.size()];
 		int i = 0;
@@ -379,10 +430,6 @@ public class CalendarBookingFinderImpl
 			result[i++] = each.getCalendarResourceId();
 		}
 		return result;
-	}
-
-	private boolean isUserCalendar(Locale locale, Calendar calendar) throws SystemException {
-		return calendar.getName(locale).equals(calendar.getUserName());
 	}
 	
 	/**
