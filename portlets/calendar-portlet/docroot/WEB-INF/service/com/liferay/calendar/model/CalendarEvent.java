@@ -142,11 +142,11 @@ public class CalendarEvent {
 	}
 
 	public String getResourcesStr() {
-		return StringUtil.merge(resources, ",");
+		return resources != null ? StringUtil.merge(resources, ",") : ""; 
 	}
 	
 	public String getAttendantsStr() {
-		return StringUtil.merge(attendants, ",");
+		return attendants != null ? StringUtil.merge(attendants, ",") : "";
 	}
 
 	@Override
