@@ -331,14 +331,14 @@ public class CalendarBookingFinderImpl
 			List<CalendarBooking> bookings = query.list();
 
 			// Create map with id of the booking and list of people that are part of that booking
-			Map<Long, List<String>> eventAttendants = new HashMap<Long, List<String>>();
+			Map<Long, Set<String>> eventAttendants = new HashMap<Long, Set<String>>();
 			for (CalendarBooking each: bookings) {
 				String name = findUserNameByCalendarResource(each.getCalendarResourceId());
 				if (!name.isEmpty()) {
 					long key = each.getParentCalendarBookingId();
-					List<String> attendants = eventAttendants.get(key);
+					Set<String> attendants = eventAttendants.get(key);
 					if (attendants == null) {
-						attendants = new ArrayList<String>();
+						attendants = new HashSet<String>();
 					}
 					attendants.add(name);
 					eventAttendants.put(key, attendants);
@@ -349,14 +349,14 @@ public class CalendarBookingFinderImpl
 			// what time is being used and people attending
 			for(CalendarBooking each: bookings) {
 				if (!isUserCalendar(locale, each.getCalendar())) {
-					List<String> attendants = eventAttendants.get(each
+					Set<String> attendants = eventAttendants.get(each
 							.getParentCalendarBookingId());
 					CalendarEvent event = new CalendarEvent(each.getUserId(),
 							each.getUserName(), each.getTitle(),
 							each.getStartDate(), each.getEndDate(),
 							each.getCalendarResourceId(), each
 									.getCalendarResource().getName(),
-							attendants);
+							new ArrayList<String>(attendants));
 					result.add(event);
 				}
 			}
