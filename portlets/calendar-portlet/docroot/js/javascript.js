@@ -707,6 +707,21 @@
 						CalendarUtil.message('');
 					},
 
+                    findCalendarIdByCalendarBookingId: function(calendarBookingId) {
+                        if (calendarBookingId == null) return null;
+                        var instance = this;
+                        var i, event, events;
+
+                        events = instance.get('events');
+                        for (i = 0; i < events.length; i++) {
+                            event = events[i];
+                            if (event.get('calendarBookingId') == calendarBookingId) {
+                                return event.get('calendarId');
+                            }
+                        }
+                        return null;
+                    },
+
 					_afterCurrentDateChange: function(event) {
 						var instance = this;
 
@@ -948,9 +963,37 @@
 						return newSchedulerEvent;
 					},
 
+                    getParentCalendarInfo: function() {
+                        var instance = this;
+                        var parentCalendar, isParent;
+                        var parentCalendarInfo = {
+                            calendarName: "",
+                            isParent: true
+                        };
+
+						var schedulerEvent = instance.get('event');
+                        if (schedulerEvent === undefined) {
+                            return parentCalendarInfo;
+                        }
+                        var scheduler = instance.get('scheduler');
+
+                        var parentCalendarId = scheduler.findCalendarIdByCalendarBookingId(
+                                schedulerEvent.get('parentCalendarBookingId'));
+
+                        if (parentCalendarId != null) {
+                            parentCalendar = CalendarUtil.availableCalendars[parentCalendarId];
+
+                            parentCalendarInfo.calendarName = parentCalendar.get('calendarResourceName');
+                            parentCalendarInfo.isParent = schedulerEvent.get('parentCalendarBookingId') == 
+                                schedulerEvent.get('calendarBookingId');
+                        }
+                        return parentCalendarInfo;
+                    },
+
 					getTemplateData: function() {
 						var instance = this;
 
+                        var parentCalendarInfo;
 						var editing = false;
 						var schedulerEvent = instance.get('event');
 
@@ -962,11 +1005,15 @@
 						var calendar = CalendarUtil.availableCalendars[schedulerEvent.get('calendarId')];
 						var permissions = calendar.get('permissions');
 
+                        parentCalendarInfo = instance.getParentCalendarInfo();
+
 						return A.merge(
 							SchedulerEventRecorder.superclass.getTemplateData.apply(this, arguments),
 							{
 								allDay: schedulerEvent.get('allDay'),
 								calendar: calendar,
+                                parentCalendar: parentCalendarInfo.calendarName,
+                                isParent: parentCalendarInfo.isParent,
 								editing: editing,
 								permissions: permissions,
 								status: CalendarUtil.getStatusLabel(schedulerEvent.get('status'))
