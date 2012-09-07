@@ -166,8 +166,9 @@
 							return A.Array.filter(
 								results,
 								function(item, index, collection) {
+                                    // Filter only users
                                     if (item.raw.userName == item.raw.calendarResourceName) {
-									    return !instance.visibleCalendars[item.raw.calendarId];
+                                        return !instance.availableCalendars[item.raw.calendarId];
                                     }
                                     return false;
 								}
