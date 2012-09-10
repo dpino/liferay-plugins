@@ -159,6 +159,7 @@ if (parentCalendarBooking != null) {
 <aui:form action="<%= updateCalendarBookingURL %>" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "updateCalendarBooking();" %>'>
 	<aui:input name="calendarBookingId" type="hidden" value="<%= calendarBookingId %>" />
 	<aui:input name="childCalendarIds" type="hidden" />
+    <aui:input name="calendarId" type="hidden" value="<%= calendarId %>" />
     <aui:input name="foodAndDrinksCalendarId" type="hidden" value="<%= foodAndDrinksCalendarId %>" />
 
 	<aui:model-context bean="<%= calendarBooking %>" model="<%= CalendarBooking.class %>" />
@@ -193,19 +194,15 @@ if (parentCalendarBooking != null) {
 			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="calendarBookingDetailsPanel" persistState="<%= true %>" title="details">
 
                 <!-- Location -->
-                <aui:select label="location" name="calendarId">
+                <aui:select label="location" name="_calendarId" disabled="<%= disabled %>">
                     
                     <%
                     for (Calendar curCalendar : locationCalendars) {
                         String label = curCalendar.getName(locale);
                         label = label.replaceFirst("Location -", "").trim();
-
-                        if ((calendarBooking != null) && (curCalendar.getCalendarId() != calendarId) && (CalendarBookingLocalServiceUtil.getCalendarBookingsCount(curCalendar.getCalendarId(), calendarBooking.getParentCalendarBookingId()) > 0)) {
-                            continue;
-                        }
                     %>  
 
-                        <aui:option selected="<%= curCalendar.getCalendarId() == calendarId %>" value="<%= curCalendar.getCalendarId() %>"><%= label %></aui:option>
+                        <aui:option selected="<%= curCalendar.getCalendarId() == parentCalendarId %>" value="<%= curCalendar.getCalendarId() %>"><%= label %></aui:option>
                     
                     <%
                     }
@@ -623,7 +620,7 @@ if (parentCalendarBooking != null) {
 	);
 
 	<c:if test="<%= invitable %>">
-		A.one('#<portlet:namespace />calendarId').on(
+		A.one('#<portlet:namespace />_calendarId').on(
 			'change',
 			function(event) {
 				var calendarId = parseInt(event.target.val(), 10);
@@ -640,6 +637,8 @@ if (parentCalendarBooking != null) {
 
 				<portlet:namespace />calendarListPending.add(calendarJSON);
 
+                var hiddenCalendarId = document.getElementById('<portlet:namespace />calendarId');
+                hiddenCalendarId.value = calendarId;
 				defaultCalendarId = calendarId;
 			}
 		);
