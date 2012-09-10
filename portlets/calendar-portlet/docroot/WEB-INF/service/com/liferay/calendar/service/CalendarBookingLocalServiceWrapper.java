@@ -299,7 +299,7 @@ public class CalendarBookingLocalServiceWrapper
 		java.lang.String location, long startDate, long endDate,
 		boolean allDay, java.lang.String recurrence, long firstReminder,
 		java.lang.String firstReminderType, long secondReminder,
-		java.lang.String secondReminderType,
+		java.lang.String secondReminderType, long foodAndDrinksId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -307,7 +307,7 @@ public class CalendarBookingLocalServiceWrapper
 			calendarId, childCalendarIds, parentCalendarBookingId, titleMap,
 			descriptionMap, location, startDate, endDate, allDay, recurrence,
 			firstReminder, firstReminderType, secondReminder,
-			secondReminderType, serviceContext);
+			secondReminderType, foodAndDrinksId, serviceContext);
 	}
 
 	public java.util.List<com.liferay.calendar.model.CalendarEvent> findCalendarEvents(

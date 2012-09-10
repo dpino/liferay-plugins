@@ -253,7 +253,8 @@ if (parentCalendarBooking != null) {
 
 					<%
 					    for (Long foodAndDrinksId : mapFoodAndDrinks.keySet()) {
-                            String label = mapFoodAndDrinks.get(foodAndDrinksId); %>
+                            String label = mapFoodAndDrinks.get(foodAndDrinksId); 
+                        %>
 						   <aui:option selected="<%= foodAndDrinksId == selectedFoodAndDrinksId %>" value="<%= foodAndDrinksId %>"><%= label %></aui:option>
                     <%  } %>
 

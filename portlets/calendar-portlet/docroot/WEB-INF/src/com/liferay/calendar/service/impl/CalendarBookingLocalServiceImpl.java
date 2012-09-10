@@ -48,14 +48,14 @@ import com.liferay.portal.service.ServiceContext;
 public class CalendarBookingLocalServiceImpl
 	extends CalendarBookingLocalServiceBaseImpl {
 
-	public CalendarBooking addCalendarBooking(
-			long userId, long calendarId, long[] childCalendarIds,
-			long parentCalendarBookingId, Map<Locale, String> titleMap,
-			Map<Locale, String> descriptionMap, String location, long startDate,
-			long endDate, boolean allDay, String recurrence, long firstReminder,
-			String firstReminderType, long secondReminder,
-			String secondReminderType, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+	public CalendarBooking addCalendarBooking(long userId, long calendarId,
+			long[] childCalendarIds, long parentCalendarBookingId,
+			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
+			String location, long startDate, long endDate, boolean allDay,
+			String recurrence, long firstReminder, String firstReminderType,
+			long secondReminder, String secondReminderType,
+			long foodAndDrinksId, ServiceContext serviceContext)
+			throws PortalException, SystemException {
 
 		// Calendar booking
 
@@ -99,6 +99,7 @@ public class CalendarBookingLocalServiceImpl
 		calendarBooking.setModifiedDate(serviceContext.getModifiedDate(now));
 		calendarBooking.setCalendarId(calendarId);
 		calendarBooking.setCalendarResourceId(calendar.getCalendarResourceId());
+		calendarBooking.setFoodAndDrinksId(foodAndDrinksId);
 
 		if (parentCalendarBookingId > 0) {
 			calendarBooking.setParentCalendarBookingId(parentCalendarBookingId);
@@ -535,7 +536,9 @@ public class CalendarBookingLocalServiceImpl
 				calendarBooking.getFirstReminder(),
 				calendarBooking.getFirstReminderType(),
 				calendarBooking.getSecondReminder(),
-				calendarBooking.getSecondReminderType(), serviceContext);
+				calendarBooking.getSecondReminderType(), 
+				Long.valueOf(0),
+				serviceContext);
 
 			try {
 				NotificationType notificationType = NotificationType.parse(

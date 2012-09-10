@@ -73,7 +73,7 @@ public interface CalendarBookingService extends BaseService, InvokableService {
 		java.lang.String location, long startDate, long endDate,
 		boolean allDay, java.lang.String recurrence, long firstReminder,
 		java.lang.String firstReminderType, long secondReminder,
-		java.lang.String secondReminderType,
+		java.lang.String secondReminderType, long foodAndDrinksId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;

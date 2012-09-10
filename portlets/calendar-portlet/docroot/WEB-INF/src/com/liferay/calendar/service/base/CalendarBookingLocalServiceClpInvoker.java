@@ -122,7 +122,8 @@ public class CalendarBookingLocalServiceClpInvoker {
 				"long", "long", "long[][]", "long", "java.util.Map",
 				"java.util.Map", "java.lang.String", "long", "long", "boolean",
 				"java.lang.String", "long", "java.lang.String", "long",
-				"java.lang.String", "com.liferay.portal.service.ServiceContext"
+				"java.lang.String", "long",
+				"com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName62 = "findCalendarEvents";
@@ -378,7 +379,8 @@ public class CalendarBookingLocalServiceClpInvoker {
 				(java.lang.String)arguments[12],
 				((Long)arguments[13]).longValue(),
 				(java.lang.String)arguments[14],
-				(com.liferay.portal.service.ServiceContext)arguments[15]);
+				((Long)arguments[15]).longValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[16]);
 		}
 
 		if (_methodName62.equals(name) &&

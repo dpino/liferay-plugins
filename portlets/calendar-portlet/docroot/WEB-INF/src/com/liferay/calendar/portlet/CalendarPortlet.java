@@ -250,7 +250,7 @@ public class CalendarPortlet extends MVCPortlet {
 				startDateJCalendar.getTimeInMillis(),
 				endDateJCalendar.getTimeInMillis(), allDay, recurrence,
 				reminders[0], remindersType[0], reminders[1], remindersType[1],
-				serviceContext);
+				foodAndDrinksId, serviceContext);
 		}
 		else {
 			CalendarBookingServiceUtil.updateCalendarBooking(

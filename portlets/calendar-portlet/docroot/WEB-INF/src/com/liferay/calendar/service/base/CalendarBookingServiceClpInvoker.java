@@ -37,7 +37,8 @@ public class CalendarBookingServiceClpInvoker {
 				"long", "long[][]", "long", "java.util.Map", "java.util.Map",
 				"java.lang.String", "long", "long", "boolean",
 				"java.lang.String", "long", "java.lang.String", "long",
-				"java.lang.String", "com.liferay.portal.service.ServiceContext"
+				"java.lang.String", "long",
+				"com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName45 = "deleteCalendarBooking";
@@ -155,7 +156,8 @@ public class CalendarBookingServiceClpInvoker {
 				(java.lang.String)arguments[11],
 				((Long)arguments[12]).longValue(),
 				(java.lang.String)arguments[13],
-				(com.liferay.portal.service.ServiceContext)arguments[14]);
+				((Long)arguments[14]).longValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[15]);
 		}
 
 		if (_methodName45.equals(name) &&

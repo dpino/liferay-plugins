@@ -45,7 +45,7 @@ public class CalendarBookingServiceImpl extends CalendarBookingServiceBaseImpl {
 			Map<Locale, String> descriptionMap, String location, long startDate,
 			long endDate, boolean allDay, String recurrence, long firstReminder,
 			String firstReminderType, long secondReminder,
-			String secondReminderType, ServiceContext serviceContext)
+			String secondReminderType, long foodAndDrinksId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		CalendarPermission.check(
@@ -55,7 +55,7 @@ public class CalendarBookingServiceImpl extends CalendarBookingServiceBaseImpl {
 			getUserId(), calendarId, childCalendarIds, parentCalendarBookingId,
 			titleMap, descriptionMap, location, startDate, endDate, allDay,
 			recurrence, firstReminder, firstReminderType, secondReminder,
-			secondReminderType, serviceContext);
+			secondReminderType, foodAndDrinksId, serviceContext);
 	}
 
 	public CalendarBooking deleteCalendarBooking(long calendarBookingId)
