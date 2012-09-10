@@ -624,7 +624,7 @@ if (parentCalendarBooking != null) {
 
 	<c:if test="<%= invitable %>">
 		A.one('#<portlet:namespace />calendarId').on(
-			'valueChange',
+			'change',
 			function(event) {
 				var calendarId = parseInt(event.target.val(), 10);
 
