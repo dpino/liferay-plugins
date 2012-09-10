@@ -972,7 +972,7 @@
                         };
 
 						var schedulerEvent = instance.get('event');
-                        if (schedulerEvent === undefined) {
+                        if (schedulerEvent == null) {
                             return parentCalendarInfo;
                         }
                         var scheduler = instance.get('scheduler');
