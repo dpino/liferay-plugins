@@ -211,7 +211,6 @@ if (parentCalendarBooking != null) {
                 
                 </aui:select>
 
-
                 <!-- Description -->
 				<aui:input name="description" />
 
@@ -220,19 +219,13 @@ if (parentCalendarBooking != null) {
                     disabled="<%= isChildBooking %>" >
 
                     <% for (Calendar each : equipmentCalendars) { 
-                            String label = each.getName(locale);
-                            label = label.replaceFirst("Equipment -", "").trim();
-                            if (isSelected(each)) { %>
-
-                                <aui:option value="<%= each.getCalendarId() %>" selected="true"><%= label %></aui:option>
-
-                    <%      } else { %>
-
-                                <aui:option value="<%= each.getCalendarId() %>"><%= label %></aui:option>
-
-                    <%      } %>
+                        String label = each.getName(locale);
+                        label = label.replaceFirst("Equipment -", "").trim(); 
+                    %>
+                            <aui:option value="<%= each.getCalendarId() %>" selected="<%= isSelected(each) %>"><%= label %></aui:option>
                     <% } %>
                 </aui:select>
+                <br/>
 
                 <!-- Food and Drinks -->
 
@@ -250,7 +243,7 @@ if (parentCalendarBooking != null) {
     
 	            <aui:input name="foodAndDrinksId" type="hidden" value="<%= selectedFoodAndDrinksId %>" />
 
-                <aui:select label="Food And Drinks" name="_foodAndDrinksId" disabled="<%= isChildBooking %>">
+                <aui:select label="Food and Drinks" name="_foodAndDrinksId" disabled="<%= isChildBooking %>">
 
 					<%
 					    for (Long foodAndDrinksId : mapFoodAndDrinks.keySet()) {
