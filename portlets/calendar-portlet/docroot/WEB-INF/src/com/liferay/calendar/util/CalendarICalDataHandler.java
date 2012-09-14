@@ -328,7 +328,8 @@ public class CalendarICalDataHandler implements CalendarDataHandler {
 				CalendarBookingConstants.PARENT_CALENDAR_BOOKING_ID_DEFAULT,
 				titleMap, descriptionMap, locationString, startDate.getTime(),
 				endDate.getTime(), allDay, recurrence, firstReminder,
-				firstReminderType, secondReminder, secondReminderType,
+				firstReminderType, secondReminder, secondReminderType, 
+				calendarBooking.getFoodAndDrinksId(),
 				serviceContext);
 		}
 		else {

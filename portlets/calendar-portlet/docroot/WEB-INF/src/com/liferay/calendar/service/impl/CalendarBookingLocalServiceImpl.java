@@ -398,7 +398,7 @@ public class CalendarBookingLocalServiceImpl
 		}
 
 		validate(titleMap, startDateJCalendar, endDateJCalendar);
-
+		
 		calendarBooking.setCompanyId(user.getCompanyId());
 		calendarBooking.setUserId(user.getUserId());
 		calendarBooking.setUserName(user.getFullName());
@@ -507,16 +507,35 @@ public class CalendarBookingLocalServiceImpl
 				calendarBooking.getCalendarBookingId());
 
 		for (CalendarBooking childCalendarBooking : childCalendarBookings) {
-			if (childCalendarBooking.isMasterBooking() ||
-				ArrayUtil.contains(
+			if (childCalendarBooking.isMasterBooking()) {
+				continue;
+			}
+			if (ArrayUtil.contains(
 					childCalendarIds, childCalendarBooking.getCalendarId())) {
 
+				updateCalendarBooking(calendarBooking.getUserId(),
+						childCalendarBooking.getCalendarBookingId(), 
+						childCalendarBooking.getCalendarId(), 
+						new long[0],
+						calendarBooking.getTitleMap(), 
+						calendarBooking.getDescriptionMap(),
+						calendarBooking.getLocation(), 
+						calendarBooking.getStartDate(), 
+						calendarBooking.getEndDate(), 
+						calendarBooking.getAllDay(),
+						calendarBooking.getRecurrence(), 
+						calendarBooking.getFirstReminder(), 
+						calendarBooking.getFirstReminderType(),
+						calendarBooking.getSecondReminder(), 
+						calendarBooking.getSecondReminderType(), 
+						calendarBooking.getStatus(),
+						calendarBooking.getFoodAndDrinksId(), serviceContext);
 				continue;
 			}
 
 			deleteCalendarBooking(childCalendarBooking.getCalendarBookingId());
 		}
-
+		
 		for (long calendarId : childCalendarIds) {
 			int count = calendarBookingPersistence.countByC_P(
 				calendarId, calendarBooking.getCalendarBookingId());

@@ -144,6 +144,7 @@ CalendarBooking parentCalendarBooking = calendarBooking != null ? calendarBookin
 if (parentCalendarBooking != null) {
     parentCalendarId = parentCalendarBooking.getCalendarId();
 }
+
 %>
 
 <liferay-ui:header
@@ -156,6 +157,11 @@ if (parentCalendarBooking != null) {
 	<liferay-portlet:param name="redirect" value="<%= redirect %>" />
 </liferay-portlet:actionURL>
 
+<%
+    // Disabled widgets if they are child bookings 
+    boolean isChildBooking = CalendarBookingUtil.isDisabled(calendarBooking);
+%>
+
 <aui:form action="<%= updateCalendarBookingURL %>" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "updateCalendarBooking();" %>'>
 	<aui:input name="calendarBookingId" type="hidden" value="<%= calendarBookingId %>" />
 	<aui:input name="childCalendarIds" type="hidden" />
@@ -165,36 +171,31 @@ if (parentCalendarBooking != null) {
 	<aui:model-context bean="<%= calendarBooking %>" model="<%= CalendarBooking.class %>" />
 
 	<aui:fieldset>
-		<aui:input name="title" />
+        <aui:input name="title" disabled="<%= isChildBooking %>" />
 
 		<div id="<portlet:namespace />startDateContainer">
-			<aui:input name="startDate" value="<%= startDateJCalendar %>" />
+			<aui:input name="startDate" value="<%= startDateJCalendar %>" disabled="<%= isChildBooking %>" />
 		</div>
 
 		<div id="<portlet:namespace />endDateContainer">
-			<aui:input name="endDate" value="<%= endDateJCalendar %>" />
+			<aui:input name="endDate" value="<%= endDateJCalendar %>" disabled="<%= isChildBooking %>" />
 		</div>
 
-		<aui:input name="allDay" />
+		<aui:input name="allDay" disabled="<%= isChildBooking %>" />
 
 		<aui:field-wrapper cssClass="calendar-portlet-recurrence-container" inlineField="<%= true %>" label="">
-			<aui:input checked="<%= recurring %>" name="repeat" type="checkbox" />
+			<aui:input checked="<%= recurring %>" name="repeat" type="checkbox" disabled="<%= isChildBooking %>" />
 
 			<a class="calendar-portlet-recurrence-summary" href="javascript:;" id="<portlet:namespace />summary"></a>
 		</aui:field-wrapper>
 	</aui:fieldset>
-
-    <%
-        // Disabled widgets if they are child bookings 
-        boolean disabled = CalendarBookingUtil.isDisabled(calendarBooking);
-    %>
 
 	<aui:fieldset>
 		<liferay-ui:panel-container extended="<%= false %>" id="calendarBookingDetailsPanelContainer" persistState="<%= true %>">
 			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="calendarBookingDetailsPanel" persistState="<%= true %>" title="details">
 
                 <!-- Location -->
-                <aui:select label="location" name="_calendarId" disabled="<%= disabled %>">
+                <aui:select label="location" name="_calendarId" disabled="<%= isChildBooking %>">
                     
                     <%
                     for (Calendar curCalendar : locationCalendars) {
@@ -216,7 +217,7 @@ if (parentCalendarBooking != null) {
 
                 <!-- Equipments -->
                 <aui:select label="Equipments" id="equipments" name="equipments" multiple="true" style="width: 300px;"
-                    disabled="<%= disabled %>" >
+                    disabled="<%= isChildBooking %>" >
 
                     <% for (Calendar each : equipmentCalendars) { 
                             String label = each.getName(locale);
@@ -249,7 +250,7 @@ if (parentCalendarBooking != null) {
     
 	            <aui:input name="foodAndDrinksId" type="hidden" value="<%= selectedFoodAndDrinksId %>" />
 
-                <aui:select label="Food And Drinks" name="_foodAndDrinksId" disabled="<%= disabled %>">
+                <aui:select label="Food And Drinks" name="_foodAndDrinksId" disabled="<%= isChildBooking %>">
 
 					<%
 					    for (Long foodAndDrinksId : mapFoodAndDrinks.keySet()) {
