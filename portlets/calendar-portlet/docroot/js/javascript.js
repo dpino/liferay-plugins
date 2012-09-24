@@ -117,6 +117,7 @@
 							recurrence: schedulerEvent.get('repeat'),
 							secondReminder: schedulerEvent.get('secondReminder'),
 							secondReminderType: schedulerEvent.get('secondReminderType'),
+                            foodAndDrinksId: 0,
 							startDate: instance.toUTCTimeZone(schedulerEvent.get('startDate')).getTime(),
 							titleMap: instance.getLocalizationMap(schedulerEvent.get('content'))
 						}
