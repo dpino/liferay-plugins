@@ -212,7 +212,7 @@ if (parentCalendarBooking != null) {
                 </aui:select>
 
                 <!-- Description -->
-				<aui:input name="description" />
+				<aui:input name="description" disabled="<%= isChildBooking %>"/>
 
                 <!-- Equipments -->
                 <aui:select label="Equipments" id="equipments" name="equipments" multiple="true" style="width: 300px;"
