@@ -139,7 +139,7 @@ Calendar foodAndDrinkCalendar = foodAndDrinksCalendars.get(0);
 foodAndDrinksCalendarId = foodAndDrinkCalendar.getCalendarId();
 
 // Get parenCalendarId
-long parentCalendarId = 0;
+long parentCalendarId = calendarId;
 CalendarBooking parentCalendarBooking = calendarBooking != null ? calendarBooking.getParentCalendarBooking() : null;
 if (parentCalendarBooking != null) {
     parentCalendarId = parentCalendarBooking.getCalendarId();
