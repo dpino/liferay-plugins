@@ -18,16 +18,15 @@
 
 <%!
 
-List<CalendarBooking> acceptedCalendars = new ArrayList<CalendarBooking>();
-List<CalendarBooking> declinedCalendars = new ArrayList<CalendarBooking>();
-List<CalendarBooking> maybeCalendars = new ArrayList<CalendarBooking>();
-List<CalendarBooking> pendingCalendars = new ArrayList<CalendarBooking>();
-
-public boolean isSelected(Calendar calendar) {
+public boolean isSelected(Calendar calendar,
+        List<List<CalendarBooking>> calendars) {
     long calendarId = calendar.getCalendarId();
-    return (inCalendar(calendarId, acceptedCalendars) ||
-        inCalendar(calendarId, declinedCalendars) ||
-        inCalendar(calendarId, maybeCalendars));
+    for (List<CalendarBooking> each : calendars) {
+        if (inCalendar(calendarId, each)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 public boolean inCalendar(long calendarId, List<CalendarBooking> calendars) {
@@ -42,6 +41,13 @@ public boolean inCalendar(long calendarId, List<CalendarBooking> calendars) {
 %>
 
 <%
+
+// Status calendars
+List<CalendarBooking> acceptedCalendars = new ArrayList<CalendarBooking>();
+List<CalendarBooking> declinedCalendars = new ArrayList<CalendarBooking>();
+List<CalendarBooking> maybeCalendars = new ArrayList<CalendarBooking>();
+List<CalendarBooking> pendingCalendars = new ArrayList<CalendarBooking>();
+
 String redirect = ParamUtil.getString(request, "redirect");
 
 String activeView = ParamUtil.getString(request, "activeView", defaultView);
@@ -128,6 +134,12 @@ else if (calendar != null) {
 		pendingCalendarsJSONArray.put(calendarJSONObject);
 	}
 }
+
+// Used to check is an equipments was added
+List<List<CalendarBooking>> statusCalendars = new ArrayList<List<CalendarBooking>>();
+statusCalendars.add(acceptedCalendars);
+statusCalendars.add(declinedCalendars);
+statusCalendars.add(maybeCalendars);
 
 List<Calendar> locationCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, "%Location%", true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
 List<Calendar> equipmentCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, null, "%Equipment%", true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true), ActionKeys.MANAGE_BOOKINGS);
@@ -222,7 +234,7 @@ if (parentCalendarBooking != null) {
                         String label = each.getName(locale);
                         label = label.replaceFirst("Equipment -", "").trim(); 
                     %>
-                            <aui:option value="<%= each.getCalendarId() %>" selected="<%= isSelected(each) %>"><%= label %></aui:option>
+                            <aui:option value="<%= each.getCalendarId() %>" selected="<%= isSelected(each, statusCalendars) %>"><%= label %></aui:option>
                     <% } %>
                 </aui:select>
                 <br/>
