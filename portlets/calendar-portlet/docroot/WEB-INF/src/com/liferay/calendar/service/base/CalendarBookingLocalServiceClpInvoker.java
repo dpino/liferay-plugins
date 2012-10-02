@@ -130,7 +130,8 @@ public class CalendarBookingLocalServiceClpInvoker {
 
 		_methodParameterTypes62 = new String[] {
 				"long", "java.lang.Long", "java.lang.Long", "long[][]", "int",
-				"int", "java.util.Locale"
+				"int", "com.liferay.portal.kernel.util.OrderByComparator",
+				"java.util.Locale"
 			};
 
 		_methodName63 = "findCalendarEventsCount";
@@ -389,7 +390,8 @@ public class CalendarBookingLocalServiceClpInvoker {
 				(java.lang.Long)arguments[1], (java.lang.Long)arguments[2],
 				(long[])arguments[3], ((Integer)arguments[4]).intValue(),
 				((Integer)arguments[5]).intValue(),
-				(java.util.Locale)arguments[6]);
+				(com.liferay.portal.kernel.util.OrderByComparator)arguments[6],
+				(java.util.Locale)arguments[7]);
 		}
 
 		if (_methodName63.equals(name) &&

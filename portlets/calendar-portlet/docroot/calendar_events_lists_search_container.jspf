@@ -28,10 +28,9 @@
         // Search CalendarEvents
         results = CalendarBookingLocalServiceUtil
                     .findCalendarEvents(themeDisplay.getUserId(), Long.valueOf(searchTerms.getStartDate()), Long.valueOf(searchTerms.getEndDate()), 
-                        searchTerms.getResources(), searchContainer.getStart(), searchContainer.getEnd(), themeDisplay.getLocale());
+                        searchTerms.getResources(), searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator(), themeDisplay.getLocale());
         total = CalendarBookingLocalServiceUtil
-                    .findCalendarEventsCount(themeDisplay.getUserId(), Long.valueOf(searchTerms.getStartDate()), Long.valueOf(searchTerms.getEndDate()), 
-                        searchTerms.getResources(), themeDisplay.getLocale());
+                    .findCalendarEventsCount(themeDisplay.getUserId(), Long.valueOf(searchTerms.getStartDate()), Long.valueOf(searchTerms.getEndDate()), searchTerms.getResources(), themeDisplay.getLocale());
 
 		pageContext.setAttribute("results", results);
 		pageContext.setAttribute("total", total);

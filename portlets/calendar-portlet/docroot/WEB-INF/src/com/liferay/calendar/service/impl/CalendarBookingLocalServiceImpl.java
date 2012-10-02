@@ -143,15 +143,16 @@ public class CalendarBookingLocalServiceImpl
 		return calendarBooking;
 	}
 	
-	public List<CalendarEvent> findCalendarEvents(
-			long userId, Long startDate, Long endDate, long[] calendarResourceIds, int start, int end, Locale locale)
+	public List<CalendarEvent> findCalendarEvents(long userId, Long startDate,
+			Long endDate, long[] calendarResourceIds, int start, int end,
+			OrderByComparator orderByComparator, Locale locale)
 			throws SystemException {
 		return calendarBookingFinder.findCalendarEvents(userId, startDate,
-				endDate, calendarResourceIds, start, end, locale);		
-	}	
+				endDate, calendarResourceIds, start, end, orderByComparator, locale);
+	}
 	
-	public int findCalendarEventsCount(
-			long userId, Long startDate, Long endDate, long[] calendarResourceIds, Locale locale)
+	public int findCalendarEventsCount(long userId, Long startDate,
+			Long endDate, long[] calendarResourceIds, Locale locale)
 			throws SystemException {
 		return calendarBookingFinder.findCalendarEventsCount(userId, startDate,
 				endDate, calendarResourceIds, locale);

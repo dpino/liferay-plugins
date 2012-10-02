@@ -48,6 +48,8 @@ import com.liferay.portal.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.util.dao.orm.CustomSQLUtil;
 
+import edu.emory.mathcs.backport.java.util.Collections;
+
 /**
  * @author Eduardo Lundgren
  * @author Fabio Pezzutto
@@ -245,10 +247,11 @@ public class CalendarBookingFinderImpl
 	}
 
 	public int findCalendarEventsCount(long userId, Long startDate,
-			Long endDate, long[] calendarResourceIds, Locale locale) throws SystemException {
+			Long endDate, long[] calendarResourceIds, Locale locale)
+			throws SystemException {
 		return findCalendarEvents(userId, startDate, endDate,
 				calendarResourceIds, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-				locale).size();
+				null, locale).size();
 	}
 	
 	public Map<Long, String> getFoodAndDrinksMap() throws SystemException {
@@ -295,7 +298,8 @@ public class CalendarBookingFinderImpl
 	
 	public List<CalendarEvent> findCalendarEvents(long userId, Long startDate,
 			Long endDate, long[] calendarResourceIds, int start, int end,
-			Locale locale) throws SystemException {
+			OrderByComparator orderByComparator, Locale locale)
+			throws SystemException {		
 		
 		Session session = null;
 		
@@ -326,8 +330,12 @@ public class CalendarBookingFinderImpl
 					.format("FROM CalendarBooking WHERE parentCalendarBookingId IN (%s)",
 							getParentCalendarIds(parentCalendarBookings));
 			query = session.createQuery(sql);
-			
+
+			// ORDER BY
 			QueryUtil.list(query, getDialect(), start, end);
+			if (orderByComparator != null) {
+				sql += String.format(" ORDER BY %s", orderByComparator.getOrderBy());
+			}
 			List<CalendarBooking> bookings = query.list();
 
 			// Create map with id of the event and list resources used in that event
@@ -371,6 +379,10 @@ public class CalendarBookingFinderImpl
 							attendants, resources);
 					result.add(event);
 				}
+			}
+
+			if (orderByComparator != null) {
+				Collections.sort(result, orderByComparator);
 			}
 			
 			return result;

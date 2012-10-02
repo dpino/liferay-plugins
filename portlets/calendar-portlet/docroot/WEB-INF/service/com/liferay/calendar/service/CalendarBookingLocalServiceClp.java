@@ -132,7 +132,8 @@ public class CalendarBookingLocalServiceClp
 
 		_methodParameterTypes21 = new String[] {
 				"long", "java.lang.Long", "java.lang.Long", "long[][]", "int",
-				"int", "java.util.Locale"
+				"int", "com.liferay.portal.kernel.util.OrderByComparator",
+				"java.util.Locale"
 			};
 
 		_methodName22 = "findCalendarEventsCount";
@@ -894,7 +895,9 @@ public class CalendarBookingLocalServiceClp
 
 	public java.util.List<com.liferay.calendar.model.CalendarEvent> findCalendarEvents(
 		long userId, java.lang.Long startDate, java.lang.Long endDate,
-		long[] calendarResourceIds, int start, int end, java.util.Locale locale)
+		long[] calendarResourceIds, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator,
+		java.util.Locale locale)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
@@ -913,6 +916,8 @@ public class CalendarBookingLocalServiceClp
 					start,
 						
 					end,
+						
+					ClpSerializer.translateInput(orderByComparator),
 						
 					ClpSerializer.translateInput(locale)
 					});

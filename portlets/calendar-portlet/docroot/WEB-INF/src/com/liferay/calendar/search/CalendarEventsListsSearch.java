@@ -15,6 +15,7 @@
 package com.liferay.calendar.search;
 
 import com.liferay.calendar.model.CalendarResource;
+import com.liferay.calendar.util.CalendarEventUtil;
 import com.liferay.calendar.util.CalendarResourceUtil;
 import com.liferay.calendar.util.PortletKeys;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
@@ -44,12 +45,14 @@ public class CalendarEventsListsSearch extends SearchContainer<CalendarResource>
 	static Map<String, String> orderableHeaders = new HashMap<String, String>();
 
 	static {
-		headerNames.add("name");
+		headerNames.add("calendar");
+		headerNames.add("title");
 		headerNames.add("start date");
 		headerNames.add("end date");
+		headerNames.add("resources");
 		headerNames.add("attendants");
 
-		orderableHeaders.put("name", "name");
+		orderableHeaders.put("title", "title");
 	}
 
 	public static final String EMPTY_RESULTS_MESSAGE =
@@ -85,24 +88,23 @@ public class CalendarEventsListsSearch extends SearchContainer<CalendarResource>
 				Validator.isNotNull(orderByType)) {
 
 				preferences.setValue(
-					PortletKeys.CALENDAR, "users-resources-order-by-col",
+					PortletKeys.CALENDAR, "events-list-order-by-col",
 					orderByCol);
 				preferences.setValue(
-					PortletKeys.CALENDAR, "users-resources-order-by-type",
+					PortletKeys.CALENDAR, "events-list-order-by-type",
 					orderByType);
 			}
 			else {
 				orderByCol = preferences.getValue(
-					PortletKeys.CALENDAR, "users-resources-order-by-col",
-					"last-name");
+					PortletKeys.CALENDAR, "events-list-order-by-col",
+					"title");
 				orderByType = preferences.getValue(
-					PortletKeys.CALENDAR, "users-resources-order-by-type",
+					PortletKeys.CALENDAR, "events-list-order-by-type",
 					"asc");
 			}
 
-			OrderByComparator orderByComparator =
-				CalendarResourceUtil.getOrderByComparator(
-					orderByCol, orderByType);
+			OrderByComparator orderByComparator = CalendarEventUtil
+					.getOrderByComparator(orderByCol, orderByType);
 
 			setOrderableHeaders(orderableHeaders);
 			setOrderByCol(orderByCol);

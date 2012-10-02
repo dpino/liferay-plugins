@@ -312,10 +312,13 @@ public class CalendarBookingLocalServiceWrapper
 
 	public java.util.List<com.liferay.calendar.model.CalendarEvent> findCalendarEvents(
 		long userId, java.lang.Long startDate, java.lang.Long endDate,
-		long[] calendarResourceIds, int start, int end, java.util.Locale locale)
+		long[] calendarResourceIds, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator,
+		java.util.Locale locale)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _calendarBookingLocalService.findCalendarEvents(userId,
-			startDate, endDate, calendarResourceIds, start, end, locale);
+			startDate, endDate, calendarResourceIds, start, end,
+			orderByComparator, locale);
 	}
 
 	public int findCalendarEventsCount(long userId, java.lang.Long startDate,
