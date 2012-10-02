@@ -63,23 +63,14 @@ public class CalendarEventsListsSearch extends SearchContainer<CalendarResource>
 			portletRequest, new CalendarEventsListsDisplayTerms(portletRequest),
 			new CalendarEventsListsSearchTerms(portletRequest), curParam,
 			DEFAULT_DELTA, iteratorURL, null, EMPTY_RESULTS_MESSAGE);
-
-		CalendarEventsListsDisplayTerms displayTerms =
-			(CalendarEventsListsDisplayTerms) getDisplayTerms();
-
-		iteratorURL.setParameter(
-			CalendarEventsListsDisplayTerms.NAME,
-			displayTerms.getName());
-		iteratorURL.setParameter(
-			CalendarEventsListsDisplayTerms.START_DATE,
-            displayTerms.getStartDate());
-		iteratorURL.setParameter(
-			CalendarEventsListsDisplayTerms.END_DATE,
-            displayTerms.getEndDate());
-		iteratorURL.setParameter(
-			CalendarEventsListsDisplayTerms.ATTENDANTS,
-            displayTerms.getAttendants());
-
+		
+		String startDate = portletRequest.getParameter("startDate");
+		iteratorURL.setParameter("startDate", startDate != null ? startDate : "");
+		String endDate = portletRequest.getParameter("endDate");
+		iteratorURL.setParameter("endDate", endDate != null ? endDate : "");
+		String[] resources = portletRequest.getParameterValues("resources");
+		iteratorURL.setParameter("resources", resources != null ? resources : new String[0]);		
+		
 		try {
 			PortalPreferences preferences =
 				PortletPreferencesFactoryUtil.getPortalPreferences(

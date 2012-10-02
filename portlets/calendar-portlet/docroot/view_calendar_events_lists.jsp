@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String tabs1 = ParamUtil.getString(request, "tabs1", "calendar");
+String tabs1 = ParamUtil.getString(request, "tabs1", "Events Lists");
 %>
 
 <liferay-portlet:renderURL varImpl="searchURL">
@@ -37,7 +37,8 @@ String tabs1 = ParamUtil.getString(request, "tabs1", "calendar");
 <div class="separator"><!-- --></div>
 
 <liferay-portlet:renderURL varImpl="iteratorURL">
-	<portlet:param name="mvcPath" value="/view_calendar_events_lists.jsp" />
+	<portlet:param name="mvcPath" value="/view.jsp" />
+	<portlet:param name="tabs1" value="Events Lists" />
 </liferay-portlet:renderURL>
 
 <%@ include file="/calendar_events_lists_search_container.jspf" %>
