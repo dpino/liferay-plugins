@@ -14,21 +14,20 @@
 
 package com.liferay.calendar.search;
 
-import static java.util.Calendar.MILLISECOND;
-import static java.util.Calendar.SECOND;
-import static java.util.Calendar.MINUTE;
 import static java.util.Calendar.HOUR_OF_DAY;
+import static java.util.Calendar.MILLISECOND;
+import static java.util.Calendar.MINUTE;
+import static java.util.Calendar.SECOND;
 
-import com.liferay.portal.kernel.dao.search.DAOParamUtil;
-import com.liferay.portal.kernel.dao.search.DisplayTerms;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Map;
 
 import javax.portlet.PortletRequest;
 
-import java.util.Map;
-import java.util.Enumeration;
-import java.util.Calendar;
-import java.util.Date;
-import java.text.SimpleDateFormat;
+import com.liferay.calendar.util.CalendarUtil;
+import com.liferay.portal.kernel.dao.search.DisplayTerms;
 
 /**
  * @author Eduardo Lundgren
@@ -37,6 +36,8 @@ import java.text.SimpleDateFormat;
 public class CalendarEventsListsSearchTerms extends DisplayTerms {
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+    
+    private static final Date today = new Date();
 
     public static final String START_DATE = "startDate";
 
@@ -49,9 +50,25 @@ public class CalendarEventsListsSearchTerms extends DisplayTerms {
 
         Map<String, String[]> map = portletRequest.getParameterMap();
 
-        startDate = beginningOfDay(toDate(get(map, START_DATE)));
-        endDate = endOfDay(toDate(get(map, END_DATE)));
+        startDate = beginningOfDay(toDate(getStartDate(portletRequest)));
+        endDate = endOfDay(toDate(getEndDate(portletRequest)));
         resources = toLong(map, RESOURCES);
+	}
+	
+	private String getStartDate(PortletRequest portletRequest) {
+		String startDate = portletRequest.getParameter(START_DATE);
+		if (startDate == null) {
+			startDate = CalendarUtil.firstDayOfMonth(today);
+		}
+		return startDate;
+	}
+	
+	private String getEndDate(PortletRequest portletRequest) {
+		String endDate = portletRequest.getParameter(END_DATE);
+		if (endDate == null) {
+			endDate = CalendarUtil.lastDayOfMonth(today);
+		}
+		return endDate;
 	}
 
     private long[] toLong(Map<String, String[]> map, String key) {

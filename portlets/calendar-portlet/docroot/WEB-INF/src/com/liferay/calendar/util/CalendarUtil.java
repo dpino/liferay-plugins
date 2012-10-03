@@ -14,6 +14,14 @@
 
 package com.liferay.calendar.util;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import com.liferay.calendar.model.Calendar;
 import com.liferay.calendar.model.CalendarBooking;
 import com.liferay.calendar.model.CalendarResource;
@@ -34,18 +42,14 @@ import com.liferay.portal.kernel.util.UniqueList;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.theme.ThemeDisplay;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 /**
  * @author Eduardo Lundgren
  * @author Peter Shin
  * @author Fabio Pezzutto
  */
 public class CalendarUtil {
+	
+	private static final java.text.SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
 	public static JSONObject getCalendarRenderingRules(
 			ThemeDisplay themeDisplay, long[] calendarIds, int[] statuses,
@@ -282,5 +286,19 @@ public class CalendarUtil {
         return jsonArray;
     }
 
+    public static String firstDayOfMonth(Date day) {
+    	java.util.Calendar calendar = java.util.Calendar.getInstance();
+    	calendar.setTime(day);
+    	calendar.set(java.util.Calendar.DATE, 1);
+        return sdf.format(calendar.getTime()); 
+    }
+    
+    public static String lastDayOfMonth(Date day) {
+    	java.util.Calendar calendar = java.util.Calendar.getInstance();
+    	calendar.setTime(day);
+        calendar.set(java.util.Calendar.DATE,
+                calendar.getActualMaximum(java.util.Calendar.DATE));
+        return sdf.format(calendar.getTime()); 
+    }
 
 }

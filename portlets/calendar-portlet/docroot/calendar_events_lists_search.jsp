@@ -34,17 +34,18 @@ SessionClicks.put(request, key, "advanced");
 CalendarEventsListsDisplayTerms displayTerms = new CalendarEventsListsDisplayTerms(renderRequest);
 CalendarEventsListsSearchTerms searchTerms = new CalendarEventsListsSearchTerms(renderRequest);
 
-java.util.Calendar calendar = java.util.Calendar.getInstance();
-calendar.setTime(new Date());
+Date today = new Date();
 
+// Get startDate
 String startDate = renderRequest.getParameter("startDate");
 if (startDate == null) {
-    startDate = "";
+    startDate = CalendarUtil.firstDayOfMonth(today);
 }
 
+// Get endDate
 String endDate = renderRequest.getParameter("endDate");
 if (endDate == null) {
-    endDate = "";
+    endDate = CalendarUtil.lastDayOfMonth(today);
 }
 
 List<CalendarResource> searchableResources = CalendarResourceUtil.getSearchableCalendarResources(themeDisplay.getCompanyId());

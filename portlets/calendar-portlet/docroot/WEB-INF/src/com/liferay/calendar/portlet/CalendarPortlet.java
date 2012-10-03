@@ -14,6 +14,22 @@
 
 package com.liferay.calendar.portlet;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.PortletException;
+import javax.portlet.PortletRequest;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
+
 import com.liferay.calendar.CalendarResourceCodeException;
 import com.liferay.calendar.DuplicateCalendarResourceException;
 import com.liferay.calendar.NoSuchResourceException;
@@ -74,23 +90,6 @@ import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.comparator.UserFirstNameComparator;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 import com.liferay.util.dao.orm.CustomSQLUtil;
-
-import java.io.File;
-import java.io.IOException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
-import javax.portlet.PortletException;
-import javax.portlet.PortletRequest;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.ResourceRequest;
-import javax.portlet.ResourceResponse;
 
 /**
  * @author Eduardo Lundgren
