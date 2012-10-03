@@ -21,15 +21,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
  * @author Diego Pino García <dpino@igalia.com>
  */
 public class CalendarEventEndDateComparator extends OrderByComparator {
-
-	public static final String ORDER_BY_ASC =
-		"endDate ASC";
-
-	public static final String ORDER_BY_DESC =
-		"endDate DESC";
-
-	public static final String[] ORDER_BY_FIELDS = {"endDate"};
-
+	
 	public CalendarEventEndDateComparator() {
 		this(false);
 	}
@@ -54,21 +46,6 @@ public class CalendarEventEndDateComparator extends OrderByComparator {
 		else {
 			return -value;
 		}
-	}
-
-	@Override
-	public String getOrderBy() {
-		if (_ascending) {
-			return ORDER_BY_ASC;
-		}
-		else {
-			return ORDER_BY_DESC;
-		}
-	}
-
-	@Override
-	public String[] getOrderByFields() {
-		return ORDER_BY_FIELDS;
 	}
 
 	@Override

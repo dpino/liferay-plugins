@@ -302,49 +302,47 @@ public class CalendarBookingFinderImpl
 			throws SystemException {		
 		
 		Session session = null;
-		
+
 		List<CalendarEvent> result = new ArrayList<CalendarEvent>();
 		try {
 			session = openSession();
-			
+
 			String sql = "FROM CalendarBooking WHERE userId = :userId";
 			if (startDate != null && startDate != 0) {
 				sql += String.format(" AND startDate >= %d", startDate);
 			}
 			if (endDate != null && endDate != 0) {
-				sql += String.format(" AND endDate <= %d", endDate);				
+				sql += String.format(" AND endDate <= %d", endDate);
 			}
 			if (calendarResourceIds == null) {
 				calendarResourceIds = onlyIds(getNotUserCalendarResources(locale));
 			}
 			sql += String.format(" AND calendarResourceId IN (%s)",
 					StringUtil.merge(calendarResourceIds, ","));
-			
+
 			Query query = session.createQuery(sql);
 			query.setLong("userId", userId);
-			
+
 			List<CalendarBooking> parentCalendarBookings = query.list();
-			if (parentCalendarBookings.isEmpty()) return result;
-			
+			if (parentCalendarBookings.isEmpty())
+				return result;
+
 			sql = String
 					.format("FROM CalendarBooking WHERE parentCalendarBookingId IN (%s)",
 							getParentCalendarIds(parentCalendarBookings));
-			query = session.createQuery(sql);
 
-			// ORDER BY
-			QueryUtil.list(query, getDialect(), start, end);
-			if (orderByComparator != null) {
-				sql += String.format(" ORDER BY %s", orderByComparator.getOrderBy());
-			}
+			query = session.createQuery(sql);
 			List<CalendarBooking> bookings = query.list();
 
-			// Create map with id of the event and list resources used in that event
+			// Create map with id of the event and list resources used in that
+			// event
 			Map<Long, Set<String>> eventResources = new HashMap<Long, Set<String>>();
 			for (CalendarBooking each : bookings) {
 				if (isParent(each)) {
 					if (hasFoodAndDrinks(each)) {
-						safeInsert(eventResources, each.getParentCalendarBookingId(),
-								getFoodAndDrinksName(each.getFoodAndDrinksId()));						
+						safeInsert(eventResources,
+								each.getParentCalendarBookingId(),
+								getFoodAndDrinksName(each.getFoodAndDrinksId()));
 					}
 				} else {
 					String name = getCalendarResourceName(each, locale);
@@ -352,25 +350,30 @@ public class CalendarBookingFinderImpl
 							each.getParentCalendarBookingId(), name);
 				}
 			}
-			
-			// Create map with id of the booking and list of people that are part of that booking
+
+			// Create map with id of the booking and list of people that are
+			// part of that booking
 			Map<Long, Set<String>> eventAttendants = new HashMap<Long, Set<String>>();
-			for (CalendarBooking each: bookings) {
-				String name = findUserNameByCalendarResource(each.getCalendarResourceId());
+			for (CalendarBooking each : bookings) {
+				String name = findUserNameByCalendarResource(each
+						.getCalendarResourceId());
 				if (!name.isEmpty()) {
 					safeInsert(eventAttendants,
 							each.getParentCalendarBookingId(), name);
 				}
 			}
-			
+
 			// For each booked resource create entity with name of the resource,
 			// what time is being used and people attending
-			for (CalendarBooking each: bookings) {
+			for (CalendarBooking each : bookings) {
 				if (isParent(each)) {
-					long parentCalendarBookingId = each.getParentCalendarBookingId();
-					Set<String> attendants = eventAttendants.get(parentCalendarBookingId);
-					Set<String> resources = eventResources.get(parentCalendarBookingId);
-					
+					long parentCalendarBookingId = each
+							.getParentCalendarBookingId();
+					Set<String> attendants = eventAttendants
+							.get(parentCalendarBookingId);
+					Set<String> resources = eventResources
+							.get(parentCalendarBookingId);
+
 					CalendarEvent event = new CalendarEvent(each.getUserId(),
 							each.getUserName(), each.getTitle(),
 							each.getStartDate(), each.getEndDate(),
@@ -381,10 +384,22 @@ public class CalendarBookingFinderImpl
 				}
 			}
 
+			// Return all the results, used to count number of results returned
+			if (start == QueryUtil.ALL_POS && end == QueryUtil.ALL_POS) {
+				return result;
+			}
+
+			// Sort by comparator
 			if (orderByComparator != null) {
 				Collections.sort(result, orderByComparator);
 			}
-			
+
+			// If last page, set end as total size of results
+			if (end == QueryUtil.ALL_POS || end > result.size()) {
+				end = result.size();
+			}
+			result = result.subList(start, end);
+
 			return result;
 		}
 		catch (Exception e) {

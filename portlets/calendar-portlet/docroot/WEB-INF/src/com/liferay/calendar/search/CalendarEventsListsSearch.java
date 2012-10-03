@@ -14,9 +14,16 @@
 
 package com.liferay.calendar.search;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletURL;
+
 import com.liferay.calendar.model.CalendarResource;
 import com.liferay.calendar.util.CalendarEventUtil;
-import com.liferay.calendar.util.CalendarResourceUtil;
 import com.liferay.calendar.util.PortletKeys;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.log.Log;
@@ -26,14 +33,6 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portlet.PortalPreferences;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletURL;
 
 /**
  * @author Eduardo Lundgren
